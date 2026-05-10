@@ -1,3 +1,7 @@
+// Placeholder content. The values below are illustrative examples for the
+// Stage 2 scaffold and intentionally avoid claims that would need verification
+// before launch. Replace with real, owner-approved copy in a later stage.
+
 export type ProofPoint = {
   readonly id: string;
   readonly label: string;
@@ -9,26 +13,27 @@ export const proofPoints: readonly ProofPoint[] = [
   {
     id: "experience",
     label: "Experience",
-    value: "20+ yrs",
-    description: "Two decades of residential and light commercial tile work."
+    value: "Experienced",
+    description:
+      "Years of hands-on residential and light commercial tile work."
   },
   {
     id: "projects",
     label: "Projects",
-    value: "500+",
+    value: "Many",
     description: "Bathrooms, kitchens, and floors completed across the region."
   },
   {
     id: "warranty",
     label: "Warranty",
-    value: "5 years",
+    value: "Workmanship",
     description: "Workmanship warranty on every installation we complete."
   },
   {
     id: "rating",
-    label: "Rating",
-    value: "4.9 / 5",
-    description: "Average customer rating across recent project reviews."
+    label: "Reputation",
+    value: "Word of mouth",
+    description: "Most new work comes from referrals and repeat clients."
   }
 ];
 

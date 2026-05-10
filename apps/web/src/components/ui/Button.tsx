@@ -36,54 +36,61 @@ const buttonStyles = cva(
 
 export type ButtonVariantProps = VariantProps<typeof buttonStyles>;
 
-type ButtonAsButtonProps = {
+type CommonStyleProps = ButtonVariantProps & {
+  className?: string;
+  children: ReactNode;
+};
+
+export type ButtonAsButtonProps = CommonStyleProps & {
   href?: undefined;
   external?: never;
-} & ComponentPropsWithoutRef<"button"> &
-  ButtonVariantProps & {
-    children: ReactNode;
-  };
+} & Omit<ComponentPropsWithoutRef<"button">, "className" | "children">;
 
-type ButtonAsLinkProps = {
+export type ButtonAsLinkProps = CommonStyleProps & {
   href: string;
   external?: boolean;
   type?: never;
-} & Omit<ComponentPropsWithoutRef<"a">, "href"> &
-  ButtonVariantProps & {
-    children: ReactNode;
-  };
+} & Omit<ComponentPropsWithoutRef<"a">, "href" | "className" | "children">;
 
 export type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
 
 export function Button(props: ButtonProps) {
-  const { className, variant, size, shape, children } = props;
-  const classes = cn(buttonStyles({ variant, size, shape }), className);
+  const classes = cn(
+    buttonStyles({
+      variant: props.variant,
+      size: props.size,
+      shape: props.shape
+    }),
+    props.className
+  );
 
-  if ("href" in props && props.href !== undefined) {
-    const { href, external, ...rest } = props;
+  if (typeof props.href === "string") {
+    const { variant, size, shape, className, children, href, external, ...linkRest } = props;
+    void variant;
+    void size;
+    void shape;
+    void className;
     if (external) {
       return (
-        <a
-          {...rest}
-          href={href}
-          className={classes}
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a {...linkRest} href={href} className={classes} target="_blank" rel="noreferrer">
           {children}
         </a>
       );
     }
     return (
-      <Link {...rest} href={href} className={classes}>
+      <Link {...linkRest} href={href} className={classes}>
         {children}
       </Link>
     );
   }
 
-  const { type = "button", ...rest } = props as ButtonAsButtonProps;
+  const { variant, size, shape, className, children, type = "button", ...buttonRest } = props;
+  void variant;
+  void size;
+  void shape;
+  void className;
   return (
-    <button {...rest} type={type} className={classes}>
+    <button {...buttonRest} type={type} className={classes}>
       {children}
     </button>
   );
