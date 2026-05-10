@@ -1,14 +1,12 @@
 import { SectionContainer } from "@/components/layout/SectionContainer";
-import { CaseStudiesSection } from "@/components/sections/CaseStudiesSection";
 import { FinalCallToActionSection } from "@/components/sections/FinalCallToActionSection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { Badge } from "@/components/ui/Badge";
+import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 
 export const metadata = createPageMetadata({
-  title: "Work",
+  title: "Tile Portfolio",
   description:
-    "Recent tile installation, bathroom remodel, and floor projects with substrate prep, layout, and finish work done by hand.",
+    "Tile portfolio from Luibrand Tile — floors, showers, backsplashes, and fireplace surrounds across the Austin area.",
   path: "/work"
 });
 
@@ -17,21 +15,27 @@ export default function WorkPage() {
     <>
       <SectionContainer ariaLabelledBy="work-heading">
         <div className="flex flex-col gap-3 max-w-3xl">
-          <Badge>Work</Badge>
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Portfolio
+          </p>
           <h1
             id="work-heading"
-            className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
+            className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight"
           >
-            Recent projects.
+            A few rooms from recent work.
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-            A selection of bathrooms, kitchens, and floors completed in the
-            last year. More projects available on request.
+          <p className="text-lg text-muted-foreground max-w-2xl">
+            Floors, showers, backsplashes, and fireplace surrounds. Click any
+            image to view it full-size.
           </p>
         </div>
       </SectionContainer>
-      <CaseStudiesSection showCta={false} />
-      <TestimonialsSection />
+      <PortfolioSection
+        showCta={false}
+        heading="Selected projects"
+        description="A current sampling of recent installations. More available on request."
+        eyebrow="Selected work"
+      />
       <FinalCallToActionSection />
     </>
   );

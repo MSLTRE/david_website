@@ -13,6 +13,17 @@ export const metadata: Metadata = {
     template: seoConfig.titleTemplate
   },
   description: seoConfig.defaultDescription,
+  applicationName: siteConfig.siteName,
+  authors: [{ name: siteConfig.owner }],
+  icons: {
+    icon: [
+      { url: "/brand/luibrand-tile-icon.svg", type: "image/svg+xml" },
+      { url: "/brand/luibrand-tile-icon-1024.png", type: "image/png", sizes: "1024x1024" }
+    ],
+    apple: [
+      { url: "/brand/luibrand-tile-icon-1024.png", sizes: "1024x1024", type: "image/png" }
+    ]
+  },
   openGraph: {
     type: "website",
     siteName: siteConfig.siteName,

@@ -10,8 +10,8 @@ export type SeoConfig = {
 };
 
 export const seoConfig: SeoConfig = {
-  defaultTitle: siteConfig.siteName,
-  titleTemplate: `%s · ${siteConfig.siteName}`,
+  defaultTitle: `${siteConfig.siteName} | ${siteConfig.tagline.replace(/\.$/, "")}`,
+  titleTemplate: `%s | ${siteConfig.siteName}`,
   defaultDescription: siteConfig.description,
   defaultOpenGraphType: "website",
   twitterCard: "summary_large_image",
