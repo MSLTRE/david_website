@@ -1,67 +1,68 @@
 "use client";
 
-import L, { type LatLngExpression } from "leaflet";
-import { MapContainer, Marker, Polygon, Popup, TileLayer } from "react-leaflet";
+import { Circle, CircleMarker, MapContainer, Popup, TileLayer } from "react-leaflet";
 import { siteConfig } from "@/config/siteConfig";
 
-const polygon: LatLngExpression[] = [
-  [30.9471, -97.5386],
-  [30.8249, -97.6045],
-  [30.6649, -97.9225],
-  [30.363, -97.9796],
-  [30.2672, -97.7431],
-  [30.4394, -97.62],
-  [30.5427, -97.5467],
-  [30.9471, -97.5386]
-];
-
-function markerIcon(label: string, primary = false) {
-  return L.divIcon({
-    className: `service-marker${primary ? " primary" : ""}`,
-    html: label
-      .split(" ")
-      .map((part) => part[0])
-      .join("")
-      .slice(0, 2),
-    iconAnchor: primary ? [19, 19] : [15, 15],
-    iconSize: primary ? [38, 38] : [30, 30]
-  });
-}
+const roundRock: [number, number] = [30.5083, -97.6789];
+const serviceRadiusMeters = 85000;
 
 export function ServiceAreaMap() {
   return (
-    <div className="h-[420px] overflow-hidden rounded-lg border border-border bg-secondary shadow-[0_20px_55px_rgba(30,24,18,0.08)] md:h-[520px]">
+    <div className="relative h-[420px] overflow-hidden rounded-lg border border-border bg-white shadow-[0_20px_55px_rgba(30,24,18,0.08)] md:h-[520px]">
       <MapContainer
         attributionControl
-        center={[30.54, -97.74]}
+        center={[30.58, -97.73]}
+        className="z-0"
+        maxZoom={12}
+        minZoom={7}
         scrollWheelZoom={false}
-        zoom={9}
+        zoom={8}
         zoomControl={false}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
-        <Polygon
+        <Circle
+          center={roundRock}
           pathOptions={{
             color: "#b56c35",
             fillColor: "#b56c35",
-            fillOpacity: 0.18,
-            opacity: 0.82,
-            weight: 3
+            fillOpacity: 0.12,
+            opacity: 0.74,
+            weight: 2
           }}
-          positions={polygon}
+          radius={serviceRadiusMeters}
         />
         {siteConfig.serviceAreas.map((area) => (
-          <Marker
-            icon={markerIcon(area.label, area.label === "Round Rock")}
+          <CircleMarker
+            center={[area.lat, area.lng]}
             key={area.label}
-            position={[area.lat, area.lng]}
+            pathOptions={{
+              color: "#ffffff",
+              fillColor: area.label === "Round Rock" ? "#b56c35" : "#1f2b25",
+              fillOpacity: 0.96,
+              opacity: 1,
+              weight: 2
+            }}
+            radius={area.label === "Round Rock" ? 9 : 6}
           >
             <Popup>{area.label}</Popup>
-          </Marker>
+          </CircleMarker>
         ))}
       </MapContainer>
+      <div className="pointer-events-none absolute left-4 top-4 z-[401] rounded-lg border border-border bg-white/95 px-4 py-3 shadow-[0_12px_28px_rgba(30,24,18,0.1)]">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-accent">
+          Round Rock base
+        </p>
+        <p className="mt-1 text-sm font-extrabold text-foreground">
+          Approximate Austin-area service zone
+        </p>
+      </div>
+      <div className="pointer-events-none absolute bottom-4 left-4 z-[401] max-w-[18rem] rounded-lg border border-border bg-white/92 px-3 py-2 text-xs font-semibold leading-5 text-muted-foreground shadow-[0_12px_28px_rgba(30,24,18,0.08)]">
+        General coverage map. Availability depends on project scope, schedule,
+        and drive time.
+      </div>
     </div>
   );
 }
