@@ -1,14 +1,15 @@
-import { SectionContainer } from "@/components/layout/SectionContainer";
 import { ServiceAreaOverview } from "@/components/sections/ServiceAreaOverview";
 
 export function ServiceAreaSection() {
   return (
-    <SectionContainer
-      ariaLabelledBy="service-area-heading"
+    <section
+      aria-labelledby="service-area-heading"
       className="bg-white"
       id="service-area"
     >
-      <ServiceAreaOverview headingId="service-area-heading" />
-    </SectionContainer>
+      <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-8 md:py-20 lg:py-28">
+        <ServiceAreaOverview headingId="service-area-heading" />
+      </div>
+    </section>
   );
 }
