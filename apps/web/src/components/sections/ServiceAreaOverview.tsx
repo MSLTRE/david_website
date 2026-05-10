@@ -10,7 +10,7 @@ export function ServiceAreaOverview({
   headingId = "service-area-heading"
 }: ServiceAreaOverviewProps) {
   return (
-    <div className="grid w-full gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
+    <div className="grid w-full gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
       <div>
         <p className="text-sm font-black uppercase tracking-[0.18em] text-accent">
           Service area
