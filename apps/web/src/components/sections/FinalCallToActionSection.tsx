@@ -23,7 +23,7 @@ export function FinalCallToActionSection() {
           </div>
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-end">
             <Button
-              href="/contact"
+              href="/contact#quote"
               size="lg"
               shape="pill"
               variant="accent"
