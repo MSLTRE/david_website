@@ -1,17 +1,10 @@
-import {
-  Check,
-  Hammer,
-  Layers3,
-  MapPin,
-  ShowerHead,
-  Sparkles
-} from "lucide-react";
+import { Check, Hammer, Layers3, ShowerHead, Sparkles } from "lucide-react";
 import Image from "next/image";
-import { ClientServiceAreaMap } from "@/components/sections/ClientServiceAreaMap";
-import { PortfolioCarousel } from "@/components/sections/PortfolioCarousel";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/siteConfig";
 import { heroImage } from "@/content/portfolio";
+import { PortfolioCarousel } from "@/components/sections/PortfolioCarousel";
+import { ServiceAreaOverview } from "@/components/sections/ServiceAreaOverview";
 
 const services = [
   {
@@ -36,7 +29,11 @@ const services = [
   }
 ];
 
-const principles = ["Proper preparation", "Precise layout", "Clean finish"];
+const principles = [
+  "Proper preparation",
+  "Precise layout",
+  "Clean finish"
+];
 
 export function HomeExperience() {
   return (
@@ -53,7 +50,6 @@ export function HomeExperience() {
           priority
           sizes="100vw"
           src={heroImage.src}
-          unoptimized
         />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(12,10,8,0.86),rgba(12,10,8,0.52)_46%,rgba(12,10,8,0.16)),linear-gradient(180deg,rgba(12,10,8,0.15),rgba(12,10,8,0.74))]" />
         <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 pb-12 pt-24 md:px-8 md:pb-16">
@@ -68,7 +64,7 @@ export function HomeExperience() {
               Precise tile installation across Austin and Round Rock.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button className="sm:min-w-44" href="/contact" variant="light">
+              <Button className="sm:min-w-44" href="/contact#quote" variant="light">
                 Request a quote
               </Button>
               <Button className="sm:min-w-44" href={siteConfig.phoneHref} variant="light">
@@ -126,8 +122,8 @@ export function HomeExperience() {
               </h2>
             </div>
             <p className="max-w-md text-base leading-7 text-muted-foreground">
-              Project photos from David Luibrand's recent tile work, framed in a
-              swipe-friendly carousel for quick review.
+              Fireplace surrounds, showers, foyers, backsplashes, and
+              wood-look floors, all shown from real project photos.
             </p>
           </div>
           <PortfolioCarousel />
@@ -163,33 +159,13 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24" id="service-area">
-        <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 md:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-accent">
-              Service area
-            </p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-6xl">
-              Tile installation around the Austin corridor.
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-muted-foreground">
-              Based in Round Rock and serving Austin, Georgetown, Cedar Park,
-              Leander, Pflugerville, Hutto, Lakeway, Liberty Hill, Jarrell,
-              Salado, and nearby communities.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {siteConfig.serviceAreas.map((area) => (
-                <span
-                  className="rounded-full border border-border bg-white px-3 py-1.5 text-sm font-bold"
-                  key={area.label}
-                >
-                  <MapPin aria-hidden="true" className="mr-1 inline-block" />
-                  {area.label}
-                </span>
-              ))}
-            </div>
-          </div>
-          <ClientServiceAreaMap />
+      <section
+        aria-labelledby="home-service-area-heading"
+        className="py-16 md:py-24"
+        id="service-area"
+      >
+        <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
+          <ServiceAreaOverview headingId="home-service-area-heading" />
         </div>
       </section>
 
@@ -205,7 +181,7 @@ export function HomeExperience() {
             </p>
           </div>
           <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]">
-            <Button href="/contact" variant="light">
+            <Button href="/contact#quote" variant="light">
               Request a quote
             </Button>
             <Button href={siteConfig.phoneHref} variant="light">
