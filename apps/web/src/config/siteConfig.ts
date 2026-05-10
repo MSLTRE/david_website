@@ -1,66 +1,52 @@
-export type SocialLink = {
-  readonly label: string;
-  readonly href: string;
-};
+export const serviceAreas = [
+  { label: "Austin", lat: 30.2672, lng: -97.7431 },
+  { label: "Round Rock", lat: 30.5083, lng: -97.6789 },
+  { label: "Pflugerville", lat: 30.4394, lng: -97.62 },
+  { label: "Georgetown", lat: 30.6333, lng: -97.6772 },
+  { label: "Cedar Park", lat: 30.5052, lng: -97.8203 },
+  { label: "Leander", lat: 30.5788, lng: -97.8531 },
+  { label: "Lakeway", lat: 30.363, lng: -97.9796 },
+  { label: "Liberty Hill", lat: 30.6649, lng: -97.9225 },
+  { label: "Hutto", lat: 30.5427, lng: -97.5467 },
+  { label: "Jarrell", lat: 30.8249, lng: -97.6045 },
+  { label: "Salado", lat: 30.9471, lng: -97.5386 }
+] as const;
 
-export type SiteAddress = {
-  readonly line1: string;
-  readonly line2?: string;
-  readonly city: string;
-  readonly region: string;
-  readonly short: string;
-};
-
-export type SiteConfig = {
-  readonly siteName: string;
-  readonly legalName: string;
-  readonly description: string;
-  readonly tagline: string;
-  readonly heroEyebrow: string;
-  readonly heroHeadline: string;
-  readonly heroSupporting: string;
-  readonly heroBody: string;
-  readonly url: string;
-  readonly email: string;
-  readonly phone: string;
-  readonly phoneHref: string;
-  readonly serviceArea: string;
-  readonly owner: string;
-  readonly address: SiteAddress;
-  readonly googleMapsUrl: string;
-  readonly appleMapsUrl: string;
-  readonly social: readonly SocialLink[];
-};
-
-const PHONE_DISPLAY = "(512) 843-9364";
-
-export const siteConfig: SiteConfig = {
+export const siteConfig = {
   siteName: "Luibrand Tile",
   legalName: "Luibrand Tile Company",
   owner: "David Luibrand",
+  url: "https://luibrandtile.netlify.app",
+  description:
+    "Precise tile installation for floors, showers, backsplashes, fireplaces, and repairs across Austin and Round Rock.",
   tagline: "Craftsmanship you can stand on.",
+  phone: "(512) 843-9364",
+  phoneHref: "tel:+15128439364",
+  email: "luibrandtilecompany@gmail.com",
   heroEyebrow: "Austin-area tile installation",
   heroHeadline: "Luibrand Tile",
-  heroSupporting: "Craftsmanship you can stand on.",
+  heroSupporting: "Precise tile installation across Austin and Round Rock.",
   heroBody:
-    "Precision tile installation for floors, showers, backsplashes, and fireplace surrounds across Round Rock, Austin, and the surrounding communities.",
-  description:
-    "Tile floor, shower, backsplash, fireplace surround, repair, and preparation work by Luibrand Tile in Round Rock, Austin, and surrounding communities.",
-  url: "https://luibrandtile.netlify.app",
-  email: "luibrandtilecompany@gmail.com",
-  phone: PHONE_DISPLAY,
-  phoneHref: `tel:${PHONE_DISPLAY.replace(/[^+\d]/g, "")}`,
-  serviceArea: "Round Rock, Austin, and surrounding communities",
+    "Floors, showers, backsplashes, fireplace surrounds, repairs, and preparation work handled with clean layout and lasting detail.",
   address: {
-    line1: "1525 East Palm Valley Blvd.",
-    line2: "Apt. 1101",
+    short: "Round Rock, TX",
+    line1: "Round Rock",
+    line2: "Austin-area service",
     city: "Round Rock",
     region: "TX",
-    short: "Round Rock, TX"
+    country: "US"
   },
   googleMapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Luibrand%20Tile%201525%20East%20Palm%20Valley%20Blvd%20Round%20Rock%20TX",
-  appleMapsUrl:
-    "https://maps.apple.com/?q=Luibrand%20Tile&address=1525%20East%20Palm%20Valley%20Blvd%2C%20Apt.%201101%2C%20Round%20Rock%2C%20TX",
-  social: []
-};
+    "https://www.google.com/maps/search/Austin+Round+Rock+Texas",
+  appleMapsUrl: "https://maps.apple.com/?q=Austin%20Round%20Rock%20Texas",
+  serviceArea:
+    "Based in Round Rock and serving Austin, Georgetown, Cedar Park, Leander, Pflugerville, Hutto, Lakeway, Liberty Hill, Jarrell, Salado, and nearby communities.",
+  serviceAreas,
+  social: [],
+  navItems: [
+    { label: "Work", href: "/#work" },
+    { label: "Services", href: "/#services" },
+    { label: "Area", href: "/#service-area" },
+    { label: "Contact", href: "/contact" }
+  ]
+} as const;
