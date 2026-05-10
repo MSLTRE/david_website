@@ -1,55 +1,63 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import "./globals.css";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { seoConfig } from "@/config/seoConfig";
 import { siteConfig } from "@/config/siteConfig";
-import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: seoConfig.defaultTitle,
-    template: seoConfig.titleTemplate
+    default: siteConfig.siteName,
+    template: `%s | ${siteConfig.siteName}`
   },
-  description: seoConfig.defaultDescription,
+  description: siteConfig.description,
   applicationName: siteConfig.siteName,
   authors: [{ name: siteConfig.owner }],
   icons: {
-    icon: [
-      { url: "/brand/luibrand-tile-icon.svg", type: "image/svg+xml" },
-      { url: "/brand/luibrand-tile-icon-1024.png", type: "image/png", sizes: "1024x1024" }
-    ],
-    apple: [
-      { url: "/brand/luibrand-tile-icon-1024.png", sizes: "1024x1024", type: "image/png" }
-    ]
+    icon: [{ url: "/brand/luibrand-tile-icon.svg", type: "image/svg+xml" }]
   },
   openGraph: {
     type: "website",
     siteName: siteConfig.siteName,
-    locale: seoConfig.locale,
-    url: siteConfig.url,
-    title: seoConfig.defaultTitle,
-    description: seoConfig.defaultDescription
-  },
-  twitter: {
-    card: seoConfig.twitterCard,
-    title: seoConfig.defaultTitle,
-    description: seoConfig.defaultDescription
+    title: siteConfig.siteName,
+    description: siteConfig.description,
+    url: siteConfig.url
   }
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    name: siteConfig.siteName,
+    url: siteConfig.url,
+    telephone: siteConfig.phone,
+    email: siteConfig.email,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Round Rock",
+      addressRegion: "TX",
+      addressCountry: "US"
+    },
+    areaServed: siteConfig.serviceAreas.map((area) => ({
+      "@type": "City",
+      name: `${area.label}, Texas`
+    }))
+  };
+
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
-        <a href="#content" className="skip-link">
-          Skip to content
-        </a>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <SiteHeader />
-        <main id="content" className="flex-1">
-          {children}
-        </main>
+        <main>{children}</main>
         <SiteFooter />
       </body>
     </html>
