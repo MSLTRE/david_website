@@ -19,73 +19,73 @@ export type PortfolioImage = {
 
 export const portfolioImages: readonly PortfolioImage[] = [
   {
-    id: "precision-tile-project-2025-11",
-    title: "Precision tile installation",
-    category: "Floor",
+    id: "marble-fireplace-surround",
+    title: "Marble fireplace surround",
+    category: "Fireplace",
     src: "/portfolio/20251114_154302.jpg",
-    alt: "Completed Luibrand Tile installation with clean layout and grout lines.",
-    description: "Clean layout, tight spacing, and a finished surface built to last.",
+    alt: "Marble-look tile fireplace surround with clean miters and a raised hearth.",
+    description: "A finished fireplace surround with balanced cuts and clean grout lines.",
     featured: true,
     orientation: "landscape",
-    width: 1600,
-    height: 1200
+    width: 4000,
+    height: 3000
   },
   {
-    id: "tile-project-detail-2025-12",
-    title: "Tile detail work",
-    category: "Backsplash",
+    id: "gray-shower-bench-niche",
+    title: "Gray shower with bench and niche",
+    category: "Shower",
     src: "/portfolio/20251201_125707.jpg",
-    alt: "Luibrand Tile detail work showing precise tile placement.",
-    description: "A polished detail view from a recent Austin-area tile project.",
+    alt: "Gray tile shower with a built-in bench, recessed niche, and mosaic floor.",
+    description: "A shower installation with wall tile, a bench, niche, and mosaic pan.",
     orientation: "landscape",
-    width: 1600,
-    height: 1200
+    width: 4000,
+    height: 3000
   },
   {
-    id: "tile-installation-2025-12",
-    title: "Finished tile surface",
+    id: "diagonal-entry-tile-floor",
+    title: "Diagonal entry tile floor",
     category: "Floor",
     src: "/portfolio/20251217_172615.jpg",
-    alt: "Finished Luibrand Tile surface with aligned grout and clean transitions.",
-    description: "Consistent grout lines and careful finish work across the surface.",
+    alt: "Entry tile floor installed on a diagonal layout through a tall foyer.",
+    description: "A diagonal floor layout with clean transitions at the surrounding rooms.",
     featured: true,
     orientation: "landscape",
-    width: 1600,
-    height: 1200
+    width: 4000,
+    height: 3000
   },
   {
-    id: "tile-project-2026-02-a",
-    title: "Austin-area tile work",
+    id: "arched-stone-shower",
+    title: "Arched stone shower",
     category: "Shower",
     src: "/portfolio/20260204_114751.jpg",
-    alt: "Recent Luibrand Tile installation in the Austin and Round Rock service area.",
-    description: "A recent project showing the preparation and finish standards.",
-    orientation: "landscape",
-    width: 1600,
-    height: 1200
+    alt: "Tall arched shower with dark stone tile, shelves, bench, and pebble floor.",
+    description: "A tall shower with an arched opening, dark wall tile, and pebble floor.",
+    orientation: "portrait",
+    width: 1655,
+    height: 3547
   },
   {
-    id: "tile-project-2026-02-b",
-    title: "Tile installation detail",
-    category: "Fireplace",
+    id: "shower-niche-bench-detail",
+    title: "Shower niche and bench detail",
+    category: "Shower",
     src: "/portfolio/20260204_114801.jpg",
-    alt: "Detailed Luibrand Tile installation with a clean finished edge.",
-    description: "Detail work focused on alignment, edges, and a clean final look.",
+    alt: "Close-up of a dark tile shower corner with a recessed niche, bench, and pebble floor.",
+    description: "Shower detail work around a niche, corner bench, and pebble floor.",
     orientation: "landscape",
-    width: 1600,
-    height: 1200
+    width: 4000,
+    height: 3000
   },
   {
-    id: "finished-tile-project-2026-02",
-    title: "Completed tile project",
+    id: "marble-look-foyer-floor",
+    title: "Marble-look foyer floor",
     category: "Floor",
     src: "/portfolio/20260219_115805.jpg",
-    alt: "Completed Luibrand Tile project ready for everyday use.",
-    description: "A completed installation from David Luibrand's recent work.",
+    alt: "Large foyer floor finished with white marble-look tile and dark veining.",
+    description: "A bright foyer floor with a marble-look finish and careful alignment.",
     featured: true,
     orientation: "landscape",
-    width: 1600,
-    height: 1200
+    width: 4000,
+    height: 3000
   }
 ];
 
