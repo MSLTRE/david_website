@@ -1,23 +1,31 @@
 import Link from "next/link";
-import { primaryNavigation } from "@/config/navigationConfig";
+import { DesktopNavigation } from "@/components/layout/DesktopNavigation";
+import { MobileNavigation } from "@/components/layout/MobileNavigation";
+import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/siteConfig";
 
 export function SiteHeader() {
   return (
-    <header className="site-header">
-      <div className="container site-header__inner">
-        <Link href="/" className="site-header__brand">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+      <div className="mx-auto w-full max-w-6xl px-5 md:px-8 h-16 md:h-20 flex items-center justify-between gap-4">
+        <Link
+          href="/"
+          className="font-display text-base md:text-lg font-semibold tracking-tight"
+        >
           {siteConfig.siteName}
         </Link>
-        <nav aria-label="Primary">
-          <ul className="site-header__nav">
-            {primaryNavigation.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href}>{item.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="flex items-center gap-3">
+          <DesktopNavigation />
+          <Button
+            href="/contact"
+            size="sm"
+            shape="pill"
+            className="hidden md:inline-flex"
+          >
+            Request a quote
+          </Button>
+          <MobileNavigation />
+        </div>
       </div>
     </header>
   );
