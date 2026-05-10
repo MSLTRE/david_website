@@ -1,96 +1,89 @@
-import { cva, type VariantProps } from "class-variance-authority";
 import Link from "next/link";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/cn";
 
-const buttonStyles = cva(
-  "inline-flex items-center justify-center gap-2 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 select-none",
-  {
-    variants: {
-      variant: {
-        primary:
-          "bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/95",
-        secondary:
-          "bg-secondary text-secondary-foreground border border-border hover:bg-muted",
-        ghost: "text-foreground hover:bg-muted",
-        accent:
-          "bg-accent text-accent-foreground hover:bg-accent/90 active:bg-accent/95"
-      },
-      size: {
-        sm: "h-10 px-4 text-sm rounded-md",
-        md: "h-12 px-5 text-[0.95rem] rounded-md",
-        lg: "h-14 px-7 text-base rounded-md"
-      },
-      shape: {
-        rounded: "",
-        pill: "!rounded-pill"
-      }
-    },
-    defaultVariants: {
-      variant: "primary",
-      size: "md",
-      shape: "rounded"
-    }
-  }
-);
-
-export type ButtonVariantProps = VariantProps<typeof buttonStyles>;
-
-type CommonStyleProps = ButtonVariantProps & {
-  className?: string;
-  children: ReactNode;
+type ButtonProps = {
+  readonly children: React.ReactNode;
+  readonly className?: string;
+  readonly external?: boolean;
+  readonly href?: string;
+  readonly shape?: "rounded" | "pill";
+  readonly size?: "sm" | "md" | "lg";
+  readonly variant?: "primary" | "secondary" | "ghost" | "light" | "accent";
+  readonly type?: "button" | "submit";
+  readonly disabled?: boolean;
+  readonly onClick?: () => void;
 };
 
-export type ButtonAsButtonProps = CommonStyleProps & {
-  href?: undefined;
-  external?: never;
-} & Omit<ComponentPropsWithoutRef<"button">, "className" | "children">;
+const variants = {
+  primary:
+    "bg-primary text-primary-foreground shadow-[0_14px_32px_rgba(27,22,18,0.2)] hover:bg-primary/90",
+  secondary:
+    "border border-border bg-white text-foreground hover:border-accent hover:bg-secondary",
+  ghost: "text-foreground hover:bg-secondary",
+  light:
+    "bg-white text-primary shadow-[0_12px_30px_rgba(0,0,0,0.2)] hover:bg-secondary",
+  accent: "bg-accent text-accent-foreground hover:bg-accent/90"
+};
 
-export type ButtonAsLinkProps = CommonStyleProps & {
-  href: string;
-  external?: boolean;
-  type?: never;
-} & Omit<ComponentPropsWithoutRef<"a">, "href" | "className" | "children">;
+const sizes = {
+  sm: "min-h-10 px-4 text-sm",
+  md: "min-h-12 px-6 text-sm",
+  lg: "min-h-14 px-8 text-base"
+};
 
-export type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
+const shapes = {
+  rounded: "rounded-lg",
+  pill: "rounded-full"
+};
 
-export function Button(props: ButtonProps) {
+export function Button({
+  children,
+  className,
+  external,
+  href,
+  shape = "pill",
+  size = "md",
+  variant = "primary",
+  type = "button",
+  disabled,
+  onClick
+}: ButtonProps) {
   const classes = cn(
-    buttonStyles({
-      variant: props.variant,
-      size: props.size,
-      shape: props.shape
-    }),
-    props.className
+    "inline-flex items-center justify-center gap-2 font-extrabold tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
+    sizes[size],
+    shapes[shape],
+    variants[variant],
+    className
   );
 
-  if (typeof props.href === "string") {
-    const { variant, size, shape, className, children, href, external, ...linkRest } = props;
-    void variant;
-    void size;
-    void shape;
-    void className;
-    if (external) {
+  if (href) {
+    const isExternal =
+      external ||
+      href.startsWith("http") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:");
+    if (isExternal) {
       return (
-        <a {...linkRest} href={href} className={classes} target="_blank" rel="noreferrer">
+        <a
+          className={classes}
+          href={href}
+          rel={external ? "noreferrer" : undefined}
+          target={external ? "_blank" : undefined}
+        >
           {children}
         </a>
       );
     }
+
     return (
-      <Link {...linkRest} href={href} className={classes}>
+      <Link className={classes} href={href}>
         {children}
       </Link>
     );
   }
 
-  const { variant, size, shape, className, children, type = "button", ...buttonRest } = props;
-  void variant;
-  void size;
-  void shape;
-  void className;
   return (
-    <button {...buttonRest} type={type} className={classes}>
+    <button className={classes} disabled={disabled} onClick={onClick} type={type}>
       {children}
     </button>
   );
