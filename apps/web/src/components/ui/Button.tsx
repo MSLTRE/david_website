@@ -16,13 +16,13 @@ type ButtonProps = {
 
 const variants = {
   primary:
-    "bg-primary text-primary-foreground shadow-[0_14px_32px_rgba(27,22,18,0.2)] hover:bg-primary/90",
+    "bg-[#17120e] text-white shadow-[0_14px_32px_rgba(27,22,18,0.2)] hover:bg-[#2a2119]",
   secondary:
-    "border border-border bg-white text-foreground hover:border-accent hover:bg-secondary",
-  ghost: "text-foreground hover:bg-secondary",
+    "border border-[#ded8cf] bg-white text-[#17120e] hover:border-[#b56c35] hover:bg-[#f3eee7]",
+  ghost: "text-[#17120e] hover:bg-[#f3eee7]",
   light:
-    "bg-white text-primary shadow-[0_12px_30px_rgba(0,0,0,0.2)] hover:bg-secondary",
-  accent: "bg-accent text-accent-foreground hover:bg-accent/90"
+    "bg-white text-[#17120e] shadow-[0_12px_30px_rgba(0,0,0,0.2)] hover:bg-[#f3eee7]",
+  accent: "bg-[#b56c35] text-white hover:bg-[#9c5928]"
 };
 
 const sizes = {
