@@ -1,76 +1,180 @@
 "use client";
 
-import Autoplay from "embla-carousel-autoplay";
-import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { portfolioImages } from "@/content/portfolio";
 
+const autoplayDelay = 5200;
+const resumeDelay = 8000;
+
 export function PortfolioCarousel() {
-  const [autoplay] = useState(() =>
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ? undefined
-      : Autoplay({ delay: 4300, stopOnInteraction: true, stopOnMouseEnter: true })
-  );
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { align: "center", containScroll: "trimSnaps", loop: true },
-    autoplay ? [autoplay] : []
-  );
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const slideRefs = useRef<Array<HTMLElement | null>>([]);
+  const resumeTimerRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
   const [selected, setSelected] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
-  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const scrollToIndex = useCallback((index: number) => {
+    const viewport = viewportRef.current;
+    const target = slideRefs.current[index];
 
-  useEffect(() => {
-    if (!emblaApi) {
+    if (!viewport || !target) {
       return;
     }
 
-    const onSelect = () => setSelected(emblaApi.selectedScrollSnap());
-    onSelect();
-    emblaApi.on("select", onSelect);
+    viewport.scrollTo({
+      left: target.offsetLeft - viewport.offsetLeft,
+      behavior: reduceMotion ? "auto" : "smooth"
+    });
+    setSelected(index);
+  }, [reduceMotion]);
+
+  const pauseTemporarily = useCallback(() => {
+    setPaused(true);
+
+    if (resumeTimerRef.current) {
+      window.clearTimeout(resumeTimerRef.current);
+    }
+
+    resumeTimerRef.current = window.setTimeout(() => {
+      setPaused(false);
+    }, resumeDelay);
+  }, []);
+
+  const scrollPrev = useCallback(() => {
+    pauseTemporarily();
+    scrollToIndex(
+      selected === 0 ? portfolioImages.length - 1 : selected - 1
+    );
+  }, [pauseTemporarily, scrollToIndex, selected]);
+
+  const scrollNext = useCallback(() => {
+    pauseTemporarily();
+    scrollToIndex((selected + 1) % portfolioImages.length);
+  }, [pauseTemporarily, scrollToIndex, selected]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setReduceMotion(mediaQuery.matches);
+
+    onChange();
+    mediaQuery.addEventListener("change", onChange);
+
+    return () => mediaQuery.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+
+    if (!viewport) {
+      return;
+    }
+
+    const onScroll = () => {
+      if (rafRef.current) {
+        window.cancelAnimationFrame(rafRef.current);
+      }
+
+      rafRef.current = window.requestAnimationFrame(() => {
+        const viewportCenter = viewport.scrollLeft + viewport.clientWidth / 2;
+        const nearestIndex = slideRefs.current.reduce((nearest, slide, index) => {
+          if (!slide) {
+            return nearest;
+          }
+
+          const slideCenter =
+            slide.offsetLeft - viewport.offsetLeft + slide.clientWidth / 2;
+          const distance = Math.abs(viewportCenter - slideCenter);
+
+          return distance < nearest.distance ? { distance, index } : nearest;
+        }, { distance: Number.POSITIVE_INFINITY, index: 0 }).index;
+
+        setSelected(nearestIndex);
+      });
+    };
+
+    viewport.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
 
     return () => {
-      emblaApi.off("select", onSelect);
+      viewport.removeEventListener("scroll", onScroll);
+      if (rafRef.current) {
+        window.cancelAnimationFrame(rafRef.current);
+      }
     };
-  }, [emblaApi]);
+  }, []);
+
+  useEffect(() => {
+    if (paused || reduceMotion) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      const nextIndex = (selected + 1) % portfolioImages.length;
+      scrollToIndex(nextIndex);
+    }, autoplayDelay);
+
+    return () => window.clearInterval(timer);
+  }, [paused, reduceMotion, scrollToIndex, selected]);
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimerRef.current) {
+        window.clearTimeout(resumeTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div
+      aria-label="Recent tile work carousel"
       className="grid gap-5"
-      onFocus={() => autoplay?.stop()}
-      onMouseEnter={() => autoplay?.stop()}
-      onMouseLeave={() => autoplay?.play()}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      role="region"
     >
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="-ml-4 flex touch-pan-y">
-          {portfolioImages.map((image) => (
+      <div
+        className="portfolio-scrollbar -mx-5 snap-x snap-mandatory overflow-x-auto px-5 [scroll-padding-inline:1.25rem] md:-mx-8 md:px-8 md:[scroll-padding-inline:2rem]"
+        onPointerDown={pauseTemporarily}
+        onWheel={pauseTemporarily}
+        ref={viewportRef}
+      >
+        <div className="flex gap-4 pb-1 sm:gap-6">
+          {portfolioImages.map((image, index) => (
             <figure
-              className="min-w-0 flex-[0_0_86%] pl-4 sm:flex-[0_0_58%] lg:flex-[0_0_38%]"
+              className="w-[min(86vw,760px)] shrink-0 snap-start sm:w-[min(68vw,820px)] lg:w-[min(48vw,860px)] xl:w-[min(42vw,900px)]"
               key={image.id}
+              ref={(node) => {
+                slideRefs.current[index] = node;
+              }}
             >
-              <div className="group overflow-hidden rounded-lg border border-border bg-white shadow-[0_20px_55px_rgba(30,24,18,0.1)]">
-                <div className="aspect-[4/5] overflow-hidden bg-secondary">
+              <div className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_20px_55px_rgba(30,24,18,0.1)]">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#f3eee7]">
                   <Image
                     alt={image.alt}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]"
-                    fill={false}
-                    height={1200}
-                    loading="lazy"
-                    sizes="(min-width: 1024px) 38vw, (min-width: 640px) 58vw, 86vw"
+                    className="h-full w-full object-contain transition duration-700 group-hover:scale-[1.01]"
+                    fill
+                    fetchPriority={index < 2 ? "high" : "auto"}
+                    loading={index < 3 ? "eager" : "lazy"}
+                    quality={86}
+                    sizes="(min-width: 1280px) 42vw, (min-width: 1024px) 48vw, (min-width: 640px) 68vw, 86vw"
                     src={image.src}
-                    unoptimized
-                    width={960}
                   />
                 </div>
-                <figcaption className="grid gap-1 p-4">
+                <figcaption className="grid min-h-[116px] content-start gap-2 p-5 sm:min-h-[124px]">
                   <span className="text-xs font-black uppercase tracking-[0.16em] text-accent">
                     {image.category}
                   </span>
-                  <span className="text-lg font-black tracking-tight">
+                  <span className="text-xl font-black leading-tight tracking-tight sm:text-2xl">
                     {image.title}
+                  </span>
+                  <span className="text-sm font-semibold leading-6 text-muted-foreground">
+                    {image.description}
                   </span>
                 </figcaption>
               </div>
@@ -83,12 +187,15 @@ export function PortfolioCarousel() {
         <div className="flex gap-2" aria-label="Carousel slide position">
           {portfolioImages.map((image, index) => (
             <button
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={`Go to ${image.title}`}
               className={`h-2.5 rounded-full transition ${
                 index === selected ? "w-8 bg-accent" : "w-2.5 bg-border"
               }`}
               key={image.id}
-              onClick={() => emblaApi?.scrollTo(index)}
+              onClick={() => {
+                pauseTemporarily();
+                scrollToIndex(index);
+              }}
               type="button"
             />
           ))}
