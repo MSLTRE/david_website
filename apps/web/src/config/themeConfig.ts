@@ -15,5 +15,5 @@ export const themeConfig: ThemeConfig = {
     tablet: "md:py-20",
     desktop: "lg:py-28"
   },
-  brandAccentLabel: "Terracotta"
+  brandAccentLabel: "Bronze"
 };

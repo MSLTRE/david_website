@@ -1,13 +1,9 @@
-import { BentoProofSection } from "@/components/sections/BentoProofSection";
-import { CaseStudiesSection } from "@/components/sections/CaseStudiesSection";
-import { DifferentiatorsSection } from "@/components/sections/DifferentiatorsSection";
+import { CraftsmanshipSection } from "@/components/sections/CraftsmanshipSection";
 import { FinalCallToActionSection } from "@/components/sections/FinalCallToActionSection";
-import { FrequentlyAskedQuestionsSection } from "@/components/sections/FrequentlyAskedQuestionsSection";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { ProcessSection } from "@/components/sections/ProcessSection";
+import { PortfolioSection } from "@/components/sections/PortfolioSection";
+import { ServiceAreaSection } from "@/components/sections/ServiceAreaSection";
 import { ServicesOverviewSection } from "@/components/sections/ServicesOverviewSection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { TrustBarSection } from "@/components/sections/TrustBarSection";
 import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 
 export const metadata = createPageMetadata({ path: "/" });
@@ -16,14 +12,10 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <TrustBarSection />
+      <CraftsmanshipSection />
+      <PortfolioSection />
       <ServicesOverviewSection />
-      <DifferentiatorsSection />
-      <BentoProofSection />
-      <ProcessSection />
-      <CaseStudiesSection limit={2} />
-      <TestimonialsSection />
-      <FrequentlyAskedQuestionsSection />
+      <ServiceAreaSection />
       <FinalCallToActionSection />
     </>
   );

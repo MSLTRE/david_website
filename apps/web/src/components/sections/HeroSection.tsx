@@ -1,53 +1,87 @@
-import { Badge } from "@/components/ui/Badge";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/siteConfig";
+import { findPortfolioImageById } from "@/content/portfolio";
 
 export function HeroSection() {
+  const primary = findPortfolioImageById("marble-look-foyer-tile");
+  const secondaryA = findPortfolioImageById("arched-stone-shower-tile");
+  const secondaryB = findPortfolioImageById("patterned-kitchen-backsplash-detail");
+
   return (
     <section
       aria-labelledby="hero-heading"
       className="relative overflow-hidden bg-background"
     >
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8 pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-20 lg:pb-28">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
+      <div className="mx-auto w-full max-w-6xl px-5 md:px-8 pt-12 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-28">
+        <div className="grid gap-10 lg:gap-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center">
           <div className="flex flex-col gap-6 max-w-2xl">
-            <Badge variant="accent">Tile installation &amp; remodeling</Badge>
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              {siteConfig.heroEyebrow}
+            </p>
             <h1
               id="hero-heading"
-              className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight font-semibold"
+              className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight font-medium"
             >
-              {siteConfig.tagline}
+              {siteConfig.heroHeadline}
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
-              {siteConfig.siteName} designs, prepares, and installs bathroom,
-              kitchen, and floor tile work that holds up for the long run —
-              with the prep work most crews skip.
+            <p className="font-display text-2xl md:text-3xl lg:text-4xl leading-tight tracking-tight text-foreground/85">
+              {siteConfig.heroSupporting}
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground max-w-xl">
+              {siteConfig.heroBody}
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button href="/contact" size="lg" shape="pill">
                 Request a quote
               </Button>
-              <Button href="/work" variant="secondary" size="lg" shape="pill">
-                See recent work
+              <Button href="#portfolio" variant="secondary" size="lg" shape="pill">
+                View portfolio
               </Button>
             </div>
-            <p className="text-sm text-muted-foreground pt-2">
-              Serving {siteConfig.serviceArea.toLowerCase()}.
-            </p>
           </div>
-          <div
-            aria-hidden="true"
-            className="relative isolate aspect-[5/4] rounded-2xl bg-secondary border border-border overflow-hidden"
-          >
-            <div className="absolute inset-0 grid grid-cols-6 grid-rows-5 gap-1 p-2 opacity-90">
-              {Array.from({ length: 30 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="bg-card rounded-[3px] shadow-[0_1px_0_rgba(0,0,0,0.04)]"
+
+          <div className="relative">
+            {primary ? (
+              <div className="relative isolate aspect-[4/5] sm:aspect-[5/6] lg:aspect-[4/5] rounded-2xl overflow-hidden border border-border bg-secondary shadow-[0_30px_60px_-30px_rgba(40,28,18,0.25)]">
+                <Image
+                  src={primary.src}
+                  alt={primary.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 44vw, (min-width: 640px) 80vw, 92vw"
+                  className="object-cover"
                 />
-              ))}
-            </div>
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background/70 to-transparent" />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-foreground/5"
+                />
+              </div>
+            ) : null}
+
+            {secondaryA ? (
+              <div className="hidden md:block absolute -left-6 lg:-left-10 bottom-6 lg:bottom-10 w-[42%] aspect-[3/4] rounded-xl overflow-hidden border border-border bg-secondary shadow-[0_20px_40px_-20px_rgba(40,28,18,0.3)]">
+                <Image
+                  src={secondaryA.src}
+                  alt={secondaryA.alt}
+                  fill
+                  sizes="(min-width: 1024px) 22vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
+            ) : null}
+
+            {secondaryB ? (
+              <div className="hidden md:block absolute -right-4 lg:-right-8 -top-6 lg:-top-10 w-[40%] aspect-[4/3] rounded-xl overflow-hidden border border-border bg-secondary shadow-[0_20px_40px_-20px_rgba(40,28,18,0.3)]">
+                <Image
+                  src={secondaryB.src}
+                  alt={secondaryB.alt}
+                  fill
+                  sizes="(min-width: 1024px) 22vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

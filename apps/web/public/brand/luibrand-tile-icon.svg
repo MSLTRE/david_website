@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+  <rect width="64" height="64" rx="12" fill="#1a1614"/>
+  <g stroke="#c98c5a" stroke-width="1.6" stroke-linecap="square">
+    <path d="M14 14 L50 14 L50 50 L14 50 Z"/>
+    <path d="M14 32 L50 32"/>
+    <path d="M32 14 L32 50"/>
+  </g>
+  <text x="32" y="40" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-weight="600" fill="#f5efe6" letter-spacing="-0.5">L</text>
+</svg>

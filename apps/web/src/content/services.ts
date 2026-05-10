@@ -7,57 +7,57 @@ export type ServiceCategory = {
 
 export const services: readonly ServiceCategory[] = [
   {
-    slug: "floor-tile-installation",
-    name: "Floor tile installation",
+    slug: "tile-floor-installation",
+    name: "Tile floor installation",
     summary:
-      "Porcelain, ceramic, and natural-stone floor tile installed flat, square, and built to last.",
+      "Floor tile installed on a properly prepared substrate, with careful layout and clean grout lines.",
     highlights: [
-      "Subfloor leveling and prep",
-      "Large-format and standard tile",
-      "Crack isolation and waterproofing"
+      "Subfloor prep and leveling",
+      "Careful tile layout",
+      "Clean grout and finish work"
     ]
   },
   {
     slug: "bathroom-tile-installation",
     name: "Bathroom tile installation",
     summary:
-      "Full bathroom tile work — floors, walls, niches, and trim — designed and installed end to end.",
+      "Bathroom tile work — floors, walls, niches, and trim — installed end to end.",
     highlights: [
-      "Full bath remodels",
-      "Niche and bench detailing",
-      "Linear-drain ready installations"
+      "Floors, walls, and niches",
+      "Bench and detail work",
+      "Tight, square layouts"
+    ]
+  },
+  {
+    slug: "shower-tile-installation",
+    name: "Shower tile installation",
+    summary:
+      "Shower tile installed with attention to slope, layout, and waterproofing detail.",
+    highlights: [
+      "Wall and floor tile",
+      "Niches and benches",
+      "Careful waterproofing prep"
     ]
   },
   {
     slug: "kitchen-backsplash-installation",
     name: "Kitchen backsplash installation",
     summary:
-      "Clean, precise backsplash work that finishes a kitchen without disrupting your week.",
+      "Backsplash installation that finishes a kitchen cleanly without weeks of disruption.",
     highlights: [
-      "Subway, mosaic, and large-format",
+      "Pattern, subway, and mosaic",
       "Outlet and seam planning",
-      "Same-day or next-day grout"
-    ]
-  },
-  {
-    slug: "shower-and-wet-room-tile",
-    name: "Shower and wet-room tile",
-    summary:
-      "Custom showers and wet rooms, built on properly waterproofed assemblies for long service life.",
-    highlights: [
-      "Schluter and Wedi systems",
-      "Curbless and barrier-free designs",
-      "Slope-to-drain with linear or center drains"
+      "Clean grout finish"
     ]
   },
   {
     slug: "tile-repair-and-replacement",
     name: "Tile repair and replacement",
     summary:
-      "Targeted repair of cracked, loose, or failing tile work without redoing the whole room.",
+      "Targeted repair of cracked, loose, or failing tile work — without redoing the whole room.",
     highlights: [
       "Single-tile and section repair",
-      "Grout replacement and color matching",
+      "Grout replacement",
       "Caulk and silicone refresh"
     ]
   },
@@ -65,11 +65,11 @@ export const services: readonly ServiceCategory[] = [
     slug: "surface-preparation",
     name: "Surface preparation",
     summary:
-      "Proper substrate prep — the difference between a tile job that lasts five years and one that lasts thirty.",
+      "Proper substrate preparation — the foundation that decides how long the work lasts.",
     highlights: [
-      "Self-leveling underlayment",
-      "Crack isolation membranes",
-      "Backer board and waterproofing"
+      "Substrate inspection and prep",
+      "Crack isolation",
+      "Clean, square layout"
     ]
   }
 ];

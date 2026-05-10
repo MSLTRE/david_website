@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { DesktopNavigation } from "@/components/layout/DesktopNavigation";
 import { MobileNavigation } from "@/components/layout/MobileNavigation";
@@ -10,9 +11,20 @@ export function SiteHeader() {
       <div className="mx-auto w-full max-w-6xl px-5 md:px-8 h-16 md:h-20 flex items-center justify-between gap-4">
         <Link
           href="/"
-          className="font-display text-base md:text-lg font-semibold tracking-tight"
+          aria-label={`${siteConfig.siteName} — home`}
+          className="inline-flex items-center gap-2.5"
         >
-          {siteConfig.siteName}
+          <Image
+            src="/brand/luibrand-tile-icon.svg"
+            alt=""
+            width={28}
+            height={28}
+            priority
+            className="h-7 w-7"
+          />
+          <span className="font-display text-base md:text-lg tracking-tight">
+            {siteConfig.siteName}
+          </span>
         </Link>
         <div className="flex items-center gap-3">
           <DesktopNavigation />

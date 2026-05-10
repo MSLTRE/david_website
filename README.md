@@ -59,3 +59,35 @@ Notes:
   built-in adapter handles Next.js automatically.
 - `apps/web/next.config.ts` is intentionally minimal and never sets
   `output: "export"`.
+
+## Contact form
+
+The `/contact` quote form posts through a Server Action that emails
+`luibrandtilecompany@gmail.com` via [Resend](https://resend.com).
+
+Required environment variables (set in Netlify and any local `.env.local`):
+
+```
+RESEND_API_KEY=
+CONTACT_TO_EMAIL=luibrandtilecompany@gmail.com
+CONTACT_FROM_EMAIL="Luibrand Tile <noreply@yourverifieddomain.com>"
+NEXT_PUBLIC_SITE_URL=https://luibrandtile.netlify.app
+NEXT_PUBLIC_SITE_NAME="Luibrand Tile"
+```
+
+`.env.example` lists the same variables. If `RESEND_API_KEY` is not set,
+the form fails gracefully with a friendly error and the call / email
+CTAs continue to work as a fallback.
+
+See [`docs/contact-form-setup.md`](docs/contact-form-setup.md) for the
+full setup, including how to verify a sender domain in Resend.
+
+## Brand and portfolio assets
+
+* Brand mark: `apps/web/public/brand/luibrand-tile-icon.svg` and
+  `apps/web/public/brand/luibrand-tile-icon-1024.png`. Replace in place
+  when the final mark is ready.
+* Portfolio photos live in `apps/web/public/portfolio/`. The set of ten
+  images and their semantic filenames are defined in
+  `apps/web/src/content/portfolio.ts`. Replacing a file in place keeps
+  the same filename and updates the site automatically.
