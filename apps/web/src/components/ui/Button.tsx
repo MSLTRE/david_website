@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
+type ButtonVariant = "primary" | "secondary" | "ghost" | "light" | "accent";
+
 type ButtonProps = {
   readonly children: React.ReactNode;
   readonly className?: string;
@@ -8,10 +10,11 @@ type ButtonProps = {
   readonly href?: string;
   readonly shape?: "rounded" | "pill";
   readonly size?: "sm" | "md" | "lg";
-  readonly variant?: "primary" | "secondary" | "ghost" | "light" | "accent";
+  readonly variant?: ButtonVariant;
   readonly type?: "button" | "submit";
   readonly disabled?: boolean;
   readonly onClick?: () => void;
+  readonly style?: React.CSSProperties;
 };
 
 const variants = {
@@ -24,6 +27,14 @@ const variants = {
     "bg-white text-[#17120e] shadow-[0_12px_30px_rgba(0,0,0,0.2)] hover:bg-[#f3eee7]",
   accent: "bg-[#b56c35] text-white hover:bg-[#9c5928]"
 };
+
+const variantStyles = {
+  primary: { backgroundColor: "#17120e", color: "#ffffff" },
+  secondary: { backgroundColor: "#ffffff", borderColor: "#ded8cf", color: "#17120e" },
+  ghost: { color: "#17120e" },
+  light: { backgroundColor: "#ffffff", color: "#17120e" },
+  accent: { backgroundColor: "#b56c35", color: "#ffffff" }
+} satisfies Record<ButtonVariant, React.CSSProperties>;
 
 const sizes = {
   sm: "min-h-10 px-4 text-sm",
@@ -46,7 +57,8 @@ export function Button({
   variant = "primary",
   type = "button",
   disabled,
-  onClick
+  onClick,
+  style
 }: ButtonProps) {
   const classes = cn(
     "inline-flex items-center justify-center gap-2 font-extrabold tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
@@ -55,6 +67,7 @@ export function Button({
     variants[variant],
     className
   );
+  const mergedStyle = { ...variantStyles[variant], ...style };
 
   if (href) {
     const isExternal =
@@ -64,26 +77,21 @@ export function Button({
       href.startsWith("tel:");
     if (isExternal) {
       return (
-        <a
-          className={classes}
-          href={href}
-          rel={external ? "noreferrer" : undefined}
-          target={external ? "_blank" : undefined}
-        >
+        <a className={classes} href={href} rel={external ? "noreferrer" : undefined} style={mergedStyle} target={external ? "_blank" : undefined}>
           {children}
         </a>
       );
     }
 
     return (
-      <Link className={classes} href={href}>
+      <Link className={classes} href={href} style={mergedStyle}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button className={classes} disabled={disabled} onClick={onClick} type={type}>
+    <button className={classes} disabled={disabled} onClick={onClick} style={mergedStyle} type={type}>
       {children}
     </button>
   );
