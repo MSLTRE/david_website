@@ -7,8 +7,8 @@ import {
   Sparkles
 } from "lucide-react";
 import Image from "next/image";
+import { ClientServiceAreaMap } from "@/components/sections/ClientServiceAreaMap";
 import { PortfolioCarousel } from "@/components/sections/PortfolioCarousel";
-import { ServiceAreaMap } from "@/components/sections/ServiceAreaMap";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/siteConfig";
 import { heroImage } from "@/content/portfolio";
@@ -189,7 +189,7 @@ export function HomeExperience() {
               ))}
             </div>
           </div>
-          <ServiceAreaMap />
+          <ClientServiceAreaMap />
         </div>
       </section>
 
