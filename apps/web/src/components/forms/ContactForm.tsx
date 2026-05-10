@@ -29,9 +29,7 @@ export function ContactForm() {
       const response = await fetch("/forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(
-          formData as unknown as Record<string, string>
-        ).toString()
+        body: new URLSearchParams(formData as unknown as Record<string, string>).toString()
       });
 
       if (!response.ok) {
@@ -56,6 +54,11 @@ export function ContactForm() {
       onSubmit={handleSubmit}
     >
       <input type="hidden" name="form-name" value="quote-request" />
+      <input
+        type="hidden"
+        name="subject"
+        value="New Luibrand Tile quote request"
+      />
       <p className="hidden">
         <label>
           Do not fill this out: <input name="bot-field" />
@@ -139,10 +142,7 @@ export function ContactForm() {
         <Button disabled={status === "sending"} type="submit">
           {status === "sending" ? "Sending..." : "Send request"}
         </Button>
-        <p
-          aria-live="polite"
-          className="text-sm font-semibold text-muted-foreground"
-        >
+        <p aria-live="polite" className="text-sm font-semibold text-muted-foreground">
           {status === "sent"
             ? "Thanks. David will follow up soon."
             : status === "error"
