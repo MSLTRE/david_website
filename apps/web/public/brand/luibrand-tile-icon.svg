@@ -1,61 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">Luibrand Tile icon</title>
-  <desc id="desc">A white capital L over a black tile grid with metallic gold grout lines.</desc>
-  <defs>
-    <linearGradient id="frameGold" x1="34" y1="10" x2="478" y2="502" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#fff06d" />
-      <stop offset="0.16" stop-color="#d39a34" />
-      <stop offset="0.34" stop-color="#ffec63" />
-      <stop offset="0.58" stop-color="#9d6423" />
-      <stop offset="0.78" stop-color="#ffd85a" />
-      <stop offset="1" stop-color="#b9772c" />
-    </linearGradient>
-    <linearGradient id="groutGold" x1="62" y1="36" x2="450" y2="476" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#fff36f" />
-      <stop offset="0.3" stop-color="#be812a" />
-      <stop offset="0.48" stop-color="#fff05c" />
-      <stop offset="0.74" stop-color="#c28528" />
-      <stop offset="1" stop-color="#fff06b" />
-    </linearGradient>
-    <linearGradient id="panel" x1="64" y1="42" x2="448" y2="470" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#141414" />
-      <stop offset="0.42" stop-color="#070809" />
-      <stop offset="1" stop-color="#111111" />
-    </linearGradient>
-    <linearGradient id="letterWhite" x1="150" y1="112" x2="390" y2="446" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#ffffff" />
-      <stop offset="0.5" stop-color="#f4f2ee" />
-      <stop offset="1" stop-color="#ffffff" />
-    </linearGradient>
-    <filter id="softLetterShadow" x="-18%" y="-14%" width="136%" height="132%">
-      <feDropShadow dx="0" dy="2.8" stdDeviation="3.4" flood-color="#000000" flood-opacity="0.72" />
-      <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#ffffff" flood-opacity="0.26" />
-    </filter>
-    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="0" stdDeviation="1.6" flood-color="#fff06c" flood-opacity="0.48" />
-      <feDropShadow dx="0" dy="1" stdDeviation="0.8" flood-color="#6d3d11" flood-opacity="0.58" />
-    </filter>
-    <filter id="panelTexture" x="0" y="0" width="100%" height="100%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.035" numOctaves="2" seed="17" result="noise" />
-      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.035 0 0 0 0 0.035 0 0 0 0 0.035 0 0 0 .08 0" />
-      <feBlend in="SourceGraphic" mode="screen" />
-    </filter>
-  </defs>
-
-  <rect width="512" height="512" fill="#050607" />
-  <rect x="10" y="10" width="492" height="492" fill="url(#panel)" filter="url(#panelTexture)" />
-
-  <g filter="url(#goldGlow)">
-    <rect x="7" y="7" width="498" height="498" fill="none" stroke="url(#frameGold)" stroke-width="13" />
-    <rect x="23" y="23" width="466" height="466" fill="none" stroke="#050607" stroke-width="3.5" opacity="0.88" />
-    <path d="M256 7v109M256 133v111M256 273v97M256 394v111" fill="none" stroke="url(#groutGold)" stroke-width="5.4" stroke-linecap="square" />
-    <path d="M23 270h141M224 270h265" fill="none" stroke="url(#groutGold)" stroke-width="5.4" stroke-linecap="square" />
-    <path d="M23 23h466M23 489h466M23 23v466M489 23v466" fill="none" stroke="#ffe761" stroke-width="2.2" opacity="0.5" />
-  </g>
-
-  <path
-    filter="url(#softLetterShadow)"
-    fill="url(#letterWhite)"
-    d="M142 122c0-6 4-10 12-10 32 3 66 4 103 4s72-1 104-4c8 0 12 4 12 10v8c0 4-2 7-6 8-34 7-51 28-51 63v178c0 30 16 45 48 45h20c28 0 45-18 55-55 2-8 10-11 18-9l-19 76H150c-8 0-12-4-12-11v-7c0-5 3-8 9-9 31-3 46-19 46-49V201c0-36-17-57-51-63-4-1-6-4-6-8v-8Z"
-  />
+  <desc id="desc">A white serif capital L over a black tile with a gold cross and border.</desc>
+  <rect width="512" height="512" fill="#000000"/>
+  <rect x="0" y="252" width="512" height="8" fill="#d4a849"/>
+  <rect x="252" y="0" width="8" height="512" fill="#d4a849"/>
+  <rect x="12" y="12" width="488" height="488" fill="none" stroke="#d4a849" stroke-width="22"/>
+  <path fill="#ffffff" d="M264.76 405.33Q278.49 405.33 290.56 403.43Q302.63 401.54 312.09 398.70Q321.56 395.86 330.32 390.41Q339.08 384.97 344.99 381.18Q350.91 377.40 357.07 369.59Q363.22 361.78 366.53 357.75Q369.85 353.73 374.11 345.21Q378.37 336.69 379.79 333.61Q381.21 330.53 384.76 322.01Q388.31 313.49 388.78 312.54L402.51 312.54L383.10 420L109.49 420L109.49 408.17Q135.53 404.85 142.86 398.70Q150.20 392.54 150.20 374.56L150.20 145.44Q150.20 127.46 141.92 120.36Q133.63 113.25 109.49 111.83L109.49 100L274.70 100L274.70 111.83Q243.93 113.25 235.41 121.07Q226.89 128.88 226.89 155.38L226.89 378.82Q226.89 393.96 234.93 399.64Q242.98 405.33 264.76 405.33"/>
 </svg>
