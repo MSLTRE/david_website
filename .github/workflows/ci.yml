@@ -25,3 +25,37 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Install Netlify CLI
+        run: pnpm install -g netlify-cli
+
+      - name: Netlify build
+        run: netlify build
+
+      - name: Deploy preview (PR)
+        if: github.event_name == 'pull_request'
+        run: netlify deploy --message="PR #${{ github.event.number }}: ${{ github.event.pull_request.title }}"
+
+      - name: Deploy production (main)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: netlify deploy --prod --message="Auto-deploy ${{ github.sha }}"
