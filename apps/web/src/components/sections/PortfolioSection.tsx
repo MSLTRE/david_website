@@ -17,7 +17,7 @@ export function PortfolioSection({
   showCta = true,
   heading = "A few rooms from recent work.",
   eyebrow = "Portfolio",
-  description = "Floors, showers, backsplashes, and fireplace surrounds. Real projects, real materials, real layouts.",
+  description = "Bathroom floors, kitchen floors, showers, backsplashes, and fireplace surrounds. Real projects, real materials, real layouts.",
   id = "portfolio"
 }: PortfolioSectionProps = {}) {
   const items = limit ? portfolioImages.slice(0, limit) : portfolioImages;

@@ -122,8 +122,8 @@ export function HomeExperience() {
               </h2>
             </div>
             <p className="max-w-md text-base leading-7 text-muted-foreground">
-              Fireplace surrounds, showers, foyers, backsplashes, and
-              wood-look floors, all shown from real project photos.
+              Bathrooms, kitchens, fireplaces, showers, backsplashes, and
+              floors, all shown from real project photos.
             </p>
           </div>
           <PortfolioCarousel />
