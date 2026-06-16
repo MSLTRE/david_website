@@ -7,12 +7,17 @@ import { carouselImages } from "@/content/portfolio";
 import { cn } from "@/lib/cn";
 
 const dragThreshold = 46;
+const defaultStageWidth = 1120;
 
 type DragStart = {
   readonly pointerId: number;
   readonly x: number;
   readonly y: number;
 };
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
 
 function wrapIndex(index: number) {
   return (index + carouselImages.length) % carouselImages.length;
@@ -31,69 +36,52 @@ function getRelativeIndex(index: number, selected: number) {
   return relative;
 }
 
-function getSlideStyle(relative: number): React.CSSProperties {
-  if (relative === 0) {
+function getSlideStyle(position: number, stageWidth: number): React.CSSProperties {
+  const abs = Math.abs(position);
+  const side = position < 0 ? -1 : 1;
+
+  if (abs < 0.001) {
     return {
       filter: "brightness(1)",
       opacity: 1,
       transform: "translate3d(-50%, -50%, 120px) rotateY(0deg) scale(1)",
+      transformOrigin: "center center",
       zIndex: 40
     };
   }
 
-  if (relative === -1) {
-    return {
-      filter: "brightness(0.62) saturate(0.72) contrast(0.9)",
-      opacity: 0.42,
-      transform:
-        "translate3d(calc(-50% - min(51vw, 690px)), -50%, -140px) rotateY(73deg) rotateZ(-1deg) scale(0.64)",
-      transformOrigin: "right center",
-      zIndex: 20
-    };
+  const firstStep = Math.min(abs, 1);
+  const secondStep = Math.min(Math.max(abs - 1, 0), 1);
+  const thirdStep = Math.min(Math.max(abs - 2, 0), 1);
+  const xOffset =
+    side * stageWidth * (0.42 * firstStep + 0.13 * secondStep + 0.13 * thirdStep);
+  const zOffset =
+    120 - 260 * firstStep - 100 * secondStep - 60 * thirdStep;
+  const rotation = -side * (73 * firstStep + 7 * secondStep + 2 * thirdStep);
+  const rotationZ = side * Math.min(abs, 2);
+  const scale = 1 - 0.36 * firstStep - 0.18 * secondStep - 0.06 * thirdStep;
+
+  let opacity = 0;
+  if (abs <= 1) {
+    opacity = 1 - 0.58 * abs;
+  } else if (abs <= 2) {
+    opacity = 0.42 - 0.28 * (abs - 1);
+  } else if (abs <= 3) {
+    opacity = 0.14 * (3 - abs);
   }
 
-  if (relative === 1) {
-    return {
-      filter: "brightness(0.62) saturate(0.72) contrast(0.9)",
-      opacity: 0.42,
-      transform:
-        "translate3d(calc(-50% + min(51vw, 690px)), -50%, -140px) rotateY(-73deg) rotateZ(1deg) scale(0.64)",
-      transformOrigin: "left center",
-      zIndex: 20
-    };
-  }
-
-  if (relative === -2) {
-    return {
-      filter: "blur(0.5px) brightness(0.5) saturate(0.62)",
-      opacity: 0.14,
-      transform:
-        "translate3d(calc(-50% - min(66vw, 900px)), -50%, -240px) rotateY(80deg) rotateZ(-2deg) scale(0.46)",
-      transformOrigin: "right center",
-      zIndex: 10
-    };
-  }
-
-  if (relative === 2) {
-    return {
-      filter: "blur(0.5px) brightness(0.5) saturate(0.62)",
-      opacity: 0.14,
-      transform:
-        "translate3d(calc(-50% + min(66vw, 900px)), -50%, -240px) rotateY(-80deg) rotateZ(2deg) scale(0.46)",
-      transformOrigin: "left center",
-      zIndex: 10
-    };
-  }
+  const brightness = 1 - 0.38 * firstStep - 0.12 * secondStep;
+  const saturation = 1 - 0.28 * firstStep - 0.1 * secondStep;
+  const contrast = 1 - 0.1 * firstStep;
+  const blur = 0.5 * secondStep + 0.5 * thirdStep;
 
   return {
-    filter: "blur(1px) brightness(0.45)",
-    opacity: 0,
-    pointerEvents: "none",
-    transform:
-      relative < 0
-        ? "translate3d(calc(-50% - min(72vw, 980px)), -50%, -300px) rotateY(82deg) scale(0.4)"
-        : "translate3d(calc(-50% + min(72vw, 980px)), -50%, -300px) rotateY(-82deg) scale(0.4)",
-    zIndex: 0
+    filter: `blur(${blur}px) brightness(${brightness}) saturate(${saturation}) contrast(${contrast})`,
+    opacity: clamp(opacity, 0, 1),
+    pointerEvents: abs > 3 ? "none" : undefined,
+    transform: `translate3d(calc(-50% + ${xOffset}px), -50%, ${zOffset}px) rotateY(${rotation}deg) rotateZ(${rotationZ}deg) scale(${scale})`,
+    transformOrigin: position < 0 ? "right center" : "left center",
+    zIndex: Math.max(0, 40 - Math.round(abs * 10))
   };
 }
 
@@ -101,8 +89,11 @@ export function PortfolioCarousel() {
   const [selected, setSelected] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [dragProgress, setDragProgress] = useState(0);
+  const [stageWidth, setStageWidth] = useState(defaultStageWidth);
   const dragStartRef = useRef<DragStart | null>(null);
   const suppressClickRef = useRef(false);
+  const stageRef = useRef<HTMLDivElement | null>(null);
   const selectedImage = carouselImages[selected];
 
   const previous = useCallback(() => {
@@ -122,6 +113,30 @@ export function PortfolioCarousel() {
       })),
     [selected]
   );
+
+  useEffect(() => {
+    const stage = stageRef.current;
+
+    if (!stage) {
+      return;
+    }
+
+    const updateStageWidth = () => {
+      setStageWidth(stage.clientWidth || defaultStageWidth);
+    };
+
+    updateStageWidth();
+
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", updateStageWidth);
+      return () => window.removeEventListener("resize", updateStageWidth);
+    }
+
+    const observer = new ResizeObserver(updateStageWidth);
+    observer.observe(stage);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -157,6 +172,8 @@ export function PortfolioCarousel() {
       y: event.clientY
     };
     suppressClickRef.current = false;
+    setDragProgress(0);
+    setIsDragging(true);
     event.currentTarget.setPointerCapture(event.pointerId);
   }, []);
 
@@ -170,10 +187,14 @@ export function PortfolioCarousel() {
     const distanceX = event.clientX - start.x;
     const distanceY = event.clientY - start.y;
 
-    if (Math.abs(distanceX) > 8 && Math.abs(distanceX) > Math.abs(distanceY)) {
+    if (Math.abs(distanceX) > 3 && Math.abs(distanceX) > Math.abs(distanceY)) {
+      event.preventDefault();
       setIsDragging(true);
+      setDragProgress(
+        clamp(-distanceX / Math.max(stageWidth, 1), -1.12, 1.12)
+      );
     }
-  }, []);
+  }, [stageWidth]);
 
   const finishDrag = useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
@@ -191,11 +212,14 @@ export function PortfolioCarousel() {
 
       const distanceX = event.clientX - start.x;
       const distanceY = event.clientY - start.y;
+      const progress = clamp(-distanceX / Math.max(stageWidth, 1), -1.12, 1.12);
+      const shouldAdvance =
+        Math.abs(distanceX) >= dragThreshold &&
+        Math.abs(distanceX) >= Math.abs(distanceY) * 1.15 &&
+        Math.abs(progress) >= 0.16;
 
-      if (
-        Math.abs(distanceX) < dragThreshold ||
-        Math.abs(distanceX) < Math.abs(distanceY) * 1.15
-      ) {
+      if (!shouldAdvance) {
+        setDragProgress(0);
         return;
       }
 
@@ -205,18 +229,20 @@ export function PortfolioCarousel() {
         suppressClickRef.current = false;
       }, 120);
 
-      if (distanceX > 0) {
+      if (progress < 0) {
         previous();
       } else {
         next();
       }
+      setDragProgress(0);
     },
-    [next, previous]
+    [next, previous, stageWidth]
   );
 
   const cancelDrag = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     dragStartRef.current = null;
     setIsDragging(false);
+    setDragProgress(0);
 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -247,6 +273,7 @@ export function PortfolioCarousel() {
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={finishDrag}
+        ref={stageRef}
         tabIndex={0}
       >
         <div className="absolute inset-0 [transform-style:preserve-3d]">
@@ -265,7 +292,7 @@ export function PortfolioCarousel() {
                 }
                 className={cn(
                   "absolute left-1/2 top-1/2 block touch-manipulation overflow-hidden rounded-[1.2rem] bg-[#15110d] p-[3px] transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-[0_34px_80px_rgba(30,24,18,0.28)] ring-1 ring-black/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background",
-                  reduceMotion && "duration-0",
+                  (reduceMotion || isDragging) && "duration-0",
                   isActive
                     ? "cursor-default"
                     : "cursor-pointer bg-[#17120e] shadow-[0_22px_54px_rgba(30,24,18,0.18)] ring-black/45"
@@ -281,7 +308,7 @@ export function PortfolioCarousel() {
                   }
                 }}
                 style={{
-                  ...getSlideStyle(relative),
+                  ...getSlideStyle(relative - dragProgress, stageWidth),
                   backfaceVisibility: "hidden"
                 }}
                 tabIndex={isInteractivePreview ? 0 : -1}
