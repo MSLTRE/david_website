@@ -8,7 +8,6 @@ export function BrandMark() {
         alt=""
         width={1940}
         height={2104}
-        priority
         unoptimized
         className="h-10 w-auto rounded-sm"
       />

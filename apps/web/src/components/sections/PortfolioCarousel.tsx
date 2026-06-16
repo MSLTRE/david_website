@@ -2,59 +2,118 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { carouselImages } from "@/content/portfolio";
+import { cn } from "@/lib/cn";
 
-const autoplayDelay = 5200;
-const resumeDelay = 8000;
+const swipeThreshold = 44;
+
+function wrapIndex(index: number) {
+  return (index + carouselImages.length) % carouselImages.length;
+}
+
+function getRelativeIndex(index: number, selected: number) {
+  const total = carouselImages.length;
+  let relative = index - selected;
+
+  if (relative > total / 2) {
+    relative -= total;
+  } else if (relative < -total / 2) {
+    relative += total;
+  }
+
+  return relative;
+}
+
+function getSlideStyle(relative: number): React.CSSProperties {
+  if (relative === 0) {
+    return {
+      filter: "brightness(1)",
+      opacity: 1,
+      transform: "translate3d(-50%, -50%, 120px) rotateY(0deg) scale(1)",
+      zIndex: 30
+    };
+  }
+
+  if (relative === -1) {
+    return {
+      filter: "brightness(0.74) saturate(0.88)",
+      opacity: 0.55,
+      transform:
+        "translate3d(calc(-50% - min(42vw, 580px)), -50%, -110px) rotateY(68deg) rotateZ(-1deg) scale(0.72)",
+      transformOrigin: "right center",
+      zIndex: 20
+    };
+  }
+
+  if (relative === 1) {
+    return {
+      filter: "brightness(0.74) saturate(0.88)",
+      opacity: 0.55,
+      transform:
+        "translate3d(calc(-50% + min(42vw, 580px)), -50%, -110px) rotateY(-68deg) rotateZ(1deg) scale(0.72)",
+      transformOrigin: "left center",
+      zIndex: 20
+    };
+  }
+
+  if (relative === -2) {
+    return {
+      filter: "blur(0.5px) brightness(0.58) saturate(0.78)",
+      opacity: 0.2,
+      transform:
+        "translate3d(calc(-50% - min(58vw, 780px)), -50%, -210px) rotateY(76deg) rotateZ(-2deg) scale(0.54)",
+      transformOrigin: "right center",
+      zIndex: 10
+    };
+  }
+
+  if (relative === 2) {
+    return {
+      filter: "blur(0.5px) brightness(0.58) saturate(0.78)",
+      opacity: 0.2,
+      transform:
+        "translate3d(calc(-50% + min(58vw, 780px)), -50%, -210px) rotateY(-76deg) rotateZ(2deg) scale(0.54)",
+      transformOrigin: "left center",
+      zIndex: 10
+    };
+  }
+
+  return {
+    filter: "blur(1px) brightness(0.45)",
+    opacity: 0,
+    pointerEvents: "none",
+    transform:
+      relative < 0
+        ? "translate3d(calc(-50% - min(64vw, 880px)), -50%, -280px) rotateY(80deg) scale(0.44)"
+        : "translate3d(calc(-50% + min(64vw, 880px)), -50%, -280px) rotateY(-80deg) scale(0.44)",
+    zIndex: 0
+  };
+}
 
 export function PortfolioCarousel() {
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const slideRefs = useRef<Array<HTMLElement | null>>([]);
-  const resumeTimerRef = useRef<number | null>(null);
-  const rafRef = useRef<number | null>(null);
   const [selected, setSelected] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const touchStartXRef = useRef<number | null>(null);
+  const selectedImage = carouselImages[selected];
 
-  const scrollToIndex = useCallback((index: number) => {
-    const viewport = viewportRef.current;
-    const target = slideRefs.current[index];
-
-    if (!viewport || !target) {
-      return;
-    }
-
-    viewport.scrollTo({
-      left: target.offsetLeft - viewport.offsetLeft,
-      behavior: reduceMotion ? "auto" : "smooth"
-    });
-    setSelected(index);
-  }, [reduceMotion]);
-
-  const pauseTemporarily = useCallback(() => {
-    setPaused(true);
-
-    if (resumeTimerRef.current) {
-      window.clearTimeout(resumeTimerRef.current);
-    }
-
-    resumeTimerRef.current = window.setTimeout(() => {
-      setPaused(false);
-    }, resumeDelay);
+  const previous = useCallback(() => {
+    setSelected((current) => wrapIndex(current - 1));
   }, []);
 
-  const scrollPrev = useCallback(() => {
-    pauseTemporarily();
-    scrollToIndex(
-      selected === 0 ? carouselImages.length - 1 : selected - 1
-    );
-  }, [pauseTemporarily, scrollToIndex, selected]);
+  const next = useCallback(() => {
+    setSelected((current) => wrapIndex(current + 1));
+  }, []);
 
-  const scrollNext = useCallback(() => {
-    pauseTemporarily();
-    scrollToIndex((selected + 1) % carouselImages.length);
-  }, [pauseTemporarily, scrollToIndex, selected]);
+  const visibleSlides = useMemo(
+    () =>
+      carouselImages.map((image, index) => ({
+        image,
+        index,
+        relative: getRelativeIndex(index, selected)
+      })),
+    [selected]
+  );
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -66,154 +125,161 @@ export function PortfolioCarousel() {
     return () => mediaQuery.removeEventListener("change", onChange);
   }, []);
 
-  useEffect(() => {
-    const viewport = viewportRef.current;
-
-    if (!viewport) {
-      return;
-    }
-
-    const onScroll = () => {
-      if (rafRef.current) {
-        window.cancelAnimationFrame(rafRef.current);
+  const onKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        previous();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        next();
       }
+    },
+    [next, previous]
+  );
 
-      rafRef.current = window.requestAnimationFrame(() => {
-        const viewportCenter = viewport.scrollLeft + viewport.clientWidth / 2;
-        const nearestIndex = slideRefs.current.reduce((nearest, slide, index) => {
-          if (!slide) {
-            return nearest;
-          }
-
-          const slideCenter =
-            slide.offsetLeft - viewport.offsetLeft + slide.clientWidth / 2;
-          const distance = Math.abs(viewportCenter - slideCenter);
-
-          return distance < nearest.distance ? { distance, index } : nearest;
-        }, { distance: Number.POSITIVE_INFINITY, index: 0 }).index;
-
-        setSelected(nearestIndex);
-      });
-    };
-
-    viewport.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
-    return () => {
-      viewport.removeEventListener("scroll", onScroll);
-      if (rafRef.current) {
-        window.cancelAnimationFrame(rafRef.current);
-      }
-    };
+  const onTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+    touchStartXRef.current = event.changedTouches[0]?.clientX ?? null;
   }, []);
 
-  useEffect(() => {
-    if (paused || reduceMotion) {
-      return;
-    }
+  const onTouchEnd = useCallback(
+    (event: React.TouchEvent<HTMLDivElement>) => {
+      const startX = touchStartXRef.current;
+      touchStartXRef.current = null;
 
-    const timer = window.setInterval(() => {
-      const nextIndex = (selected + 1) % carouselImages.length;
-      scrollToIndex(nextIndex);
-    }, autoplayDelay);
-
-    return () => window.clearInterval(timer);
-  }, [paused, reduceMotion, scrollToIndex, selected]);
-
-  useEffect(() => {
-    return () => {
-      if (resumeTimerRef.current) {
-        window.clearTimeout(resumeTimerRef.current);
+      if (startX === null) {
+        return;
       }
-    };
-  }, []);
+
+      const endX = event.changedTouches[0]?.clientX ?? startX;
+      const distance = endX - startX;
+
+      if (Math.abs(distance) < swipeThreshold) {
+        return;
+      }
+
+      if (distance > 0) {
+        previous();
+      } else {
+        next();
+      }
+    },
+    [next, previous]
+  );
 
   return (
     <div
-      aria-label="Recent portfolio carousel"
+      aria-label="Recent portfolio photos"
+      aria-roledescription="carousel"
       className="grid gap-5"
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      onKeyDown={onKeyDown}
       role="region"
     >
       <div
-        className="portfolio-scrollbar -mx-5 snap-x snap-mandatory overflow-x-auto px-5 [scroll-padding-inline:1.25rem] md:-mx-8 md:px-8 md:[scroll-padding-inline:2rem]"
-        onPointerDown={pauseTemporarily}
-        onWheel={pauseTemporarily}
-        ref={viewportRef}
+        aria-live="polite"
+        className="sr-only"
       >
-        <div className="flex gap-4 pb-1 sm:gap-6">
-          {carouselImages.map((image, index) => (
-            <figure
-              className="w-[min(86vw,760px)] shrink-0 snap-start sm:w-[min(68vw,820px)] lg:w-[min(48vw,860px)] xl:w-[min(42vw,900px)]"
-              key={image.id}
-              ref={(node) => {
-                slideRefs.current[index] = node;
-              }}
-            >
-              <div className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_20px_55px_rgba(30,24,18,0.1)]">
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#f3eee7]">
-                  <Image
-                    alt={image.alt}
-                    className="h-full w-full object-contain transition duration-700 group-hover:scale-[1.01]"
-                    fill
-                    fetchPriority={index < 2 ? "high" : "auto"}
-                    loading={index < 3 ? "eager" : "lazy"}
-                    quality={86}
-                    sizes="(min-width: 1280px) 42vw, (min-width: 1024px) 48vw, (min-width: 640px) 68vw, 86vw"
-                    src={image.src}
-                  />
-                </div>
-                <figcaption className="grid min-h-[88px] content-start gap-2 p-5 sm:min-h-[96px]">
-                  <span className="text-xs font-black uppercase tracking-[0.16em] text-accent">
-                    {image.category}
-                  </span>
-                  <span className="text-xl font-black leading-tight tracking-tight sm:text-2xl">
-                    {image.title}
-                  </span>
-                </figcaption>
-              </div>
-            </figure>
-          ))}
+        {selectedImage.title}, {selected + 1} of {carouselImages.length}
+      </div>
+
+      <div
+        className="relative -mx-5 h-[clamp(360px,88vw,500px)] overflow-hidden px-5 outline-none [perspective:1300px] [perspective-origin:50%_48%] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[clamp(410px,66vw,580px)] md:-mx-8 md:h-[clamp(470px,52vw,650px)] md:px-8"
+        onTouchEnd={onTouchEnd}
+        onTouchStart={onTouchStart}
+        tabIndex={0}
+      >
+        <div className="absolute inset-0 [transform-style:preserve-3d]">
+          {visibleSlides.map(({ image, index, relative }) => {
+            const isActive = relative === 0;
+            const isInteractivePreview = Math.abs(relative) === 1;
+
+            return (
+              <button
+                aria-current={isActive ? "true" : undefined}
+                aria-hidden={!(isActive || isInteractivePreview)}
+                aria-label={
+                  isActive
+                    ? `${image.title}, current project`
+                    : `Show ${image.title}`
+                }
+                className={cn(
+                  "absolute left-1/2 top-1/2 block touch-manipulation rounded-[1.1rem] transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background",
+                  reduceMotion && "duration-0",
+                  isActive ? "cursor-default" : "cursor-pointer"
+                )}
+                key={image.id}
+                onClick={() => {
+                  if (!isActive) {
+                    setSelected(index);
+                  }
+                }}
+                style={{
+                  ...getSlideStyle(relative),
+                  backfaceVisibility: "hidden"
+                }}
+                tabIndex={isInteractivePreview ? 0 : -1}
+                type="button"
+              >
+                <Image
+                  alt={isActive ? image.alt : ""}
+                  className={cn(
+                    "block h-auto w-auto rounded-[1.1rem] object-contain shadow-[0_34px_80px_rgba(30,24,18,0.3)] ring-1 ring-black/5",
+                    !isActive && "shadow-[0_24px_58px_rgba(30,24,18,0.22)]"
+                  )}
+                  fetchPriority={Math.abs(relative) <= 1 ? "high" : "auto"}
+                  height={image.height}
+                  loading={Math.abs(relative) <= 2 ? "eager" : "lazy"}
+                  quality={86}
+                  sizes={
+                    isActive
+                      ? "(min-width: 1280px) 980px, (min-width: 768px) 78vw, 86vw"
+                      : "(min-width: 1280px) 620px, (min-width: 768px) 54vw, 68vw"
+                  }
+                  style={{
+                    maxHeight: isActive
+                      ? "clamp(290px, 58vw, 560px)"
+                      : "clamp(250px, 56vw, 560px)",
+                    maxWidth: isActive ? "min(84vw, 900px)" : "min(72vw, 820px)"
+                  }}
+                  src={image.src}
+                  width={image.width}
+                />
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex gap-2" aria-label="Carousel slide position">
-          {carouselImages.map((image, index) => (
-            <button
-              aria-label={`Go to ${image.title}`}
-              className={`h-2.5 rounded-full transition ${
-                index === selected ? "w-8 bg-accent" : "w-2.5 bg-border"
-              }`}
-              key={image.id}
-              onClick={() => {
-                pauseTemporarily();
-                scrollToIndex(index);
-              }}
-              type="button"
-            />
-          ))}
-        </div>
-        <div className="flex gap-2">
+      <div className="mx-auto grid w-full max-w-3xl gap-3">
+        <div className="flex items-center justify-center gap-3">
           <button
             aria-label="Previous project"
-            className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-white text-foreground transition hover:border-accent"
-            onClick={scrollPrev}
+            className="inline-flex size-12 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-[0_14px_28px_rgba(30,24,18,0.08)] transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            onClick={previous}
             type="button"
           >
-            <ChevronLeft aria-hidden="true" />
+            <ChevronLeft aria-hidden="true" size={22} strokeWidth={2.4} />
           </button>
+          <div className="min-w-24 text-center text-sm font-black tabular-nums tracking-[0.18em] text-foreground/75">
+            {selected + 1} / {carouselImages.length}
+          </div>
           <button
             aria-label="Next project"
-            className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-white text-foreground transition hover:border-accent"
-            onClick={scrollNext}
+            className="inline-flex size-12 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-[0_14px_28px_rgba(30,24,18,0.08)] transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            onClick={next}
             type="button"
           >
-            <ChevronRight aria-hidden="true" />
+            <ChevronRight aria-hidden="true" size={22} strokeWidth={2.4} />
           </button>
+        </div>
+
+        <div className="min-h-12 text-center">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-accent">
+            {selectedImage.category}
+          </p>
+          <p className="mt-1 text-xl font-black tracking-tight text-foreground sm:text-2xl">
+            {selectedImage.title}
+          </p>
         </div>
       </div>
     </div>

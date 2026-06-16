@@ -38,9 +38,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/20251201_125707.jpg",
     alt: "Gray tile shower with a built-in bench, recessed niche, and mosaic floor.",
     description: "A shower installation with wall tile, a bench, niche, and mosaic pan.",
-    orientation: "landscape",
-    width: 4000,
-    height: 3000
+    orientation: "portrait",
+    width: 3000,
+    height: 4000
   },
   {
     id: "diagonal-entry-tile-floor",
@@ -50,9 +50,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     alt: "Entry tile floor installed on a diagonal layout through a tall foyer.",
     description: "A diagonal floor layout with clean transitions at the surrounding rooms.",
     featured: true,
-    orientation: "landscape",
-    width: 4000,
-    height: 3000
+    orientation: "portrait",
+    width: 3000,
+    height: 4000
   },
   {
     id: "arched-stone-shower",
@@ -72,9 +72,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/20260204_114801.jpg",
     alt: "Close-up of a dark tile shower corner with a recessed niche, bench, and pebble floor.",
     description: "Shower detail work around a niche, corner bench, and pebble floor.",
-    orientation: "landscape",
-    width: 4000,
-    height: 3000
+    orientation: "portrait",
+    width: 3000,
+    height: 4000
   },
   {
     id: "marble-look-foyer-floor",

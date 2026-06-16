@@ -100,14 +100,6 @@ select {
   font-size: 10px;
 }
 
-.portfolio-scrollbar {
-  scrollbar-width: none;
-}
-
-.portfolio-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
 .service-marker {
   align-items: center;
   background: #1f2b25;
