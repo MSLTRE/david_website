@@ -130,7 +130,7 @@ export function PortfolioCarousel() {
 
   return (
     <div
-      aria-label="Recent tile work carousel"
+      aria-label="Recent portfolio carousel"
       className="grid gap-5"
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
@@ -166,15 +166,12 @@ export function PortfolioCarousel() {
                     src={image.src}
                   />
                 </div>
-                <figcaption className="grid min-h-[116px] content-start gap-2 p-5 sm:min-h-[124px]">
+                <figcaption className="grid min-h-[88px] content-start gap-2 p-5 sm:min-h-[96px]">
                   <span className="text-xs font-black uppercase tracking-[0.16em] text-accent">
                     {image.category}
                   </span>
                   <span className="text-xl font-black leading-tight tracking-tight sm:text-2xl">
                     {image.title}
-                  </span>
-                  <span className="text-sm font-semibold leading-6 text-muted-foreground">
-                    {image.description}
                   </span>
                 </figcaption>
               </div>

@@ -48,7 +48,6 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const dialogTitleId = useId();
-  const dialogDescId = useId();
 
   const total = images.length;
   const openIndex = openId
@@ -168,7 +167,6 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
           role="dialog"
           aria-modal="true"
           aria-labelledby={dialogTitleId}
-          aria-describedby={dialogDescId}
           className="fixed inset-0 z-50 flex flex-col bg-foreground/95 backdrop-blur-sm"
           onClick={(event) => {
             if (event.target === event.currentTarget) handleClose();
@@ -231,7 +229,7 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
               </svg>
             </button>
 
-            <div className="relative w-full max-w-5xl mx-auto" id={dialogDescId}>
+            <div className="relative w-full max-w-5xl mx-auto">
               <div
                 className="relative w-full mx-auto"
                 style={{
@@ -249,9 +247,6 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
                   priority
                 />
               </div>
-              <p className="mt-3 text-center text-sm text-background/80">
-                {current.description}
-              </p>
             </div>
 
             <button

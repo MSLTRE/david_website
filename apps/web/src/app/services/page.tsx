@@ -7,7 +7,7 @@ import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 export const metadata = createPageMetadata({
   title: "Tile Installation Services",
   description:
-    "Tile floor, shower, backsplash, fireplace surround, repair, and surface preparation services across Round Rock, Austin, and surrounding communities.",
+    "Tile floors, showers, tub surrounds, fireplace surrounds, patios, backsplashes, pool surrounds, stairways, tile repair, and grout repair across the Greater Austin area.",
   path: "/services"
 });
 
@@ -26,16 +26,17 @@ export default function ServicesPage() {
             Tile work, end to end.
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Floors, showers, backsplashes, fireplace surrounds, repair, and the
-            substrate prep work that decides how long a tile job lasts.
+            If something can be tiled, we&apos;ve almost certainly done it. From
+            simple updates to custom projects, we take pride in delivering
+            clean, professional work that&apos;s built to last.
           </p>
         </div>
       </SectionContainer>
       <ServicesOverviewSection
         showCta={false}
-        eyebrow="What I do"
-        heading="A focused list, every job done the same way."
-        description="Every category below is the same standards: proper preparation, precision layout, and a clean finish."
+        eyebrow="What we do"
+        heading="A straightforward list of tile services."
+        description="Floors, showers, tub surrounds, fireplace surrounds, patios, backsplashes, pool surrounds, stairways, tile repair, and grout repair or replacement."
       />
       <ServiceAreaSection />
       <FinalCallToActionSection />

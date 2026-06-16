@@ -6,13 +6,13 @@ export type NavigationItem = {
 export const primaryNavigation: readonly NavigationItem[] = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
+  { label: "Portfolio", href: "/work" },
   { label: "Contact", href: "/contact" }
 ];
 
 export const footerNavigation: readonly NavigationItem[] = [
   { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
+  { label: "Portfolio", href: "/work" },
   { label: "Contact", href: "/contact" },
   { label: "Privacy", href: "/privacy" }
 ];
