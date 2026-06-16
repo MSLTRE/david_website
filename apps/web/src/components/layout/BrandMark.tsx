@@ -4,12 +4,13 @@ export function BrandMark() {
   return (
     <span className="inline-flex items-center gap-3">
       <Image
-        src="/brand/luibrand-tile-icon.svg"
+        src="/brand/LuibrandTileIcon.jpg"
         alt=""
-        width={42}
-        height={42}
+        width={1940}
+        height={2104}
         priority
-        className="size-10 rounded-lg"
+        unoptimized
+        className="h-10 w-auto rounded-sm"
       />
       <span className="text-lg font-black tracking-tight">Luibrand Tile</span>
     </span>

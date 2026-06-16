@@ -84,9 +84,8 @@ full setup, including how to verify a sender domain in Resend.
 
 ## Brand and portfolio assets
 
-* Brand mark: `apps/web/public/brand/luibrand-tile-icon.svg` and
-  `apps/web/public/brand/luibrand-tile-icon-1024.png`. Replace in place
-  when the final mark is ready.
+* Brand mark: `apps/web/public/brand/LuibrandTileIcon.jpg`. Replace in
+  place when the final mark is updated.
 * Portfolio photos live in `apps/web/public/portfolio/`. The set of ten
   images and their semantic filenames are defined in
   `apps/web/src/content/portfolio.ts`. Replacing a file in place keeps

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   applicationName: siteConfig.siteName,
   authors: [{ name: siteConfig.owner }],
   icons: {
-    icon: [{ url: "/brand/luibrand-tile-icon.svg", type: "image/svg+xml" }]
+    icon: [{ url: "/brand/LuibrandTileIcon.jpg", type: "image/jpeg" }]
   },
   openGraph: {
     type: "website",
