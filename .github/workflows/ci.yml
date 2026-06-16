@@ -28,6 +28,7 @@ jobs:
 
   deploy:
     needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     env:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -50,12 +51,7 @@ jobs:
         run: pnpm install -g netlify-cli
 
       - name: Netlify build
-        run: netlify build
-
-      - name: Deploy preview (PR)
-        if: github.event_name == 'pull_request'
-        run: netlify deploy --message="PR #${{ github.event.number }}: ${{ github.event.pull_request.title }}"
+        run: netlify build --filter web
 
       - name: Deploy production (main)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: netlify deploy --prod --message="Auto-deploy ${{ github.sha }}"
+        run: netlify deploy --prod --filter web --message="Auto-deploy ${{ github.sha }}"
