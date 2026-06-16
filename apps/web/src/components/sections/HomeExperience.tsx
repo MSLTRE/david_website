@@ -1,39 +1,10 @@
-import { Check, Hammer, Layers3, ShowerHead, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/siteConfig";
 import { heroImage } from "@/content/portfolio";
 import { PortfolioCarousel } from "@/components/sections/PortfolioCarousel";
 import { ServiceAreaOverview } from "@/components/sections/ServiceAreaOverview";
-
-const services = [
-  {
-    icon: Layers3,
-    title: "Floors",
-    copy: "Clean layouts, steady grout lines, and substrate prep for rooms that need to hold up."
-  },
-  {
-    icon: ShowerHead,
-    title: "Showers & Bathrooms",
-    copy: "Waterproofing, slope, niches, benches, and trim handled with careful sequencing."
-  },
-  {
-    icon: Sparkles,
-    title: "Backsplashes",
-    copy: "Kitchen tile that looks intentional around outlets, corners, counters, and cabinets."
-  },
-  {
-    icon: Hammer,
-    title: "Repair & Prep",
-    copy: "Targeted tile repair, grout refreshes, crack isolation, leveling, and surface prep."
-  }
-];
-
-const principles = [
-  "Proper preparation",
-  "Precise layout",
-  "Clean finish"
-];
+import { services } from "@/content/services";
 
 export function HomeExperience() {
   return (
@@ -61,7 +32,7 @@ export function HomeExperience() {
               Luibrand Tile
             </h1>
             <p className="mt-5 max-w-2xl text-2xl font-bold leading-tight text-white/88 md:text-4xl">
-              Precise tile installation across Austin and Round Rock.
+              Precise tile installation across the greater Austin area.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button className="sm:min-w-44" href="/contact#quote" variant="light">
@@ -71,7 +42,7 @@ export function HomeExperience() {
                 Call {siteConfig.phone}
               </Button>
               <Button className="sm:min-w-44" href="#work" variant="secondary">
-                View work
+                View portfolio
               </Button>
             </div>
           </div>
@@ -79,33 +50,20 @@ export function HomeExperience() {
       </section>
 
       <section className="bg-white" id="craft">
-        <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-accent">
-              Craftsmanship
-            </p>
-            <h2 className="mt-4 max-w-xl text-4xl font-black tracking-tight md:text-6xl">
-              Quality starts with the right foundation.
+            <h2 className="max-w-xl text-4xl font-black tracking-tight md:text-6xl">
+              Craftsmanship you can stand on.
             </h2>
           </div>
-          <div className="flex flex-col gap-8">
+          <div>
             <p className="text-xl leading-9 text-muted-foreground">
-              Luibrand Tile is built around careful prep, square layouts, and
-              finish details that still look right after daily use. The work is
-              practical, clean, and direct: plan the surface well, set the tile
-              precisely, and leave the room ready to live in.
+              Quality tile work starts with proper preparation and attention to
+              detail. From the layout of the first tile to the final finishing
+              touches, every step matters. At Luibrand Tile, we take pride in
+              delivering clean, professional work that&apos;s built to last and
+              made to be enjoyed every day.
             </p>
-            <div className="grid gap-3 sm:grid-cols-3">
-              {principles.map((principle) => (
-                <div
-                  className="rounded-lg border border-border bg-secondary p-4"
-                  key={principle}
-                >
-                  <Check aria-hidden="true" className="mb-3 text-accent" />
-                  <h3 className="font-black tracking-tight">{principle}</h3>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -115,15 +73,18 @@ export function HomeExperience() {
           <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.18em] text-accent">
-                Work
+                Portfolio
               </p>
               <h2 className="mt-4 max-w-3xl text-4xl font-black tracking-tight md:text-6xl">
-                Real tile work from Austin-area homes.
+                Recent work throughout the Greater Austin area.
               </h2>
             </div>
-            <p className="max-w-md text-base leading-7 text-muted-foreground">
-              Fireplace surrounds, showers, foyers, backsplashes, and
-              wood-look floors, all shown from real project photos.
+            <p className="max-w-xl text-base leading-7 text-muted-foreground">
+              Take a look at some of our recent work throughout the Greater
+              Austin area. From custom showers and fireplace surrounds to
+              backsplashes, foyers, and wood-look tile floors, these projects
+              highlight the craftsmanship and attention to detail that go into
+              every installation.
             </p>
           </div>
           <PortfolioCarousel />
@@ -137,22 +98,22 @@ export function HomeExperience() {
               Services
             </p>
             <h2 className="mt-4 text-4xl font-black tracking-tight md:text-6xl">
-              Tile work for the rooms people actually use.
+              If something can be tiled, we&apos;ve almost certainly done it.
             </h2>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
+              From simple updates to custom projects, we take pride in
+              delivering clean, professional work that&apos;s built to last.
+            </p>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {services.map((service) => (
               <article
-                className="rounded-lg border border-border bg-white p-5 shadow-[0_16px_40px_rgba(30,24,18,0.06)]"
-                key={service.title}
+                className="flex min-h-24 items-end rounded-lg border border-border bg-white p-5 shadow-[0_16px_40px_rgba(30,24,18,0.05)]"
+                key={service.slug}
               >
-                <service.icon aria-hidden="true" className="mb-5 text-accent" />
-                <h3 className="text-xl font-black tracking-tight">
-                  {service.title}
+                <h3 className="text-lg font-black leading-tight tracking-tight">
+                  {service.name}
                 </h3>
-                <p className="mt-3 leading-7 text-muted-foreground">
-                  {service.copy}
-                </p>
               </article>
             ))}
           </div>

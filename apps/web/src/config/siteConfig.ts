@@ -18,14 +18,14 @@ export const siteConfig = {
   owner: "David Luibrand",
   url: "https://luibrandtile.netlify.app",
   description:
-    "Precise tile installation for floors, showers, backsplashes, fireplaces, and repairs across Austin and Round Rock.",
+    "Precise tile installation for floors, showers, backsplashes, fireplaces, and repairs across the Greater Austin area.",
   tagline: "Craftsmanship you can stand on.",
   phone: "(512) 843-9364",
   phoneHref: "tel:+15128439364",
   email: "luibrandtilecompany@gmail.com",
   heroEyebrow: "Austin-area tile installation",
   heroHeadline: "Luibrand Tile",
-  heroSupporting: "Precise tile installation across Austin and Round Rock.",
+  heroSupporting: "Precise tile installation across the greater Austin area.",
   heroBody:
     "Floors, showers, backsplashes, fireplace surrounds, repairs, and preparation work handled with clean layout and lasting detail.",
   address: {
@@ -44,7 +44,7 @@ export const siteConfig = {
   serviceAreas,
   social: [],
   navItems: [
-    { label: "Work", href: "/#work" },
+    { label: "Portfolio", href: "/#work" },
     { label: "Services", href: "/#services" },
     { label: "Area", href: "/#service-area" },
     { label: "Contact", href: "/contact" }

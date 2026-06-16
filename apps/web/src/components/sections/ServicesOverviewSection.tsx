@@ -13,7 +13,7 @@ export function ServicesOverviewSection({
   showCta = true,
   heading = "Tile work for the whole house, done one job at a time.",
   eyebrow = "Services",
-  description = "Floors, showers, backsplashes, fireplace surrounds, repair, and substrate prep — every job built on the same standards."
+  description = "If something can be tiled, we've almost certainly done it. From simple updates to custom projects, we take pride in delivering clean, professional work that's built to last."
 }: ServicesOverviewSectionProps = {}) {
   return (
     <SectionContainer ariaLabelledBy="services-heading">
@@ -32,28 +32,15 @@ export function ServicesOverviewSection({
         </p>
       </div>
 
-      <ul className="grid gap-px bg-border rounded-2xl overflow-hidden border border-border md:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
         {services.map((service) => (
           <li
             key={service.slug}
-            className="flex flex-col gap-4 bg-background p-6 md:p-7"
+            className="flex min-h-24 items-end rounded-lg border border-border bg-background p-5 shadow-[0_12px_32px_rgba(30,24,18,0.04)]"
           >
-            <h3 className="font-display text-xl md:text-2xl tracking-tight">
+            <h3 className="font-display text-lg md:text-xl leading-tight tracking-tight">
               {service.name}
             </h3>
-            <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
-              {service.summary}
-            </p>
-            <ul className="mt-auto flex flex-col gap-1.5 pt-2 text-sm text-foreground/75">
-              {service.highlights.map((highlight) => (
-                <li key={highlight} className="flex gap-2">
-                  <span aria-hidden="true" className="text-accent">
-                    ·
-                  </span>
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ul>
           </li>
         ))}
       </ul>

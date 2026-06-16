@@ -3,7 +3,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { portfolioImages } from "@/content/portfolio";
+import { carouselImages } from "@/content/portfolio";
 
 const autoplayDelay = 5200;
 const resumeDelay = 8000;
@@ -47,13 +47,13 @@ export function PortfolioCarousel() {
   const scrollPrev = useCallback(() => {
     pauseTemporarily();
     scrollToIndex(
-      selected === 0 ? portfolioImages.length - 1 : selected - 1
+      selected === 0 ? carouselImages.length - 1 : selected - 1
     );
   }, [pauseTemporarily, scrollToIndex, selected]);
 
   const scrollNext = useCallback(() => {
     pauseTemporarily();
-    scrollToIndex((selected + 1) % portfolioImages.length);
+    scrollToIndex((selected + 1) % carouselImages.length);
   }, [pauseTemporarily, scrollToIndex, selected]);
 
   useEffect(() => {
@@ -113,7 +113,7 @@ export function PortfolioCarousel() {
     }
 
     const timer = window.setInterval(() => {
-      const nextIndex = (selected + 1) % portfolioImages.length;
+      const nextIndex = (selected + 1) % carouselImages.length;
       scrollToIndex(nextIndex);
     }, autoplayDelay);
 
@@ -130,7 +130,7 @@ export function PortfolioCarousel() {
 
   return (
     <div
-      aria-label="Recent tile work carousel"
+      aria-label="Recent portfolio carousel"
       className="grid gap-5"
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
@@ -145,7 +145,7 @@ export function PortfolioCarousel() {
         ref={viewportRef}
       >
         <div className="flex gap-4 pb-1 sm:gap-6">
-          {portfolioImages.map((image, index) => (
+          {carouselImages.map((image, index) => (
             <figure
               className="w-[min(86vw,760px)] shrink-0 snap-start sm:w-[min(68vw,820px)] lg:w-[min(48vw,860px)] xl:w-[min(42vw,900px)]"
               key={image.id}
@@ -166,15 +166,12 @@ export function PortfolioCarousel() {
                     src={image.src}
                   />
                 </div>
-                <figcaption className="grid min-h-[116px] content-start gap-2 p-5 sm:min-h-[124px]">
+                <figcaption className="grid min-h-[88px] content-start gap-2 p-5 sm:min-h-[96px]">
                   <span className="text-xs font-black uppercase tracking-[0.16em] text-accent">
                     {image.category}
                   </span>
                   <span className="text-xl font-black leading-tight tracking-tight sm:text-2xl">
                     {image.title}
-                  </span>
-                  <span className="text-sm font-semibold leading-6 text-muted-foreground">
-                    {image.description}
                   </span>
                 </figcaption>
               </div>
@@ -185,7 +182,7 @@ export function PortfolioCarousel() {
 
       <div className="flex items-center justify-between gap-4">
         <div className="flex gap-2" aria-label="Carousel slide position">
-          {portfolioImages.map((image, index) => (
+          {carouselImages.map((image, index) => (
             <button
               aria-label={`Go to ${image.title}`}
               className={`h-2.5 rounded-full transition ${

@@ -17,7 +17,7 @@ export function PortfolioSection({
   showCta = true,
   heading = "A few rooms from recent work.",
   eyebrow = "Portfolio",
-  description = "Floors, showers, backsplashes, and fireplace surrounds. Real projects, real materials, real layouts.",
+  description = "Take a look at some of our recent work throughout the Greater Austin area. From custom showers and fireplace surrounds to backsplashes, foyers, and wood-look tile floors, these projects highlight the craftsmanship and attention to detail that go into every installation.",
   id = "portfolio"
 }: PortfolioSectionProps = {}) {
   const items = limit ? portfolioImages.slice(0, limit) : portfolioImages;

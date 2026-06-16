@@ -60,7 +60,7 @@ export default function ContactPage() {
           </div>
 
           <Button className="w-fit" href="/#work" variant="secondary">
-            View the work
+            View the portfolio
           </Button>
         </div>
 

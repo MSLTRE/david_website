@@ -6,7 +6,7 @@ import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 export const metadata = createPageMetadata({
   title: "Tile Portfolio",
   description:
-    "Tile portfolio from Luibrand Tile — floors, showers, backsplashes, and fireplace surrounds across the Austin area.",
+    "Tile portfolio from Luibrand Tile across the Greater Austin area, including custom showers, fireplace surrounds, backsplashes, foyers, and wood-look tile floors.",
   path: "/work"
 });
 
@@ -22,19 +22,21 @@ export default function WorkPage() {
             id="work-heading"
             className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight"
           >
-            A few rooms from recent work.
+            Portfolio
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Floors, showers, backsplashes, and fireplace surrounds. Click any
-            image to view it full-size.
+            Take a look at some of our recent work throughout the Greater
+            Austin area. From custom showers and fireplace surrounds to
+            backsplashes, foyers, and wood-look tile floors, these projects
+            highlight the craftsmanship and attention to detail that go into
+            every installation.
           </p>
         </div>
       </SectionContainer>
       <PortfolioSection
         showCta={false}
-        heading="Selected projects"
-        description="A current sampling of recent installations. More available on request."
-        eyebrow="Selected work"
+        heading="Recent tile projects"
+        eyebrow="Selected portfolio"
       />
       <FinalCallToActionSection />
     </>

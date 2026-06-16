@@ -22,7 +22,7 @@ export function ServiceAreaOverview({
           Austin-area tile installation, based in Round Rock.
         </h2>
         <p className="mt-5 text-lg leading-8 text-muted-foreground">
-          David works across Round Rock, Austin, Georgetown, Cedar Park,
+          Luibrand Tile operates across Round Rock, Austin, Georgetown, Cedar Park,
           Leander, Pflugerville, Hutto, Lakeway, Liberty Hill, Jarrell,
           Salado, and nearby communities.
         </p>

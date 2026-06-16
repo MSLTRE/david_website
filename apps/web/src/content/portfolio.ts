@@ -12,6 +12,7 @@ export type PortfolioImage = {
   readonly alt: string;
   readonly description: string;
   readonly featured?: boolean;
+  readonly showInCarousel?: boolean;
   readonly orientation: "landscape" | "portrait";
   readonly width: number;
   readonly height: number;
@@ -86,6 +87,86 @@ export const portfolioImages: readonly PortfolioImage[] = [
     orientation: "landscape",
     width: 4000,
     height: 3000
+  },
+  {
+    id: "marble-bathroom-floor-freestanding-tub",
+    title: "Marble bathroom floor with freestanding tub",
+    category: "Floor",
+    src: "/portfolio/june-2026/marble-bathroom-floor-freestanding-tub.jpg",
+    alt: "Marble-look bathroom floor tile in a bright bathroom with a freestanding tub and arched shower.",
+    description: "A polished bathroom floor with marble-look tile, balanced cuts, and clean transitions.",
+    orientation: "portrait",
+    width: 3000,
+    height: 4000
+  },
+  {
+    id: "dark-stone-kitchen-floor-window-view",
+    title: "Dark stone kitchen floor window view",
+    category: "Floor",
+    src: "/portfolio/june-2026/dark-stone-kitchen-floor-window-view.jpg",
+    alt: "Dark large-format kitchen floor tile extending toward windows and a kitchen island.",
+    description: "A wide kitchen floor view showing dark stone-look tile through the main work area.",
+    showInCarousel: false,
+    orientation: "portrait",
+    width: 3000,
+    height: 4000
+  },
+  {
+    id: "dark-stone-kitchen-floor-island-detail",
+    title: "Dark stone kitchen floor at the island",
+    category: "Floor",
+    src: "/portfolio/june-2026/dark-stone-kitchen-floor-island-detail.jpg",
+    alt: "Dark stone-look kitchen floor tile around a wood island and cabinets.",
+    description: "Large-format kitchen tile set around cabinets, island edges, and room transitions.",
+    orientation: "landscape",
+    width: 4000,
+    height: 3000
+  },
+  {
+    id: "dark-stone-kitchen-floor-overview",
+    title: "Dark stone kitchen floor overview",
+    category: "Floor",
+    src: "/portfolio/june-2026/dark-stone-kitchen-floor-overview.jpg",
+    alt: "Overview of dark stone-look kitchen floor tile from above the kitchen counters.",
+    description: "An overhead kitchen view showing the tile field across the cooking and dining area.",
+    showInCarousel: false,
+    orientation: "portrait",
+    width: 3000,
+    height: 4000
+  },
+  {
+    id: "hex-marble-kitchen-backsplash-range",
+    title: "Hex marble kitchen backsplash",
+    category: "Backsplash",
+    src: "/portfolio/june-2026/hex-marble-kitchen-backsplash-range.jpg",
+    alt: "Hex marble mosaic kitchen backsplash installed behind a range with dark cabinets.",
+    description: "Hex mosaic backsplash work around the range, outlets, hood, and cabinet lines.",
+    orientation: "landscape",
+    width: 4000,
+    height: 3000
+  },
+  {
+    id: "light-bathroom-floor-vanity-view",
+    title: "Light bathroom floor at the vanity",
+    category: "Floor",
+    src: "/portfolio/june-2026/light-bathroom-floor-vanity-view.jpg",
+    alt: "Light bathroom floor tile installed through a vanity area and doorway.",
+    description: "A light bathroom floor installation with clean grout lines and doorway transitions.",
+    orientation: "landscape",
+    width: 4000,
+    height: 3000
+  },
+  {
+    id: "light-bathroom-floor-long-view",
+    title: "Light bathroom floor long view",
+    category: "Floor",
+    src: "/portfolio/june-2026/light-bathroom-floor-long-view.jpg",
+    alt: "Long view of light bathroom floor tile with a vanity and built-in shelving.",
+    description: "A longer bathroom view showing the tile running cleanly through a narrow room.",
+    showInCarousel: false,
+    orientation: "portrait",
+    width: 3000,
+    height: 4000
   }
 ];
 
@@ -101,6 +182,10 @@ export function findPortfolioImageById(
 ): PortfolioImage | undefined {
   return portfolioImages.find((image) => image.id === id);
 }
+
+export const carouselImages = portfolioImages.filter(
+  (image) => image.showInCarousel !== false
+);
 
 export const heroImage =
   portfolioImages.find((image) => image.featured) ?? portfolioImages[0];
