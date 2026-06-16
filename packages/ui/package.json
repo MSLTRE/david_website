@@ -1,5 +1,5 @@
 {
-  "name": "@david-website/ui",
+  "name": "@luibrand-tile/ui",
   "private": true,
   "version": "0.0.0",
   "main": "./src/index.ts",

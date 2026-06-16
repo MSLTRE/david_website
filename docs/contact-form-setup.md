@@ -60,7 +60,7 @@ them at build/runtime.
 If `RESEND_API_KEY` is missing or the API call fails, the Server Action
 returns a friendly error message in the form. The page does not crash.
 The phone and email CTAs on the contact page (and in the header / final
-CTA section) keep working, so visitors can still reach David directly.
+CTA section) keep working, so visitors can still reach Luibrand Tile directly.
 
 ## Spam protection
 

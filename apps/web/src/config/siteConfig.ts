@@ -15,7 +15,7 @@ export const serviceAreas = [
 export const siteConfig = {
   siteName: "Luibrand Tile",
   legalName: "Luibrand Tile Company",
-  owner: "David Luibrand",
+  owner: "Luibrand Tile",
   url: "https://luibrandtile.netlify.app",
   description:
     "Precise tile installation for floors, showers, backsplashes, fireplaces, and repairs across the Greater Austin area.",

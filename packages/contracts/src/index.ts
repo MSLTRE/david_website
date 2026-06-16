@@ -1,4 +1,4 @@
 export const contractsPackagePlaceholder = {
-  name: "@david-website/contracts",
+  name: "@luibrand-tile/contracts",
   status: "placeholder"
 } as const;

@@ -14,7 +14,7 @@ export default function ThanksPage() {
         Thanks for reaching out.
       </h1>
       <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
-        David will follow up to talk through your project, timeline, and next
+        We&apos;ll follow up to talk through your project, timeline, and next
         steps.
       </p>
       <Button href="/">Back to home</Button>

@@ -144,10 +144,10 @@ export function ContactForm() {
         </Button>
         <p aria-live="polite" className="text-sm font-semibold text-muted-foreground">
           {status === "sent"
-            ? "Thanks. David will follow up soon."
+            ? "Thanks. We'll follow up soon."
             : status === "error"
-              ? "Something went wrong. Please call or email David directly."
-              : "No spam. Just project follow-up."}
+              ? "Something went wrong. Please call or email us directly."
+              : "We'll follow up about your project."}
         </p>
       </div>
     </form>

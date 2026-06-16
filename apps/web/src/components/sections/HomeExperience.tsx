@@ -137,8 +137,7 @@ export function HomeExperience() {
               Ready to plan your project?
             </h2>
             <p className="mt-4 max-w-2xl text-lg leading-8 text-white/75">
-              Tell David about the room, timeline, and what you want the tile to
-              solve.
+              Tell us about the room, timeline, and project details.
             </p>
           </div>
           <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]">

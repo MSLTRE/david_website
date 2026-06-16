@@ -90,7 +90,7 @@ export const portfolioImages: readonly PortfolioImage[] = [
   },
   {
     id: "marble-bathroom-floor-freestanding-tub",
-    title: "Marble bathroom floor with freestanding tub",
+    title: "Marble bathroom floor",
     category: "Floor",
     src: "/portfolio/june-2026/marble-bathroom-floor-freestanding-tub.jpg",
     alt: "Marble-look bathroom floor tile in a bright bathroom with a freestanding tub and arched shower.",
@@ -101,7 +101,7 @@ export const portfolioImages: readonly PortfolioImage[] = [
   },
   {
     id: "dark-stone-kitchen-floor-window-view",
-    title: "Dark stone kitchen floor window view",
+    title: "Dark stone kitchen floor",
     category: "Floor",
     src: "/portfolio/june-2026/dark-stone-kitchen-floor-window-view.jpg",
     alt: "Dark large-format kitchen floor tile extending toward windows and a kitchen island.",
@@ -113,7 +113,7 @@ export const portfolioImages: readonly PortfolioImage[] = [
   },
   {
     id: "dark-stone-kitchen-floor-island-detail",
-    title: "Dark stone kitchen floor at the island",
+    title: "Dark stone kitchen floor detail",
     category: "Floor",
     src: "/portfolio/june-2026/dark-stone-kitchen-floor-island-detail.jpg",
     alt: "Dark stone-look kitchen floor tile around a wood island and cabinets.",
@@ -124,7 +124,7 @@ export const portfolioImages: readonly PortfolioImage[] = [
   },
   {
     id: "dark-stone-kitchen-floor-overview",
-    title: "Dark stone kitchen floor overview",
+    title: "Dark stone kitchen floor",
     category: "Floor",
     src: "/portfolio/june-2026/dark-stone-kitchen-floor-overview.jpg",
     alt: "Overview of dark stone-look kitchen floor tile from above the kitchen counters.",
@@ -147,7 +147,7 @@ export const portfolioImages: readonly PortfolioImage[] = [
   },
   {
     id: "light-bathroom-floor-vanity-view",
-    title: "Light bathroom floor at the vanity",
+    title: "Light bathroom floor",
     category: "Floor",
     src: "/portfolio/june-2026/light-bathroom-floor-vanity-view.jpg",
     alt: "Light bathroom floor tile installed through a vanity area and doorway.",
@@ -158,7 +158,7 @@ export const portfolioImages: readonly PortfolioImage[] = [
   },
   {
     id: "light-bathroom-floor-long-view",
-    title: "Light bathroom floor long view",
+    title: "Light bathroom floor",
     category: "Floor",
     src: "/portfolio/june-2026/light-bathroom-floor-long-view.jpg",
     alt: "Long view of light bathroom floor tile with a vanity and built-in shelving.",

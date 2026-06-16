@@ -17,8 +17,8 @@ export function FinalCallToActionSection() {
               Ready to plan your project?
             </h2>
             <p className="text-primary-foreground/80 text-lg max-w-xl">
-              Tell David about the room and the timeline. He&rsquo;ll follow up
-              to talk through layout, materials, and next steps.
+              Tell us about the room and timeline. We&rsquo;ll follow up to talk
+              through layout, materials, and next steps.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-end">

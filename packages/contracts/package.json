@@ -1,5 +1,5 @@
 {
-  "name": "@david-website/contracts",
+  "name": "@luibrand-tile/contracts",
   "private": true,
   "version": "0.0.0",
   "main": "./src/index.ts",

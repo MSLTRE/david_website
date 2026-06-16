@@ -1,4 +1,4 @@
 export const siteCorePackagePlaceholder = {
-  name: "@david-website/site-core",
+  name: "@luibrand-tile/site-core",
   status: "placeholder"
 } as const;

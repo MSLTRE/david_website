@@ -21,23 +21,21 @@ export default function ContactPage() {
             className="text-4xl font-black tracking-tight text-foreground md:text-6xl"
             id="contact-heading"
           >
-            Tell David about your tile project.
+            Tell us about your tile project.
           </h1>
           <p className="text-lg leading-8 text-muted-foreground">
-            Share the room, timeline, and a few project details. David will
+            Share the room, timeline, and a few project details. We&apos;ll
             follow up by phone or email.
           </p>
 
           <ul className="grid gap-3 text-sm">
             <ContactCard
-              eyebrow="Call or text"
-              helper="Fastest way to reach David."
+              eyebrow="Phone"
               href={siteConfig.phoneHref}
               title={siteConfig.phone}
             />
             <ContactCard
               eyebrow="Email"
-              helper="Best for photos and longer notes."
               href={`mailto:${siteConfig.email}`}
               title={siteConfig.email}
             />

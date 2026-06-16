@@ -1,4 +1,4 @@
 export const uiPackagePlaceholder = {
-  name: "@david-website/ui",
+  name: "@luibrand-tile/ui",
   status: "placeholder"
 } as const;
