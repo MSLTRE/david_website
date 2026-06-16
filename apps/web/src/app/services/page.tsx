@@ -5,9 +5,9 @@ import { ServicesOverviewSection } from "@/components/sections/ServicesOverviewS
 import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 
 export const metadata = createPageMetadata({
-  title: "Tile Installation Services",
+  title: "Tile Installation Services in Austin & Round Rock",
   description:
-    "Tile floors, showers, tub surrounds, fireplace surrounds, patios, backsplashes, pool surrounds, stairways, tile repair, and grout repair across the Greater Austin area.",
+    "Professional tile installation services for floors, showers, tub surrounds, fireplace surrounds, patios, backsplashes, pool surrounds, stairways, tile repair, and grout repair across the Greater Austin area.",
   path: "/services"
 });
 

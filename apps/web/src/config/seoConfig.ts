@@ -10,7 +10,7 @@ export type SeoConfig = {
 };
 
 export const seoConfig: SeoConfig = {
-  defaultTitle: `${siteConfig.siteName} | ${siteConfig.tagline.replace(/\.$/, "")}`,
+  defaultTitle: siteConfig.seoTitle,
   titleTemplate: `%s | ${siteConfig.siteName}`,
   defaultDescription: siteConfig.description,
   defaultOpenGraphType: "website",

@@ -25,6 +25,7 @@ export function createPageMetadata({
     : seoConfig.defaultTitle;
   const pageDescription = description ?? seoConfig.defaultDescription;
   const url = new URL(path, siteConfig.url).toString();
+  const imageUrl = new URL(siteConfig.openGraphImage, siteConfig.url).toString();
 
   return {
     ...(title ? { title } : {}),
@@ -36,12 +37,21 @@ export function createPageMetadata({
       description: pageDescription,
       url,
       siteName: siteConfig.siteName,
-      locale: seoConfig.locale
+      locale: seoConfig.locale,
+      images: [
+        {
+          url: imageUrl,
+          width: 4000,
+          height: 3000,
+          alt: "Luibrand Tile fireplace surround project"
+        }
+      ]
     },
     twitter: {
       card: seoConfig.twitterCard,
       title: fullTitle,
-      description: pageDescription
+      description: pageDescription,
+      images: [imageUrl]
     }
   };
 }

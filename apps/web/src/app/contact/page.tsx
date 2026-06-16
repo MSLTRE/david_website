@@ -2,12 +2,14 @@ import { ContactForm } from "@/components/forms/ContactForm";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/siteConfig";
+import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Request a Tile Quote",
   description:
-    "Request a tile quote from Luibrand Tile for floors, showers, backsplashes, and tile repair across the Austin area."
-};
+    "Request a tile installation quote from Luibrand Tile for showers, floors, backsplashes, fireplace surrounds, tile repair, and grout repair across Austin and Round Rock.",
+  path: "/contact"
+});
 
 export default function ContactPage() {
   return (

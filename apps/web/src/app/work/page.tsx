@@ -4,9 +4,9 @@ import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 
 export const metadata = createPageMetadata({
-  title: "Tile Portfolio",
+  title: "Tile Portfolio in Austin & Round Rock",
   description:
-    "Tile portfolio from Luibrand Tile across the Greater Austin area, including custom showers, fireplace surrounds, backsplashes, foyers, and wood-look tile floors.",
+    "Tile portfolio from Luibrand Tile across Austin, Round Rock, and the Greater Austin area, including custom showers, fireplace surrounds, backsplashes, foyers, and wood-look tile floors.",
   path: "/work"
 });
 

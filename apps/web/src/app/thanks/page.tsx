@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/Button";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Thanks"
+export const metadata: Metadata = {
+  title: "Thanks",
+  robots: {
+    index: false,
+    follow: false
+  }
 };
 
 export default function ThanksPage() {

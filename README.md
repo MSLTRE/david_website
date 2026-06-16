@@ -71,8 +71,10 @@ Required environment variables (set in Netlify and any local `.env.local`):
 RESEND_API_KEY=
 CONTACT_TO_EMAIL=luibrandtilecompany@gmail.com
 CONTACT_FROM_EMAIL="Luibrand Tile <noreply@yourverifieddomain.com>"
-NEXT_PUBLIC_SITE_URL=https://luibrandtile.netlify.app
+NEXT_PUBLIC_SITE_URL=https://luibrandtile.com
 NEXT_PUBLIC_SITE_NAME="Luibrand Tile"
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
+NEXT_PUBLIC_BING_SITE_VERIFICATION=
 ```
 
 `.env.example` lists the same variables. If `RESEND_API_KEY` is not set,
@@ -81,6 +83,9 @@ CTAs continue to work as a fallback.
 
 See [`docs/contact-form-setup.md`](docs/contact-form-setup.md) for the
 full setup, including how to verify a sender domain in Resend.
+
+See [`docs/search-indexing-checklist.md`](docs/search-indexing-checklist.md)
+for Search Console, Bing Webmaster Tools, and local SEO launch steps.
 
 ## Brand and portfolio assets
 

@@ -39,7 +39,7 @@ local `.env.local` used for `pnpm --filter web dev`:
 | `RESEND_API_KEY` | The API key from step 1. |
 | `CONTACT_TO_EMAIL` | `luibrandtilecompany@gmail.com` |
 | `CONTACT_FROM_EMAIL` | A verified sender, e.g. `"Luibrand Tile <noreply@luibrandtile.com>"` |
-| `NEXT_PUBLIC_SITE_URL` | `https://luibrandtile.netlify.app` (update if a custom domain is used) |
+| `NEXT_PUBLIC_SITE_URL` | `https://luibrandtile.com` |
 | `NEXT_PUBLIC_SITE_NAME` | `Luibrand Tile` |
 
 Re-deploy after adding or updating environment variables. Netlify reads
