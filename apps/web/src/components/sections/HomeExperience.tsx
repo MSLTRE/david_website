@@ -116,7 +116,7 @@ export function HomeExperience() {
             </div>
           </div>
 
-          <div className="order-1 flex flex-col justify-center lg:order-2 lg:pl-5">
+          <div className="order-1 flex flex-col lg:order-2 lg:h-full lg:justify-between lg:pl-5">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
               {siteConfig.heroEyebrow}
             </p>
