@@ -23,7 +23,7 @@ export default function ContactPage() {
             className="font-display text-4xl font-medium leading-[1.06] tracking-normal text-foreground md:text-6xl"
             id="contact-heading"
           >
-            Tell us about your tile project.
+            Tell us about your tile project
           </h1>
           <p className="text-lg leading-8 text-muted-foreground">
             Share the room, timeline, and a few project details. We&apos;ll

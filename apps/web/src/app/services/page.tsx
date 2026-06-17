@@ -14,8 +14,11 @@ export const metadata = createPageMetadata({
 export default function ServicesPage() {
   return (
     <>
-      <SectionContainer ariaLabelledBy="services-page-heading">
-        <div className="flex flex-col gap-3 max-w-3xl">
+      <SectionContainer
+        ariaLabelledBy="services-page-heading"
+        className="pb-12 md:pb-16 lg:pb-20"
+      >
+        <div className="flex max-w-3xl flex-col gap-3">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
             Services
           </p>
@@ -23,20 +26,19 @@ export default function ServicesPage() {
             id="services-page-heading"
             className="font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
           >
-            Tile work, end to end.
+            Tile work, end to end
           </h1>
-          <p className="text-lg leading-8 text-muted-foreground max-w-2xl">
-            If something can be tiled, we&apos;ve almost certainly done it. From
-            simple updates to custom projects, we take pride in delivering
-            clean, professional work that&apos;s built to last.
+          <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
+            Floors, showers, backsplashes, fireplace surrounds, repairs, and
+            specialty tile work planned around the room, not a template.
           </p>
         </div>
       </SectionContainer>
       <ServicesOverviewSection
         showCta={false}
         eyebrow="What we do"
-        heading="A straightforward list of tile services."
-        description="Floors, showers, tub surrounds, fireplace surrounds, patios, backsplashes, pool surrounds, stairways, tile repair, and grout repair or replacement."
+        heading="Services for the rooms you use most"
+        description="A practical list of tile installation and repair work, from full-room finishes to targeted fixes."
       />
       <ServiceAreaSection />
       <FinalCallToActionSection />

@@ -15,15 +15,20 @@ type PortfolioSectionProps = {
 export function PortfolioSection({
   limit,
   showCta = true,
-  heading = "A few rooms from recent work.",
+  heading = "Project gallery",
   eyebrow = "Portfolio",
-  description = "Take a look at some of our recent work throughout the Greater Austin area. From custom showers and fireplace surrounds to backsplashes, foyers, and wood-look tile floors, these projects highlight the craftsmanship and attention to detail that go into every installation.",
+  description = "A closer look at showers, floors, fireplace surrounds, backsplashes, and finish details from Austin-area projects.",
   id = "portfolio"
 }: PortfolioSectionProps = {}) {
   const items = limit ? portfolioImages.slice(0, limit) : portfolioImages;
 
   return (
-    <SectionContainer id={id} ariaLabelledBy="portfolio-heading" tone="muted">
+    <SectionContainer
+      id={id}
+      ariaLabelledBy="portfolio-heading"
+      className="pt-12 md:pt-16 lg:pt-20"
+      tone="muted"
+    >
       <div className="flex flex-col gap-3 max-w-3xl mb-10 md:mb-12">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
           {eyebrow}

@@ -13,8 +13,11 @@ export const metadata = createPageMetadata({
 export default function WorkPage() {
   return (
     <>
-      <SectionContainer ariaLabelledBy="work-heading">
-        <div className="flex flex-col gap-3 max-w-3xl">
+      <SectionContainer
+        ariaLabelledBy="work-heading"
+        className="pb-12 md:pb-16 lg:pb-20"
+      >
+        <div className="flex max-w-3xl flex-col gap-3">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
             Portfolio
           </p>
@@ -22,21 +25,19 @@ export default function WorkPage() {
             id="work-heading"
             className="font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
           >
-            Recent tile work throughout the Austin area.
+            Recent tile work throughout the Austin area
           </h1>
-          <p className="text-lg leading-8 text-muted-foreground max-w-2xl">
-            Take a look at some of our recent work throughout the Greater
-            Austin area. From custom showers and fireplace surrounds to
-            backsplashes, foyers, and wood-look tile floors, these projects
-            highlight the craftsmanship and attention to detail that go into
-            every installation.
+          <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
+            Showers, floors, backsplashes, fireplace surrounds, and detail work
+            finished with careful prep and clean layout.
           </p>
         </div>
       </SectionContainer>
       <PortfolioSection
         showCta={false}
-        heading="Recent tile projects"
-        eyebrow="Selected portfolio"
+        heading="Project gallery"
+        eyebrow="Selected work"
+        description="Open any photo for a closer view of materials, edges, transitions, and finished room details."
       />
       <FinalCallToActionSection />
     </>

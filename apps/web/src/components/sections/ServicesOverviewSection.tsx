@@ -13,10 +13,13 @@ export function ServicesOverviewSection({
   showCta = true,
   heading = "Tile work for the whole house, done one job at a time.",
   eyebrow = "Services",
-  description = "If something can be tiled, we've almost certainly done it. From simple updates to custom projects, we take pride in delivering clean, professional work that's built to last."
+  description = "From simple updates to custom rooms, each service starts with prep, layout, and the finish details that make tile work feel intentional."
 }: ServicesOverviewSectionProps = {}) {
   return (
-    <SectionContainer ariaLabelledBy="services-heading">
+    <SectionContainer
+      ariaLabelledBy="services-heading"
+      className="pt-12 md:pt-16 lg:pt-20"
+    >
       <div className="flex flex-col gap-3 max-w-3xl mb-10 md:mb-12">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
           {eyebrow}
@@ -32,7 +35,7 @@ export function ServicesOverviewSection({
         </p>
       </div>
 
-      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (
           <li
             key={service.slug}

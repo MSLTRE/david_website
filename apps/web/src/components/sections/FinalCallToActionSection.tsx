@@ -14,7 +14,7 @@ export function FinalCallToActionSection() {
               id="final-cta-heading"
               className="font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
             >
-              Ready to plan your project?
+              Ready to plan your project
             </h2>
             <p className="text-primary-foreground/80 text-lg max-w-xl">
               Tell us about the room and timeline. We&rsquo;ll follow up to talk
