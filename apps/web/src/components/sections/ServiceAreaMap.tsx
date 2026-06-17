@@ -6,6 +6,7 @@ import {
   CircleMarker,
   MapContainer,
   Popup,
+  Polygon,
   TileLayer,
   Tooltip,
   useMap
@@ -18,6 +19,15 @@ const serviceCoordinates = siteConfig.serviceAreas.map(
 const serviceBounds = latLngBounds(serviceCoordinates);
 const serviceCenter = serviceBounds.getCenter();
 const maxServiceBounds = serviceBounds.pad(0.16);
+const coveragePolygon: LatLngExpression[] = [
+  [30.9471, -97.5386],
+  [30.8249, -97.6045],
+  [30.5427, -97.5467],
+  [30.2672, -97.7431],
+  [30.363, -97.9796],
+  [30.6649, -97.9225],
+  [30.6333, -97.6772]
+];
 
 function FitServiceAreaBounds() {
   const map = useMap();
@@ -35,11 +45,11 @@ function FitServiceAreaBounds() {
 
 export function ServiceAreaMap() {
   return (
-    <div className="relative h-[420px] overflow-hidden rounded-lg border border-border bg-white shadow-[0_20px_55px_rgba(30,24,18,0.08)] md:h-[520px]">
+    <div className="relative h-[430px] overflow-hidden rounded-2xl border border-border bg-sand shadow-[0_28px_80px_rgb(31_25_18/0.12)] md:h-[540px]">
       <MapContainer
         attributionControl
         center={serviceCenter}
-        className="z-0"
+        className="service-area-map z-0"
         maxBounds={maxServiceBounds}
         maxBoundsViscosity={0.7}
         maxZoom={13}
@@ -52,21 +62,31 @@ export function ServiceAreaMap() {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         <FitServiceAreaBounds />
+        <Polygon
+          pathOptions={{
+            color: "#b26a39",
+            fillColor: "#b26a39",
+            fillOpacity: 0.12,
+            opacity: 0.42,
+            weight: 2
+          }}
+          positions={coveragePolygon}
+        />
         {siteConfig.serviceAreas.map((area) => (
           <CircleMarker
             center={[area.lat, area.lng]}
             key={area.label}
             pathOptions={{
               color: "#ffffff",
-              fillColor: area.label === "Round Rock" ? "#b56c35" : "#1f2b25",
+              fillColor: area.label === "Round Rock" ? "#b26a39" : "#241d16",
               fillOpacity: 0.96,
               opacity: 1,
               weight: 2
             }}
-            radius={area.label === "Round Rock" ? 9 : 6}
+            radius={area.label === "Round Rock" ? 10 : 6.5}
           >
             <Tooltip
               className="service-area-tooltip"
@@ -80,17 +100,16 @@ export function ServiceAreaMap() {
           </CircleMarker>
         ))}
       </MapContainer>
-      <div className="pointer-events-none absolute left-4 top-4 z-[401] rounded-lg border border-border bg-white/95 px-4 py-3 shadow-[0_12px_28px_rgba(30,24,18,0.1)]">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-accent">
+      <div className="pointer-events-none absolute inset-x-4 bottom-4 z-[401] rounded-2xl border border-border bg-card/94 p-4 shadow-[0_18px_46px_rgb(31_25_18/0.12)] backdrop-blur md:inset-x-auto md:left-4 md:max-w-[22rem]">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
           Greater Austin service area
         </p>
-        <p className="mt-1 text-sm font-extrabold text-foreground">
-          Listed communities shown
+        <p className="mt-1 text-sm font-semibold text-foreground">
+          11 listed communities · Round Rock base
         </p>
-      </div>
-      <div className="pointer-events-none absolute bottom-4 left-4 z-[401] max-w-[18rem] rounded-lg border border-border bg-white/92 px-3 py-2 text-xs font-semibold leading-5 text-muted-foreground shadow-[0_12px_28px_rgba(30,24,18,0.08)]">
-        Markers show the current service-area cities. Nearby projects are
-        reviewed by scope, schedule, and drive time.
+        <p className="mt-2 text-xs leading-5 text-muted-foreground">
+          Nearby projects are reviewed by scope, schedule, and drive time.
+        </p>
       </div>
     </div>
   );

@@ -62,35 +62,33 @@ Notes:
 
 ## Contact form
 
-The `/contact` quote form posts through a Server Action that emails
-`luibrandtilecompany@gmail.com` via [Resend](https://resend.com).
+The homepage quote form and `/contact` quote form both post to Netlify Forms
+using the registered `quote-request` form. Netlify detects the form from
+`apps/web/public/forms.html`, and the React forms submit URL-encoded data to
+that static file while preserving the same field names and honeypot.
 
-Required environment variables (set in Netlify and any local `.env.local`):
+Optional environment variables:
 
 ```
-RESEND_API_KEY=
-CONTACT_TO_EMAIL=luibrandtilecompany@gmail.com
-CONTACT_FROM_EMAIL="Luibrand Tile <noreply@yourverifieddomain.com>"
 NEXT_PUBLIC_SITE_URL=https://luibrandtile.com
 NEXT_PUBLIC_SITE_NAME="Luibrand Tile"
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 NEXT_PUBLIC_BING_SITE_VERIFICATION=
 ```
 
-`.env.example` lists the same variables. If `RESEND_API_KEY` is not set,
-the form fails gracefully with a friendly error and the call / email
-CTAs continue to work as a fallback.
+No email API key is required for the current form flow. Manage notification
+delivery, spam controls, and submissions in the Netlify project under Forms.
 
 See [`docs/contact-form-setup.md`](docs/contact-form-setup.md) for the
-full setup, including how to verify a sender domain in Resend.
+full setup and verification checklist.
 
 See [`docs/search-indexing-checklist.md`](docs/search-indexing-checklist.md)
 for Search Console, Bing Webmaster Tools, and local SEO launch steps.
 
 ## Brand and portfolio assets
 
-* Brand mark: `apps/web/public/brand/LuibrandTileIcon.jpg`. Replace in
-  place when the final mark is updated.
+* Brand mark: `apps/web/public/brand/luibrand-tile-mark.svg` is used for
+  metadata/icons. The header mark is rendered code-native for crisp display.
 * Portfolio photos live in `apps/web/public/portfolio/`. The set of ten
   images and their semantic filenames are defined in
   `apps/web/src/content/portfolio.ts`. Replacing a file in place keeps

@@ -1,9 +1,23 @@
 import type { Metadata } from "next";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { siteConfig } from "@/config/siteConfig";
 import { services } from "@/content/services";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap"
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+  axes: ["SOFT", "WONK", "opsz"]
+});
 
 const ogImageUrl = new URL(siteConfig.openGraphImage, siteConfig.url).toString();
 const logoImageUrl = new URL(siteConfig.logoImage, siteConfig.url).toString();
@@ -28,7 +42,7 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.owner }],
   ...(Object.keys(verification).length ? { verification } : {}),
   icons: {
-    icon: [{ url: "/brand/LuibrandTileIcon.jpg", type: "image/jpeg" }]
+    icon: [{ url: "/brand/luibrand-tile-mark.svg", type: "image/svg+xml" }]
   },
   openGraph: {
     type: "website",
@@ -42,7 +56,7 @@ export const metadata: Metadata = {
         url: ogImageUrl,
         width: 4000,
         height: 3000,
-        alt: "Luibrand Tile fireplace surround project"
+        alt: "Luibrand Tile marble-look foyer floor project"
       }
     ]
   },
@@ -119,7 +133,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <body>
         <script
           type="application/ld+json"

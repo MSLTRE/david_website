@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { carouselImages } from "@/content/portfolio";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/utils/cn";
 
 const dragThreshold = 46;
 const defaultStageWidth = 1120;
@@ -47,7 +47,7 @@ function getSlideStyle(position: number, stageWidth: number): React.CSSPropertie
     return {
       filter: "brightness(1)",
       opacity: 1,
-      transform: "translate3d(-50%, -50%, 120px) rotateY(0deg) scale(1)",
+      transform: "translate3d(-50%, -50%, 90px) rotateY(0deg) scale(1)",
       transformOrigin: "center center",
       zIndex: 40
     };
@@ -57,32 +57,29 @@ function getSlideStyle(position: number, stageWidth: number): React.CSSPropertie
   const secondStep = Math.min(Math.max(abs - 1, 0), 1);
   const thirdStep = Math.min(Math.max(abs - 2, 0), 1);
   const xOffset =
-    side * stageWidth * (0.42 * firstStep + 0.13 * secondStep + 0.13 * thirdStep);
-  const zOffset =
-    120 - 260 * firstStep - 100 * secondStep - 60 * thirdStep;
-  const rotation = -side * (73 * firstStep + 7 * secondStep + 2 * thirdStep);
-  const rotationZ = side * Math.min(abs, 2);
-  const scale = 1 - 0.36 * firstStep - 0.18 * secondStep - 0.06 * thirdStep;
+    side * stageWidth * (0.34 * firstStep + 0.12 * secondStep + 0.1 * thirdStep);
+  const zOffset = 90 - 150 * firstStep - 80 * secondStep - 40 * thirdStep;
+  const rotation = -side * (32 * firstStep + 5 * secondStep + 2 * thirdStep);
+  const scale = 1 - 0.2 * firstStep - 0.09 * secondStep - 0.04 * thirdStep;
 
   let opacity = 0;
   if (abs <= 1) {
-    opacity = 1 - 0.58 * abs;
+    opacity = 1 - 0.32 * abs;
   } else if (abs <= 2) {
-    opacity = 0.42 - 0.28 * (abs - 1);
+    opacity = 0.68 - 0.36 * (abs - 1);
   } else if (abs <= 3) {
-    opacity = 0.14 * (3 - abs);
+    opacity = 0.22 * (3 - abs);
   }
 
-  const brightness = 1 - 0.38 * firstStep - 0.12 * secondStep;
-  const saturation = 1 - 0.28 * firstStep - 0.1 * secondStep;
-  const contrast = 1 - 0.1 * firstStep;
-  const blur = 0.5 * secondStep + 0.5 * thirdStep;
+  const brightness = 1 - 0.12 * firstStep - 0.08 * secondStep;
+  const saturation = 1 - 0.1 * firstStep;
+  const contrast = 1 - 0.04 * firstStep;
 
   return {
-    filter: `blur(${blur}px) brightness(${brightness}) saturate(${saturation}) contrast(${contrast})`,
+    filter: `brightness(${brightness}) saturate(${saturation}) contrast(${contrast})`,
     opacity: clamp(opacity, 0, 1),
     pointerEvents: abs > 3 ? "none" : undefined,
-    transform: `translate3d(calc(-50% + ${xOffset}px), -50%, ${zOffset}px) rotateY(${rotation}deg) rotateZ(${rotationZ}deg) scale(${scale})`,
+    transform: `translate3d(calc(-50% + ${xOffset}px), -50%, ${zOffset}px) rotateY(${rotation}deg) scale(${scale})`,
     transformOrigin: position < 0 ? "right center" : "left center",
     zIndex: Math.max(0, 40 - Math.round(abs * 10))
   };
@@ -400,7 +397,7 @@ export function PortfolioCarousel() {
 
       <div
         className={cn(
-          "relative -mx-5 h-[clamp(360px,88vw,500px)] cursor-grab select-none overflow-hidden px-5 outline-none [overscroll-behavior-x:contain] [perspective:1450px] [perspective-origin:50%_48%] [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[clamp(410px,66vw,580px)] md:-mx-8 md:h-[clamp(470px,52vw,650px)] md:px-8",
+          "relative -mx-5 h-[clamp(340px,76vw,520px)] cursor-grab select-none overflow-hidden px-5 outline-none [overscroll-behavior-x:contain] [perspective:1500px] [perspective-origin:50%_48%] [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[clamp(410px,60vw,600px)] md:-mx-8 md:h-[clamp(470px,48vw,650px)] md:px-8",
           isDragging && "cursor-grabbing"
         )}
         onPointerCancel={cancelDrag}
@@ -425,11 +422,11 @@ export function PortfolioCarousel() {
                     : `Show ${image.title}`
                 }
                 className={cn(
-                  "absolute left-1/2 top-1/2 block touch-manipulation overflow-hidden rounded-[1.2rem] bg-[#15110d] p-[3px] transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-[0_34px_80px_rgba(30,24,18,0.28)] ring-1 ring-black/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background",
+                  "absolute left-1/2 top-1/2 block touch-manipulation overflow-hidden rounded-2xl bg-card transition-[transform,opacity,filter,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-[0_26px_70px_rgb(31_25_18/0.16)] ring-1 ring-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background",
                   (reduceMotion || isDragging) && "duration-0",
                   isActive
                     ? "cursor-default"
-                    : "cursor-pointer bg-[#17120e] shadow-[0_22px_54px_rgba(30,24,18,0.18)] ring-black/45"
+                    : "cursor-pointer shadow-[0_18px_44px_rgb(31_25_18/0.10)]"
                 )}
                 key={image.id}
                 onClick={() => {
@@ -442,6 +439,8 @@ export function PortfolioCarousel() {
                   }
                 }}
                 style={{
+                  aspectRatio: "16 / 10",
+                  width: isActive ? "min(84vw, 980px)" : "min(62vw, 720px)",
                   ...getSlideStyle(relative - dragProgress, stageWidth),
                   backfaceVisibility: "hidden"
                 }}
@@ -450,10 +449,10 @@ export function PortfolioCarousel() {
               >
                 <Image
                   alt={isActive ? image.alt : ""}
-                  className="block h-auto w-auto rounded-[0.98rem] object-contain"
+                  className="object-cover"
                   draggable={false}
+                  fill
                   fetchPriority={Math.abs(relative) <= 1 ? "high" : "auto"}
-                  height={image.height}
                   loading={Math.abs(relative) <= 2 ? "eager" : "lazy"}
                   quality={86}
                   sizes={
@@ -461,43 +460,34 @@ export function PortfolioCarousel() {
                       ? "(min-width: 1280px) 980px, (min-width: 768px) 78vw, 86vw"
                       : "(min-width: 1280px) 620px, (min-width: 768px) 54vw, 68vw"
                   }
-                  style={{
-                    maxHeight: isActive
-                      ? "clamp(290px, 58vw, 560px)"
-                      : "clamp(250px, 56vw, 560px)",
-                    maxWidth: isActive ? "min(84vw, 900px)" : "min(72vw, 820px)"
-                  }}
                   src={image.src}
-                  width={image.width}
                 />
-                {!isActive ? (
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-[3px] rounded-[0.98rem] bg-[#f7f3ec]/28 shadow-[inset_14px_0_20px_rgba(23,18,14,0.28),inset_-14px_0_20px_rgba(23,18,14,0.22)] ring-1 ring-inset ring-white/25"
-                  />
-                ) : null}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/35"
+                />
               </button>
             );
           })}
         </div>
       </div>
 
-      <div className="mx-auto grid w-full max-w-3xl gap-3">
+      <div className="mx-auto grid w-full max-w-5xl gap-5">
         <div className="flex items-center justify-center gap-3">
           <button
             aria-label="Previous project"
-            className="inline-flex size-12 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-[0_14px_28px_rgba(30,24,18,0.08)] transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex size-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-[0_14px_28px_rgb(31_25_18/0.08)] transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             onClick={previous}
             type="button"
           >
             <ChevronLeft aria-hidden="true" size={22} strokeWidth={2.4} />
           </button>
-          <div className="min-w-24 text-center text-sm font-black tabular-nums tracking-[0.18em] text-foreground/75">
+          <div className="min-w-24 text-center text-sm font-semibold tabular-nums tracking-[0.14em] text-muted-foreground">
             {selected + 1} / {carouselImages.length}
           </div>
           <button
             aria-label="Next project"
-            className="inline-flex size-12 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-[0_14px_28px_rgba(30,24,18,0.08)] transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex size-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-[0_14px_28px_rgb(31_25_18/0.08)] transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             onClick={next}
             type="button"
           >
@@ -505,13 +495,44 @@ export function PortfolioCarousel() {
           </button>
         </div>
 
-        <div className="min-h-12 text-center">
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-accent">
+        <div className="mx-auto min-h-24 max-w-2xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
             {selectedImage.category}
           </p>
-          <p className="mt-1 text-xl font-black tracking-tight text-foreground sm:text-2xl">
+          <p className="mt-2 text-2xl font-semibold tracking-normal text-foreground sm:text-3xl">
             {selectedImage.title}
           </p>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            {[selectedImage.room, selectedImage.material, selectedImage.location]
+              .filter(Boolean)
+              .join(" · ")}
+          </p>
+        </div>
+
+        <div className="mx-auto flex max-w-full gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:thin]">
+          {carouselImages.map((image, index) => (
+            <button
+              aria-current={index === selected ? "true" : undefined}
+              aria-label={`Show ${image.title}`}
+              className={cn(
+                "relative h-16 w-24 shrink-0 overflow-hidden rounded-xl border bg-card transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                index === selected
+                  ? "border-accent shadow-[0_10px_24px_rgb(178_106_57/0.18)]"
+                  : "border-border opacity-70 hover:opacity-100"
+              )}
+              key={image.id}
+              onClick={() => setSelected(index)}
+              type="button"
+            >
+              <Image
+                alt=""
+                className="object-cover"
+                fill
+                sizes="96px"
+                src={image.src}
+              />
+            </button>
+          ))}
         </div>
       </div>
     </div>

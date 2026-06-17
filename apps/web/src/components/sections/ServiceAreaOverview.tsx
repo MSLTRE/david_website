@@ -10,13 +10,13 @@ export function ServiceAreaOverview({
   headingId = "service-area-heading"
 }: ServiceAreaOverviewProps) {
   return (
-    <div className="grid w-full gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+    <div className="grid w-full gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
       <div>
-        <p className="text-sm font-black uppercase tracking-[0.18em] text-accent">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
           Service area
         </p>
         <h2
-          className="mt-4 text-4xl font-black tracking-tight md:text-6xl"
+          className="mt-4 font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
           id={headingId}
         >
           Austin-area tile installation, based in Round Rock.
@@ -32,7 +32,7 @@ export function ServiceAreaOverview({
         >
           {siteConfig.serviceAreas.map((area) => (
             <span
-              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-3 py-1.5 text-sm font-bold shadow-[0_8px_18px_rgba(30,24,18,0.04)]"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-sm font-medium shadow-[0_8px_18px_rgb(31_25_18/0.04)]"
               key={area.label}
             >
               <MapPin aria-hidden="true" className="size-4 text-accent" />

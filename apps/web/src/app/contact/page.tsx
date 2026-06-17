@@ -16,11 +16,11 @@ export default function ContactPage() {
     <SectionContainer ariaLabelledBy="contact-heading">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
         <div className="flex max-w-xl flex-col gap-6">
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-accent">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
             Contact
           </p>
           <h1
-            className="text-4xl font-black tracking-tight text-foreground md:text-6xl"
+            className="font-display text-4xl font-medium leading-[1.06] tracking-normal text-foreground md:text-6xl"
             id="contact-heading"
           >
             Tell us about your tile project.
@@ -51,7 +51,7 @@ export default function ContactPage() {
           <div className="flex flex-wrap gap-2 pt-1">
             {siteConfig.serviceAreas.slice(0, 7).map((area) => (
               <span
-                className="rounded-full border border-border bg-white px-3 py-1.5 text-sm font-bold"
+                className="rounded-full border border-border bg-card px-3 py-1.5 text-sm font-medium"
                 key={area.label}
               >
                 {area.label}
@@ -66,14 +66,14 @@ export default function ContactPage() {
 
         <aside
           aria-label="Quote request form"
-          className="rounded-lg border border-border bg-white p-5 shadow-[0_24px_70px_rgba(30,24,18,0.08)] md:p-8"
+          className="rounded-2xl border border-border bg-card p-5 shadow-[0_24px_70px_rgb(31_25_18/0.08)] md:p-8"
           id="quote"
         >
           <header className="mb-6 grid gap-2">
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-accent">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
               Request a quote
             </p>
-            <h2 className="text-2xl font-black tracking-tight md:text-3xl">
+            <h2 className="font-display text-3xl font-medium leading-tight tracking-normal">
               Quote request form
             </h2>
             <p className="text-sm leading-6 text-muted-foreground">
@@ -97,10 +97,10 @@ type ContactCardProps = {
 function ContactCard({ eyebrow, title, helper, href }: ContactCardProps) {
   const content = (
     <>
-      <span className="text-xs font-black uppercase tracking-[0.16em] text-accent">
+      <span className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
         {eyebrow}
       </span>
-      <span className="text-lg font-black tracking-tight">{title}</span>
+      <span className="text-lg font-semibold tracking-normal">{title}</span>
       {helper ? (
         <span className="text-sm font-semibold leading-6 text-muted-foreground">
           {helper}
@@ -113,7 +113,7 @@ function ContactCard({ eyebrow, title, helper, href }: ContactCardProps) {
     return (
       <li>
         <a
-          className="flex flex-col gap-1 rounded-lg border border-border bg-white p-4 transition hover:border-accent"
+          className="flex flex-col gap-1 rounded-2xl border border-border bg-card p-4 transition hover:border-accent"
           href={href}
         >
           {content}
@@ -123,7 +123,7 @@ function ContactCard({ eyebrow, title, helper, href }: ContactCardProps) {
   }
 
   return (
-    <li className="flex flex-col gap-1 rounded-lg border border-border bg-white p-4">
+    <li className="flex flex-col gap-1 rounded-2xl border border-border bg-card p-4">
       {content}
     </li>
   );

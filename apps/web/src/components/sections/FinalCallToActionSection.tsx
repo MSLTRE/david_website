@@ -12,7 +12,7 @@ export function FinalCallToActionSection() {
           <div className="flex flex-col gap-4 max-w-2xl">
             <h2
               id="final-cta-heading"
-              className="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-tight"
+              className="font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
             >
               Ready to plan your project?
             </h2>

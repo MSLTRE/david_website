@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 
-const projectTypes = [
+export const projectTypes = [
   "Floor tile",
   "Shower or bathroom",
   "Backsplash",
@@ -11,7 +11,22 @@ const projectTypes = [
   "Other"
 ];
 
-const timelines = ["As soon as possible", "This month", "Planning ahead"];
+export const timelines = ["As soon as possible", "This month", "Planning ahead"];
+
+export function encodeFormData(formData: FormData) {
+  const params = new URLSearchParams();
+
+  formData.forEach((value, key) => {
+    params.append(key, String(value));
+  });
+
+  return params.toString();
+}
+
+const controlClass =
+  "h-12 rounded-xl border border-input bg-card px-4 text-base outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/25";
+const textareaClass =
+  "min-h-36 resize-y rounded-xl border border-input bg-card px-4 py-3 text-base outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/25";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
@@ -29,7 +44,7 @@ export function ContactForm() {
       const response = await fetch("/forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as unknown as Record<string, string>).toString()
+        body: encodeFormData(formData)
       });
 
       if (!response.ok) {
@@ -68,7 +83,7 @@ export function ContactForm() {
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Name">
           <input
-            className="h-12 rounded-lg border border-input bg-white px-4 outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/30"
+            className={controlClass}
             name="name"
             required
             type="text"
@@ -76,7 +91,7 @@ export function ContactForm() {
         </Field>
         <Field label="Email">
           <input
-            className="h-12 rounded-lg border border-input bg-white px-4 outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/30"
+            className={controlClass}
             name="email"
             required
             type="email"
@@ -87,14 +102,14 @@ export function ContactForm() {
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Phone">
           <input
-            className="h-12 rounded-lg border border-input bg-white px-4 outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/30"
+            className={controlClass}
             name="phone"
             type="tel"
           />
         </Field>
         <Field label="City">
           <input
-            className="h-12 rounded-lg border border-input bg-white px-4 outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/30"
+            className={controlClass}
             name="city"
             type="text"
           />
@@ -104,7 +119,7 @@ export function ContactForm() {
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Project type">
           <select
-            className="h-12 rounded-lg border border-input bg-white px-4 outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/30"
+            className={controlClass}
             name="projectType"
             required
           >
@@ -117,7 +132,7 @@ export function ContactForm() {
         </Field>
         <Field label="Timeline">
           <select
-            className="h-12 rounded-lg border border-input bg-white px-4 outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/30"
+            className={controlClass}
             name="timeline"
             required
           >
@@ -132,7 +147,7 @@ export function ContactForm() {
 
       <Field label="Project notes">
         <textarea
-          className="min-h-36 resize-y rounded-lg border border-input bg-white px-4 py-3 outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/30"
+          className={textareaClass}
           name="message"
           required
         />
@@ -142,7 +157,7 @@ export function ContactForm() {
         <Button disabled={status === "sending"} type="submit">
           {status === "sending" ? "Sending..." : "Send request"}
         </Button>
-        <p aria-live="polite" className="text-sm font-semibold text-muted-foreground">
+        <p aria-live="polite" className="text-sm font-medium text-muted-foreground">
           {status === "sent"
             ? "Thanks. We'll follow up soon."
             : status === "error"
@@ -162,7 +177,7 @@ function Field({
   readonly label: string;
 }) {
   return (
-    <label className="grid gap-2 text-sm font-extrabold text-foreground">
+    <label className="grid gap-2 text-sm font-semibold text-foreground">
       {label}
       {children}
     </label>

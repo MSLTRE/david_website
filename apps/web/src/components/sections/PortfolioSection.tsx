@@ -25,12 +25,12 @@ export function PortfolioSection({
   return (
     <SectionContainer id={id} ariaLabelledBy="portfolio-heading" tone="muted">
       <div className="flex flex-col gap-3 max-w-3xl mb-10 md:mb-12">
-        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
           {eyebrow}
         </p>
         <h2
           id="portfolio-heading"
-          className="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-tight"
+          className="font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
         >
           {heading}
         </h2>

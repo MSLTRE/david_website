@@ -21,16 +21,17 @@ export const siteConfig = {
     "Luibrand Tile provides professional tile installation, shower tile, floor tile, backsplashes, fireplace surrounds, patios, pool surrounds, tile repair, and grout repair across Austin, Round Rock, Georgetown, Cedar Park, Pflugerville, and nearby Central Texas communities.",
   tagline: "Craftsmanship you can stand on.",
   seoTitle: "Luibrand Tile | Tile Contractor in Austin & Round Rock, TX",
-  logoImage: "/brand/LuibrandTileIcon.jpg",
-  openGraphImage: "/portfolio/20251114_154302.jpg",
+  logoImage: "/brand/luibrand-tile-mark.svg",
+  openGraphImage: "/portfolio/20260219_115805.jpg",
   phone: "(512) 843-9364",
   phoneHref: "tel:+15128439364",
   email: "luibrandtilecompany@gmail.com",
-  heroEyebrow: "Austin-area tile installation",
-  heroHeadline: "Luibrand Tile",
-  heroSupporting: "Precise tile installation across the greater Austin area.",
+  heroEyebrow: "Tile installation · Austin & Round Rock",
+  heroHeadline: "A more beautiful home starts with the tile.",
+  heroSupporting:
+    "Floors, showers, backsplashes, and fireplace surrounds installed with clean layout and lasting detail.",
   heroBody:
-    "Floors, showers, backsplashes, fireplace surrounds, repairs, and preparation work handled with clean layout and lasting detail.",
+    "Based in Round Rock and serving Austin-area homes with careful prep, precise layout, and a finish made to be lived with every day.",
   address: {
     short: "Round Rock, TX",
     line1: "Round Rock",
@@ -49,7 +50,7 @@ export const siteConfig = {
   navItems: [
     { label: "Portfolio", href: "/#work" },
     { label: "Services", href: "/#services" },
-    { label: "Area", href: "/#service-area" },
+    { label: "Service Area", href: "/#service-area" },
     { label: "Contact", href: "/contact" }
   ]
 } as const;
