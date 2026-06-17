@@ -1,119 +1,365 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Bath,
+  BadgeCheck,
+  Check,
+  ClipboardList,
+  Flame,
+  Grid2X2,
+  Hammer,
+  Layers3,
+  Paintbrush,
+  Ruler,
+  ShowerHead,
+  Sparkles,
+  Sun,
+  Waves,
+  Wrench
+} from "lucide-react";
 import Image from "next/image";
+import { HeroQuoteForm } from "@/components/forms/HeroQuoteForm";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/siteConfig";
 import { heroImage } from "@/content/portfolio";
+import { services, type ServiceCategory } from "@/content/services";
 import { PortfolioCarousel } from "@/components/sections/PortfolioCarousel";
 import { ServiceAreaOverview } from "@/components/sections/ServiceAreaOverview";
-import { services } from "@/content/services";
+
+const trustItems = [
+  "Free estimates",
+  "Round Rock based",
+  "Austin-area service",
+  "Careful prep and layout"
+];
+
+const valueProps = [
+  {
+    title: "Layout before labor",
+    body: "Tile work looks expensive when the lines, cuts, and transitions are planned before the first piece is set.",
+    icon: Ruler
+  },
+  {
+    title: "Prepared to last",
+    body: "Substrate, waterproofing, leveling, and grout details get the same attention as the finished surface.",
+    icon: Hammer
+  },
+  {
+    title: "Clear homeowner path",
+    body: "You get a straightforward conversation about scope, timing, materials, and the rooms affected by the work.",
+    icon: BadgeCheck
+  }
+];
+
+const processSteps = [
+  {
+    label: "01",
+    title: "Consult",
+    body: "Share the room, photos, measurements, goals, and timing so the scope is clear."
+  },
+  {
+    label: "02",
+    title: "Plan",
+    body: "Review material, layout, prep needs, and project details before installation starts."
+  },
+  {
+    label: "03",
+    title: "Install",
+    body: "Set tile with careful lines, transitions, waterproofing, and finish details."
+  },
+  {
+    label: "04",
+    title: "Walk through",
+    body: "Review the finished work, care notes, and any final details together."
+  }
+];
+
+const experienceCards = [
+  {
+    title: "Clean lines",
+    body: "Corners, niches, edges, outlets, and transitions are the places where craftsmanship shows first.",
+    icon: Paintbrush
+  },
+  {
+    title: "Respect for the home",
+    body: "Project flow matters: access, staging, cleanup, and communication all shape the experience.",
+    icon: Sparkles
+  },
+  {
+    title: "Useful guidance",
+    body: "From porcelain to stone-look tile, the goal is a finish that suits the room and daily use.",
+    icon: ClipboardList
+  }
+];
+
+const serviceIcons: Record<ServiceCategory["icon"], LucideIcon> = {
+  bath: Bath,
+  flame: Flame,
+  floor: Layers3,
+  grid: Grid2X2,
+  shower: ShowerHead,
+  sparkles: Sparkles,
+  stairs: Layers3,
+  sun: Sun,
+  waves: Waves,
+  wrench: Wrench
+};
 
 export function HomeExperience() {
   return (
     <>
       <section
         aria-labelledby="hero-heading"
-        className="relative isolate flex min-h-[78svh] items-end overflow-hidden bg-charcoal text-white"
+        className="overflow-hidden border-b border-border bg-background"
       >
-        <Image
-          alt={heroImage.alt}
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
-          fetchPriority="high"
-          fill
-          priority
-          sizes="100vw"
-          src={heroImage.src}
-        />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(12,10,8,0.86),rgba(12,10,8,0.52)_46%,rgba(12,10,8,0.16)),linear-gradient(180deg,rgba(12,10,8,0.15),rgba(12,10,8,0.74))]" />
-        <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 pb-12 pt-24 md:px-8 md:pb-16">
-          <div className="max-w-3xl">
-            <h1
-              className="text-6xl font-black tracking-tight md:text-8xl lg:text-9xl"
-              id="hero-heading"
-            >
-              Luibrand Tile
-            </h1>
-            <p className="mt-5 max-w-2xl text-2xl font-bold leading-tight text-white/88 md:text-4xl">
-              Precise tile installation across the greater Austin area.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button className="sm:min-w-44" href="/contact#quote" variant="light">
-                Request a quote
-              </Button>
-              <Button className="sm:min-w-44" href={siteConfig.phoneHref} variant="light">
-                Call {siteConfig.phone}
-              </Button>
-              <Button className="sm:min-w-44" href="#work" variant="secondary">
-                View portfolio
-              </Button>
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-10 md:px-8 md:py-14 lg:grid-cols-[1.04fr_0.96fr] lg:items-center lg:py-12">
+          <div className="hidden lg:block">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-secondary shadow-[0_34px_90px_rgb(31_25_18/0.18)] ring-1 ring-border/70 sm:aspect-[5/4] lg:aspect-square">
+              <Image
+                alt={heroImage.alt}
+                className="h-full w-full object-cover"
+                fill
+                fetchPriority="high"
+                priority
+                quality={86}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                src={heroImage.src}
+              />
             </div>
+            <div className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-[0_14px_36px_rgb(31_25_18/0.07)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                Recent finish
+              </p>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                {heroImage.room} · {heroImage.material}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-7 lg:pl-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+                {siteConfig.heroEyebrow}
+              </p>
+              <h1
+                className="mt-4 max-w-3xl font-display text-[clamp(2.75rem,6vw,4.85rem)] font-medium leading-[1.02] tracking-normal text-foreground"
+                id="hero-heading"
+              >
+                {siteConfig.heroHeadline}
+              </h1>
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground md:text-xl md:leading-9">
+                {siteConfig.heroSupporting}
+              </p>
+              <div className="mt-6 lg:hidden">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-secondary shadow-[0_22px_60px_rgb(31_25_18/0.14)] ring-1 ring-border/70">
+                  <Image
+                    alt={heroImage.alt}
+                    className="h-full w-full object-cover"
+                    fill
+                    priority
+                    quality={86}
+                    sizes="(max-width: 1023px) calc(100vw - 40px), 1px"
+                    src={heroImage.src}
+                  />
+                </div>
+                <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                  Recent finish
+                </p>
+                <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                  {heroImage.room} · {heroImage.material}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2.5">
+              {trustItems.map((item) => (
+                <span
+                  className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-sm font-medium text-foreground shadow-[0_8px_18px_rgb(31_25_18/0.04)]"
+                  key={item}
+                >
+                  <Check aria-hidden="true" className="size-4 text-sage" />
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <HeroQuoteForm />
           </div>
         </div>
       </section>
 
-      <section className="bg-white" id="craft">
-        <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <section className="border-b border-border bg-card">
+        <div className="mx-auto grid w-full max-w-7xl gap-4 px-5 py-6 md:grid-cols-4 md:px-8">
+          {trustItems.map((item) => (
+            <div
+              className="flex items-center gap-3 text-sm font-medium text-muted-foreground"
+              key={item}
+            >
+              <span className="grid size-8 shrink-0 place-items-center rounded-full bg-secondary text-sage">
+                <Check aria-hidden="true" className="size-4" />
+              </span>
+              {item}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-background py-20 md:py-28" id="craft">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 md:px-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
           <div>
-            <h2 className="max-w-xl text-4xl font-black tracking-tight md:text-6xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+              Craft
+            </p>
+            <h2 className="mt-4 max-w-xl font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl">
               Craftsmanship you can stand on.
             </h2>
           </div>
-          <div>
-            <p className="text-xl leading-9 text-muted-foreground">
-              Quality tile work starts with proper preparation and attention to
-              detail. From the layout of the first tile to the final finishing
-              touches, every step matters. At Luibrand Tile, we take pride in
-              delivering clean, professional work that&apos;s built to last and
-              made to be enjoyed every day.
-            </p>
+          <div className="grid gap-4 md:grid-cols-3">
+            {valueProps.map((item) => (
+              <article
+                className="rounded-2xl border border-border bg-card p-6 shadow-[0_18px_46px_rgb(31_25_18/0.06)]"
+                key={item.title}
+              >
+                <span className="grid size-11 place-items-center rounded-full bg-secondary text-accent">
+                  <item.icon aria-hidden="true" className="size-5" />
+                </span>
+                <h3 className="mt-5 text-xl font-semibold leading-tight text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {item.body}
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="overflow-hidden py-16 md:py-24" id="work">
-        <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 md:px-8">
-          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+      <section className="bg-sand py-20 md:py-28" id="services">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 md:px-8">
+          <div className="grid gap-5 lg:grid-cols-[0.9fr_1fr] lg:items-end">
             <div>
-              <p className="text-sm font-black uppercase tracking-[0.18em] text-accent">
-                Portfolio
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+                Services
               </p>
-              <h2 className="mt-4 max-w-3xl text-4xl font-black tracking-tight md:text-6xl">
-                Recent work throughout the Greater Austin area.
+              <h2 className="mt-4 max-w-3xl font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl">
+                Tile work for the rooms that carry your home.
               </h2>
             </div>
-            <p className="max-w-xl text-base leading-7 text-muted-foreground">
-              Take a look at some of our recent work throughout the Greater
-              Austin area. From custom showers and fireplace surrounds to
-              backsplashes, foyers, and wood-look tile floors, these projects
-              highlight the craftsmanship and attention to detail that go into
-              every installation.
+            <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
+              From simple updates to custom projects, Luibrand Tile focuses on
+              clean preparation, precise layout, and finish details that stay
+              visible after the tools are packed up.
             </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {services.map((service) => {
+              const Icon = serviceIcons[service.icon];
+
+              return (
+                <article
+                  className="group flex min-h-56 flex-col justify-between rounded-2xl border border-border bg-card p-5 shadow-[0_18px_46px_rgb(31_25_18/0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgb(31_25_18/0.10)]"
+                  key={service.slug}
+                >
+                  <span className="grid size-10 place-items-center rounded-full bg-secondary text-accent transition group-hover:bg-accent group-hover:text-accent-foreground">
+                    <Icon aria-hidden="true" className="size-5" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-semibold leading-tight tracking-normal">
+                      {service.name}
+                    </h3>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                      {service.description}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-background py-20 md:py-28" id="work">
+        <div className="mx-auto grid w-full max-w-7xl gap-9 px-5 md:px-8">
+          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+                Recent work
+              </p>
+              <h2 className="mt-4 max-w-3xl font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl">
+                Rooms finished with quieter precision.
+              </h2>
+            </div>
+            <div className="max-w-xl">
+              <p className="text-base leading-7 text-muted-foreground">
+                Browse a curated set of showers, floors, fireplace surrounds,
+                backsplashes, and details from Austin-area projects.
+              </p>
+              <Button className="mt-5" href="/work" variant="secondary">
+                View full portfolio
+              </Button>
+            </div>
           </div>
           <PortfolioCarousel />
         </div>
       </section>
 
-      <section className="bg-white py-16 md:py-24" id="services">
-        <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 md:px-8">
+      <section className="bg-card py-20 md:py-28">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 md:px-8">
           <div className="max-w-3xl">
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-accent">
-              Services
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+              Process
             </p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-6xl">
-              If something can be tiled, we&apos;ve almost certainly done it.
+            <h2 className="mt-4 font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl">
+              A clear path from idea to finished room.
             </h2>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
-              From simple updates to custom projects, we take pride in
-              delivering clean, professional work that&apos;s built to last.
+          </div>
+          <div className="grid gap-4 md:grid-cols-4">
+            {processSteps.map((step) => (
+              <article
+                className="rounded-2xl border border-border bg-background p-6"
+                key={step.label}
+              >
+                <p className="text-sm font-semibold text-accent">{step.label}</p>
+                <h3 className="mt-5 text-xl font-semibold">{step.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {step.body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-sand py-20 md:py-28">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+              Client experience
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl">
+              Premium tile work should feel calm before it looks beautiful.
+            </h2>
+            <p className="mt-5 max-w-xl text-lg leading-8 text-muted-foreground">
+              From the first call to the final walkthrough, the experience
+              should feel organized, direct, and respectful of the home around
+              the work.
             </p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {services.map((service) => (
+          <div className="grid gap-4">
+            {experienceCards.map((card) => (
               <article
-                className="flex min-h-24 items-end rounded-lg border border-border bg-white p-5 shadow-[0_16px_40px_rgba(30,24,18,0.05)]"
-                key={service.slug}
+                className="grid gap-4 rounded-2xl border border-border bg-card p-6 shadow-[0_18px_46px_rgb(31_25_18/0.05)] sm:grid-cols-[auto_1fr] sm:items-start"
+                key={card.title}
               >
-                <h3 className="text-lg font-black leading-tight tracking-tight">
-                  {service.name}
-                </h3>
+                <span className="grid size-11 place-items-center rounded-full bg-secondary text-sage">
+                  <card.icon aria-hidden="true" className="size-5" />
+                </span>
+                <div>
+                  <h3 className="text-xl font-semibold">{card.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    {card.body}
+                  </p>
+                </div>
               </article>
             ))}
           </div>
@@ -122,7 +368,7 @@ export function HomeExperience() {
 
       <section
         aria-labelledby="home-service-area-heading"
-        className="py-16 md:py-24"
+        className="bg-background py-20 md:py-28"
         id="service-area"
       >
         <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
@@ -130,21 +376,30 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section className="bg-primary py-14 text-primary-foreground md:py-20">
-        <div className="mx-auto flex w-full max-w-7xl flex-col justify-between gap-8 px-5 md:px-8 lg:flex-row lg:items-center">
+      <section className="bg-primary py-16 text-primary-foreground md:py-24">
+        <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 md:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
           <div>
-            <h2 className="text-4xl font-black tracking-tight md:text-6xl">
-              Ready to plan your project?
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+              Ready when you are
+            </p>
+            <h2 className="mt-4 max-w-3xl font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl">
+              Let&apos;s make the room feel finished.
             </h2>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-white/75">
-              Tell us about the room, timeline, and project details.
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-primary-foreground/76">
+              Tell us about the room, timeline, and project details. We&apos;ll
+              follow up with next steps.
             </p>
           </div>
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]">
-            <Button href="/contact#quote" variant="light">
-              Request a quote
+          <div className="grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            <Button href="/contact#quote" size="lg" variant="accent">
+              Get a free quote
             </Button>
-            <Button href={siteConfig.phoneHref} variant="light">
+            <Button
+              className="bg-card text-foreground hover:bg-secondary"
+              href={siteConfig.phoneHref}
+              size="lg"
+              variant="light"
+            >
               Call {siteConfig.phone}
             </Button>
           </div>

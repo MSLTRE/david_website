@@ -16,16 +16,16 @@ export default function ServicesPage() {
     <>
       <SectionContainer ariaLabelledBy="services-page-heading">
         <div className="flex flex-col gap-3 max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
             Services
           </p>
           <h1
             id="services-page-heading"
-            className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight"
+            className="font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
           >
             Tile work, end to end.
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+          <p className="text-lg leading-8 text-muted-foreground max-w-2xl">
             If something can be tiled, we&apos;ve almost certainly done it. From
             simple updates to custom projects, we take pride in delivering
             clean, professional work that&apos;s built to last.

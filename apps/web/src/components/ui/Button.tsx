@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/utils/cn";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "light" | "accent";
 
@@ -15,26 +15,19 @@ type ButtonProps = {
   readonly disabled?: boolean;
   readonly onClick?: () => void;
   readonly style?: React.CSSProperties;
+  readonly "aria-label"?: string;
 };
 
 const variants = {
   primary:
-    "bg-[#17120e] text-white shadow-[0_14px_32px_rgba(27,22,18,0.2)] hover:bg-[#2a2119]",
+    "bg-primary text-primary-foreground shadow-[0_14px_32px_rgb(31_25_18/0.18)] hover:bg-primary/90",
   secondary:
-    "border border-[#ded8cf] bg-white text-[#17120e] hover:border-[#b56c35] hover:bg-[#f3eee7]",
-  ghost: "text-[#17120e] hover:bg-[#f3eee7]",
+    "border border-border bg-card text-foreground hover:border-accent/50 hover:bg-secondary",
+  ghost: "text-foreground hover:bg-secondary",
   light:
-    "bg-white text-[#17120e] shadow-[0_12px_30px_rgba(0,0,0,0.2)] hover:bg-[#f3eee7]",
-  accent: "bg-[#b56c35] text-white hover:bg-[#9c5928]"
+    "bg-card text-foreground shadow-[0_12px_30px_rgb(0_0_0/0.16)] hover:bg-secondary",
+  accent: "bg-accent text-accent-foreground shadow-[0_14px_34px_rgb(178_106_57/0.24)] hover:bg-accent-hover"
 };
-
-const variantStyles = {
-  primary: { backgroundColor: "#17120e", color: "#ffffff" },
-  secondary: { backgroundColor: "#ffffff", borderColor: "#ded8cf", color: "#17120e" },
-  ghost: { color: "#17120e" },
-  light: { backgroundColor: "#ffffff", color: "#17120e" },
-  accent: { backgroundColor: "#b56c35", color: "#ffffff" }
-} satisfies Record<ButtonVariant, React.CSSProperties>;
 
 const sizes = {
   sm: "min-h-10 px-4 text-sm",
@@ -58,16 +51,16 @@ export function Button({
   type = "button",
   disabled,
   onClick,
-  style
+  style,
+  "aria-label": ariaLabel
 }: ButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 font-extrabold tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
+    "inline-flex items-center justify-center gap-2 font-semibold tracking-normal transition duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
     sizes[size],
     shapes[shape],
     variants[variant],
     className
   );
-  const mergedStyle = { ...variantStyles[variant], ...style };
 
   if (href) {
     const isExternal =
@@ -77,21 +70,21 @@ export function Button({
       href.startsWith("tel:");
     if (isExternal) {
       return (
-        <a className={classes} href={href} rel={external ? "noreferrer" : undefined} style={mergedStyle} target={external ? "_blank" : undefined}>
+        <a aria-label={ariaLabel} className={classes} href={href} rel={external ? "noreferrer" : undefined} style={style} target={external ? "_blank" : undefined}>
           {children}
         </a>
       );
     }
 
     return (
-      <Link className={classes} href={href} style={mergedStyle}>
+      <Link aria-label={ariaLabel} className={classes} href={href} style={style}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button className={classes} disabled={disabled} onClick={onClick} style={mergedStyle} type={type}>
+    <button aria-label={ariaLabel} className={classes} disabled={disabled} onClick={onClick} style={style} type={type}>
       {children}
     </button>
   );

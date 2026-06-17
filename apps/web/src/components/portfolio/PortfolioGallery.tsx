@@ -22,7 +22,7 @@ function GalleryCard({ image, aspect, sizes, priority, onOpen }: CardProps) {
       type="button"
       onClick={() => onOpen(image.id)}
       aria-label={`Open ${image.title}`}
-      className={`group relative block w-full overflow-hidden rounded-xl border border-border bg-secondary transition-shadow hover:shadow-[0_20px_40px_-20px_rgba(40,28,18,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${aspect}`}
+      className={`group relative block w-full overflow-hidden rounded-2xl border border-border bg-secondary transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_-30px_rgb(40_28_18/0.34)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${aspect}`}
     >
       <Image
         src={image.src}
@@ -36,7 +36,7 @@ function GalleryCard({ image, aspect, sizes, priority, onOpen }: CardProps) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-foreground/5"
       />
-      <span className="pointer-events-none absolute left-3 bottom-3 inline-flex items-center gap-1 rounded-full bg-background/85 backdrop-blur px-2.5 py-1 text-[0.7rem] font-medium tracking-wide text-foreground/80">
+      <span className="pointer-events-none absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full bg-background/88 px-2.5 py-1 text-[0.7rem] font-medium tracking-wide text-foreground/80 backdrop-blur">
         {image.category}
       </span>
     </button>
@@ -167,14 +167,14 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
           role="dialog"
           aria-modal="true"
           aria-labelledby={dialogTitleId}
-          className="fixed inset-0 z-50 flex flex-col bg-foreground/95 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex flex-col bg-primary/96 backdrop-blur-sm"
           onClick={(event) => {
             if (event.target === event.currentTarget) handleClose();
           }}
         >
-          <div className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3 text-background">
+          <div className="flex items-center justify-between gap-3 px-4 py-3 text-background sm:px-6">
             <div className="flex flex-col">
-              <span id={dialogTitleId} className="font-display text-lg sm:text-xl tracking-tight">
+              <span id={dialogTitleId} className="font-display text-lg font-medium tracking-normal sm:text-xl">
                 {current.title}
               </span>
               <span className="text-xs sm:text-sm text-background/70">
@@ -206,12 +206,12 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
             </button>
           </div>
 
-          <div className="relative flex-1 flex items-center justify-center px-2 sm:px-6 pb-3 sm:pb-6">
+          <div className="relative flex flex-1 items-center justify-center px-2 pb-3 sm:px-6 sm:pb-6">
             <button
               type="button"
               onClick={handlePrev}
               aria-label="Previous image"
-              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full border border-background/30 bg-foreground/40 text-background hover:bg-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background"
+              className="absolute left-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-background/30 bg-primary/40 text-background hover:bg-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background sm:left-6"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -229,7 +229,7 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
               </svg>
             </button>
 
-            <div className="relative w-full max-w-5xl mx-auto">
+            <div className="relative mx-auto w-full max-w-5xl">
               <div
                 className="relative w-full mx-auto"
                 style={{
@@ -253,7 +253,7 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
               type="button"
               onClick={handleNext}
               aria-label="Next image"
-              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full border border-background/30 bg-foreground/40 text-background hover:bg-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background"
+              className="absolute right-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-background/30 bg-primary/40 text-background hover:bg-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background sm:right-6"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

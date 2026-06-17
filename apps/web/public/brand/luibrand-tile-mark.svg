@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">Luibrand Tile mark</title>
+  <desc id="desc">A warm ink square with a limestone serif L.</desc>
+  <rect width="96" height="96" rx="18" fill="#1f1912"/>
+  <path d="M34 23h12v42h27v10H34V23Z" fill="#fbfaf6"/>
+  <path d="M24 73h49v4H24v-4Z" fill="#b26a39"/>
+</svg>

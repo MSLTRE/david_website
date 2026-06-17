@@ -29,9 +29,9 @@ export function SectionContainer({
     <Tag
       id={id}
       aria-labelledby={ariaLabelledBy}
-      className={cn("py-16 md:py-20 lg:py-28", toneClasses, className)}
+      className={cn("py-20 md:py-24 lg:py-32", toneClasses, className)}
     >
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">{children}</div>
+      <div className="mx-auto w-full max-w-7xl px-5 md:px-8">{children}</div>
     </Tag>
   );
 }

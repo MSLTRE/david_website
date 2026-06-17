@@ -11,6 +11,9 @@ export type PortfolioImage = {
   readonly src: string;
   readonly alt: string;
   readonly description: string;
+  readonly room?: string;
+  readonly material?: string;
+  readonly location?: string;
   readonly featured?: boolean;
   readonly showInCarousel?: boolean;
   readonly orientation: "landscape" | "portrait";
@@ -26,6 +29,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/20251114_154302.jpg",
     alt: "Marble-look tile fireplace surround with clean miters and a raised hearth.",
     description: "A finished fireplace surround with balanced cuts and clean grout lines.",
+    room: "Living room",
+    material: "Marble-look tile",
+    location: "Greater Austin",
     featured: true,
     orientation: "landscape",
     width: 4000,
@@ -38,6 +44,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/20251201_125707.jpg",
     alt: "Gray tile shower with a built-in bench, recessed niche, and mosaic floor.",
     description: "A shower installation with wall tile, a bench, niche, and mosaic pan.",
+    room: "Bathroom",
+    material: "Gray wall tile and mosaic pan",
+    location: "Greater Austin",
     orientation: "portrait",
     width: 3000,
     height: 4000
@@ -49,6 +58,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/20251217_172615.jpg",
     alt: "Entry tile floor installed on a diagonal layout through a tall foyer.",
     description: "A diagonal floor layout with clean transitions at the surrounding rooms.",
+    room: "Entry",
+    material: "Diagonal floor tile",
+    location: "Greater Austin",
     featured: true,
     orientation: "portrait",
     width: 3000,
@@ -61,6 +73,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/20260204_114751.jpg",
     alt: "Tall arched shower with dark stone tile, shelves, bench, and pebble floor.",
     description: "A tall shower with an arched opening, dark wall tile, and pebble floor.",
+    room: "Bathroom",
+    material: "Stone-look shower tile",
+    location: "Greater Austin",
     orientation: "portrait",
     width: 1655,
     height: 3547
@@ -72,6 +87,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/20260204_114801.jpg",
     alt: "Close-up of a dark tile shower corner with a recessed niche, bench, and pebble floor.",
     description: "Shower detail work around a niche, corner bench, and pebble floor.",
+    room: "Bathroom",
+    material: "Stone tile and pebble floor",
+    location: "Greater Austin",
     orientation: "portrait",
     width: 3000,
     height: 4000
@@ -83,6 +101,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/20260219_115805.jpg",
     alt: "Large foyer floor finished with white marble-look tile and dark veining.",
     description: "A bright foyer floor with a marble-look finish and careful alignment.",
+    room: "Foyer",
+    material: "Marble-look floor tile",
+    location: "Greater Austin",
     featured: true,
     orientation: "landscape",
     width: 4000,
@@ -95,6 +116,10 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/june-2026/marble-bathroom-floor-freestanding-tub.jpg",
     alt: "Marble-look bathroom floor tile in a bright bathroom with a freestanding tub and arched shower.",
     description: "A polished bathroom floor with marble-look tile, balanced cuts, and clean transitions.",
+    room: "Primary bathroom",
+    material: "Marble-look floor tile",
+    location: "Greater Austin",
+    featured: true,
     orientation: "portrait",
     width: 3000,
     height: 4000
@@ -106,6 +131,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/june-2026/dark-stone-kitchen-floor-window-view.jpg",
     alt: "Dark large-format kitchen floor tile extending toward windows and a kitchen island.",
     description: "A wide kitchen floor view showing dark stone-look tile through the main work area.",
+    room: "Kitchen",
+    material: "Large-format stone-look tile",
+    location: "Greater Austin",
     showInCarousel: false,
     orientation: "portrait",
     width: 3000,
@@ -118,6 +146,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/june-2026/dark-stone-kitchen-floor-island-detail.jpg",
     alt: "Dark stone-look kitchen floor tile around a wood island and cabinets.",
     description: "Large-format kitchen tile set around cabinets, island edges, and room transitions.",
+    room: "Kitchen",
+    material: "Large-format stone-look tile",
+    location: "Greater Austin",
     orientation: "landscape",
     width: 4000,
     height: 3000
@@ -129,6 +160,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/june-2026/dark-stone-kitchen-floor-overview.jpg",
     alt: "Overview of dark stone-look kitchen floor tile from above the kitchen counters.",
     description: "An overhead kitchen view showing the tile field across the cooking and dining area.",
+    room: "Kitchen",
+    material: "Stone-look floor tile",
+    location: "Greater Austin",
     showInCarousel: false,
     orientation: "portrait",
     width: 3000,
@@ -141,6 +175,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/june-2026/hex-marble-kitchen-backsplash-range.jpg",
     alt: "Hex marble mosaic kitchen backsplash installed behind a range with dark cabinets.",
     description: "Hex mosaic backsplash work around the range, outlets, hood, and cabinet lines.",
+    room: "Kitchen",
+    material: "Hex marble mosaic",
+    location: "Greater Austin",
     orientation: "landscape",
     width: 4000,
     height: 3000
@@ -152,6 +189,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/june-2026/light-bathroom-floor-vanity-view.jpg",
     alt: "Light bathroom floor tile installed through a vanity area and doorway.",
     description: "A light bathroom floor installation with clean grout lines and doorway transitions.",
+    room: "Bathroom",
+    material: "Light stone-look floor tile",
+    location: "Greater Austin",
     orientation: "landscape",
     width: 4000,
     height: 3000
@@ -163,6 +203,9 @@ export const portfolioImages: readonly PortfolioImage[] = [
     src: "/portfolio/june-2026/light-bathroom-floor-long-view.jpg",
     alt: "Long view of light bathroom floor tile with a vanity and built-in shelving.",
     description: "A longer bathroom view showing the tile running cleanly through a narrow room.",
+    room: "Bathroom",
+    material: "Light stone-look floor tile",
+    location: "Greater Austin",
     showInCarousel: false,
     orientation: "portrait",
     width: 3000,
@@ -188,4 +231,7 @@ export const carouselImages = portfolioImages.filter(
 );
 
 export const heroImage =
-  portfolioImages.find((image) => image.featured) ?? portfolioImages[0];
+  findPortfolioImageById("marble-bathroom-floor-freestanding-tub") ??
+  findPortfolioImageById("marble-look-foyer-floor") ??
+  portfolioImages.find((image) => image.featured) ??
+  portfolioImages[0];

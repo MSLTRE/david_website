@@ -3,11 +3,11 @@ import { siteConfig } from "@/config/siteConfig";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-white">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-8 md:px-8">
+    <footer className="border-t border-border bg-card">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-7 px-5 py-10 md:px-8">
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-center">
           <BrandMark />
-          <div className="flex flex-col gap-2 text-sm font-bold text-foreground/80 md:items-end">
+          <div className="flex flex-col gap-2 text-sm font-medium text-foreground/78 md:items-end">
             <a href={siteConfig.phoneHref}>{siteConfig.phone}</a>
             <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
           </div>
