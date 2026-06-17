@@ -8,6 +8,9 @@ import { cn } from "@/lib/cn";
 
 const dragThreshold = 46;
 const defaultStageWidth = 1120;
+const wheelAdvanceThreshold = 0.18;
+const wheelLockDuration = 280;
+const wheelSettleDelay = 130;
 
 type DragStart = {
   readonly pointerId: number;
@@ -94,6 +97,10 @@ export function PortfolioCarousel() {
   const dragStartRef = useRef<DragStart | null>(null);
   const suppressClickRef = useRef(false);
   const stageRef = useRef<HTMLDivElement | null>(null);
+  const wheelFrameRef = useRef<number | null>(null);
+  const wheelLockUntilRef = useRef(0);
+  const wheelProgressRef = useRef(0);
+  const wheelSettleTimerRef = useRef<number | null>(null);
   const selectedImage = carouselImages[selected];
 
   const previous = useCallback(() => {
@@ -148,6 +155,132 @@ export function PortfolioCarousel() {
     return () => mediaQuery.removeEventListener("change", onChange);
   }, []);
 
+  const clearWheelMotion = useCallback(() => {
+    if (wheelFrameRef.current !== null) {
+      window.cancelAnimationFrame(wheelFrameRef.current);
+      wheelFrameRef.current = null;
+    }
+
+    if (wheelSettleTimerRef.current !== null) {
+      window.clearTimeout(wheelSettleTimerRef.current);
+      wheelSettleTimerRef.current = null;
+    }
+
+    wheelProgressRef.current = 0;
+  }, []);
+
+  const clearSuppressedClick = useCallback(() => {
+    window.setTimeout(() => {
+      suppressClickRef.current = false;
+    }, 120);
+  }, []);
+
+  const updateWheelProgress = useCallback(() => {
+    wheelFrameRef.current = null;
+    setIsDragging(true);
+    setDragProgress(wheelProgressRef.current);
+  }, []);
+
+  const scheduleWheelProgress = useCallback(() => {
+    if (wheelFrameRef.current !== null) {
+      return;
+    }
+
+    wheelFrameRef.current = window.requestAnimationFrame(updateWheelProgress);
+  }, [updateWheelProgress]);
+
+  const finishWheel = useCallback(() => {
+    const progress = wheelProgressRef.current;
+    wheelProgressRef.current = 0;
+    wheelSettleTimerRef.current = null;
+
+    if (Math.abs(progress) < wheelAdvanceThreshold) {
+      setDragProgress(0);
+      setIsDragging(false);
+      return;
+    }
+
+    suppressClickRef.current = true;
+    clearSuppressedClick();
+
+    if (progress < 0) {
+      previous();
+    } else {
+      next();
+    }
+
+    setDragProgress(0);
+    setIsDragging(false);
+    wheelLockUntilRef.current = window.performance.now() + wheelLockDuration;
+  }, [clearSuppressedClick, next, previous]);
+
+  const onWheel = useCallback(
+    (event: WheelEvent) => {
+      if (dragStartRef.current) {
+        return;
+      }
+
+      const deltaScale =
+        event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? stageWidth : 1;
+      const rawX = event.deltaX * deltaScale;
+      const rawY = event.deltaY * deltaScale;
+      const horizontalDelta =
+        event.shiftKey && Math.abs(rawY) > Math.abs(rawX) ? rawY : rawX;
+      const verticalDelta = event.shiftKey ? 0 : rawY;
+
+      if (
+        Math.abs(horizontalDelta) < 1 ||
+        Math.abs(horizontalDelta) <= Math.abs(verticalDelta) * 1.1
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (window.performance.now() < wheelLockUntilRef.current) {
+        return;
+      }
+
+      const wheelTravelWidth = Math.max(stageWidth * 0.58, 1);
+      wheelProgressRef.current = clamp(
+        wheelProgressRef.current + horizontalDelta / wheelTravelWidth,
+        -1.12,
+        1.12
+      );
+
+      scheduleWheelProgress();
+
+      if (wheelSettleTimerRef.current !== null) {
+        window.clearTimeout(wheelSettleTimerRef.current);
+      }
+
+      wheelSettleTimerRef.current = window.setTimeout(
+        finishWheel,
+        wheelSettleDelay
+      );
+    },
+    [finishWheel, scheduleWheelProgress, stageWidth]
+  );
+
+  useEffect(() => {
+    const stage = stageRef.current;
+
+    if (!stage) {
+      return;
+    }
+
+    stage.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => stage.removeEventListener("wheel", onWheel);
+  }, [onWheel]);
+
+  useEffect(
+    () => () => {
+      clearWheelMotion();
+    },
+    [clearWheelMotion]
+  );
+
   const onKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowLeft") {
@@ -161,21 +294,25 @@ export function PortfolioCarousel() {
     [next, previous]
   );
 
-  const onPointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === "mouse" && event.button !== 0) {
-      return;
-    }
+  const onPointerDown = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (event.pointerType === "mouse" && event.button !== 0) {
+        return;
+      }
 
-    dragStartRef.current = {
-      pointerId: event.pointerId,
-      x: event.clientX,
-      y: event.clientY
-    };
-    suppressClickRef.current = false;
-    setDragProgress(0);
-    setIsDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
-  }, []);
+      dragStartRef.current = {
+        pointerId: event.pointerId,
+        x: event.clientX,
+        y: event.clientY
+      };
+      clearWheelMotion();
+      suppressClickRef.current = false;
+      setDragProgress(0);
+      setIsDragging(true);
+      event.currentTarget.setPointerCapture(event.pointerId);
+    },
+    [clearWheelMotion]
+  );
 
   const onPointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     const start = dragStartRef.current;
@@ -224,10 +361,7 @@ export function PortfolioCarousel() {
       }
 
       suppressClickRef.current = true;
-
-      window.setTimeout(() => {
-        suppressClickRef.current = false;
-      }, 120);
+      clearSuppressedClick();
 
       if (progress < 0) {
         previous();
@@ -236,7 +370,7 @@ export function PortfolioCarousel() {
       }
       setDragProgress(0);
     },
-    [next, previous, stageWidth]
+    [clearSuppressedClick, next, previous, stageWidth]
   );
 
   const cancelDrag = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
@@ -266,7 +400,7 @@ export function PortfolioCarousel() {
 
       <div
         className={cn(
-          "relative -mx-5 h-[clamp(360px,88vw,500px)] cursor-grab select-none overflow-hidden px-5 outline-none [perspective:1450px] [perspective-origin:50%_48%] [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[clamp(410px,66vw,580px)] md:-mx-8 md:h-[clamp(470px,52vw,650px)] md:px-8",
+          "relative -mx-5 h-[clamp(360px,88vw,500px)] cursor-grab select-none overflow-hidden px-5 outline-none [overscroll-behavior-x:contain] [perspective:1450px] [perspective-origin:50%_48%] [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[clamp(410px,66vw,580px)] md:-mx-8 md:h-[clamp(470px,52vw,650px)] md:px-8",
           isDragging && "cursor-grabbing"
         )}
         onPointerCancel={cancelDrag}
