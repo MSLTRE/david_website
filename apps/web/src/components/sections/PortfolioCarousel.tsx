@@ -11,6 +11,7 @@ const defaultStageWidth = 1120;
 const dragTravelRatio = 0.52;
 const maxWheelVelocity = 0.32;
 const maxDragVelocity = 0.28;
+const slideWidth = "min(74vw, 880px)";
 
 type DragStart = {
   readonly pointerId: number;
@@ -77,36 +78,34 @@ function getSlideStyle(
     };
   }
 
-  const clamped = Math.min(abs, 3.2);
+  const clamped = Math.min(abs, 2.8);
   const firstStep = Math.min(clamped, 1);
   const secondStep = Math.min(Math.max(clamped - 1, 0), 1);
-  const thirdStep = Math.min(Math.max(clamped - 2, 0), 1);
   const xOffset =
-    side * stageWidth * (0.48 * firstStep + 0.12 * secondStep + 0.08 * thirdStep);
-  const zOffset = 96 - 150 * firstStep - 72 * secondStep - 36 * thirdStep;
-  const rotation = -side * (30 * firstStep + 6 * secondStep + 3 * thirdStep);
-  const scale = 1 - 0.14 * firstStep - 0.06 * secondStep - 0.03 * thirdStep;
-  const brightness = 1 - Math.min(clamped, 2.2) * 0.085;
-  const saturation = 1 - Math.min(clamped, 2.2) * 0.055;
+    side * stageWidth * (0.46 * firstStep + 0.18 * secondStep);
+  const rotation = -side * (8 * firstStep + 2 * secondStep);
+  const scale = 1 - 0.13 * firstStep - 0.08 * secondStep;
+  const brightness = 1 - Math.min(clamped, 2) * 0.045;
+  const saturation = 1 - Math.min(clamped, 2) * 0.035;
 
   let opacity = isActive ? 1 : 0;
   if (isActive) {
     opacity = 1;
-  } else if (abs <= 1) {
-    opacity = 0.56;
-  } else if (abs <= 2.35) {
-    opacity = 0.56 - ((abs - 1) / 1.35) * 0.28;
-  } else if (abs <= 3.2) {
-    opacity = 0.24 * (1 - (abs - 2.35) / 0.85);
+  } else if (abs <= 1.15) {
+    opacity = 0.78;
+  } else if (abs <= 2.1) {
+    opacity = 0.42;
+  } else if (abs <= 2.8) {
+    opacity = 0.18 * (1 - (abs - 2.1) / 0.7);
   }
 
   return {
     filter: `brightness(${brightness}) saturate(${saturation})`,
     opacity: clamp(opacity, 0, 1),
-    pointerEvents: abs > 3.1 ? "none" : undefined,
-    transform: `translate3d(calc(-50% + ${xOffset}px), -50%, ${zOffset}px) rotateY(${rotation}deg) scale(${scale})`,
+    pointerEvents: abs > 1.25 ? "none" : undefined,
+    transform: `translate3d(calc(-50% + ${xOffset}px), -50%, 0) rotateY(${rotation}deg) scale(${scale})`,
     transformOrigin: side < 0 ? "right center" : "left center",
-    zIndex: isActive ? 100 : Math.max(0, 70 - Math.round(abs * 14))
+    zIndex: isActive ? 100 : Math.max(0, 70 - Math.round(abs * 12))
   };
 }
 
@@ -233,6 +232,13 @@ export function PortfolioCarousel() {
         relative: getRelativeIndex(index, position)
       })),
     [position]
+  );
+  const renderedSlides = useMemo(
+    () =>
+      [...visibleSlides].sort(
+        (a, b) => Math.abs(b.relative) - Math.abs(a.relative)
+      ),
+    [visibleSlides]
   );
 
   useEffect(() => {
@@ -495,7 +501,7 @@ export function PortfolioCarousel() {
 
         <div
           className={cn(
-            "relative -mx-5 h-[clamp(340px,74vw,560px)] cursor-grab select-none overflow-hidden border-y border-border/70 bg-[linear-gradient(180deg,rgb(255_255_255/0.82),rgb(245_242_235/0.92))] px-5 outline-none [overscroll-behavior-x:contain] [perspective:1500px] [perspective-origin:50%_46%] [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[clamp(420px,58vw,640px)] md:-mx-8 md:h-[clamp(500px,48vw,680px)] md:px-8 lg:rounded-[2rem] lg:border",
+            "relative -mx-5 h-[clamp(330px,68vw,540px)] cursor-grab select-none overflow-hidden border-y border-border/70 bg-background px-5 outline-none [overscroll-behavior-x:contain] [perspective:1200px] [perspective-origin:50%_50%] [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[clamp(400px,52vw,600px)] md:-mx-8 md:h-[clamp(470px,42vw,620px)] md:px-8 lg:rounded-[2rem] lg:border",
             isDragging && "cursor-grabbing"
           )}
           onPointerCancel={cancelDrag}
@@ -507,19 +513,19 @@ export function PortfolioCarousel() {
         >
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 z-[90] w-[10%] bg-gradient-to-r from-background/88 via-background/42 to-transparent"
+            className="pointer-events-none absolute inset-y-0 left-0 z-[90] w-[5%] bg-gradient-to-r from-background/75 to-transparent"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 z-[90] w-[10%] bg-gradient-to-l from-background/88 via-background/42 to-transparent"
+            className="pointer-events-none absolute inset-y-0 right-0 z-[90] w-[5%] bg-gradient-to-l from-background/75 to-transparent"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-[12%] left-1/2 h-12 w-[min(56rem,78vw)] -translate-x-1/2 rounded-full bg-primary/12 blur-3xl"
+            className="pointer-events-none absolute bottom-[9%] left-1/2 h-14 w-[min(40rem,62vw)] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
           />
 
-          <div className="absolute inset-0 [transform-style:preserve-3d]">
-            {visibleSlides.map(({ image, index, relative }) => {
+          <div className="absolute inset-0">
+            {renderedSlides.map(({ image, index, relative }) => {
               const isActive = index === activeIndex;
               const isInteractivePreview = Math.abs(relative) <= 1.55;
 
@@ -533,10 +539,10 @@ export function PortfolioCarousel() {
                       : `Show ${image.title}`
                   }
                   className={cn(
-                    "absolute left-1/2 top-1/2 block touch-manipulation overflow-hidden rounded-[1.35rem] bg-card shadow-[0_34px_90px_rgb(31_25_18/0.20)] ring-1 ring-border transition-[box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background",
+                    "absolute left-1/2 top-1/2 block touch-manipulation overflow-hidden rounded-[1.35rem] bg-card shadow-[0_34px_90px_rgb(31_25_18/0.22)] ring-1 ring-border transition-[box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background",
                     isActive
-                      ? "cursor-zoom-in ring-accent/35"
-                      : "cursor-pointer shadow-[0_20px_54px_rgb(31_25_18/0.12)]"
+                      ? "cursor-zoom-in ring-2 ring-accent/45"
+                      : "cursor-pointer shadow-[0_18px_46px_rgb(31_25_18/0.14)]"
                   )}
                   key={image.id}
                   onClick={() => {
@@ -553,7 +559,7 @@ export function PortfolioCarousel() {
                   }}
                   style={{
                     aspectRatio: "16 / 10",
-                    width: "min(86vw, 980px)",
+                    width: slideWidth,
                     ...getSlideStyle(relative, stageWidth, reduceMotion, isActive),
                     backfaceVisibility: "hidden"
                   }}

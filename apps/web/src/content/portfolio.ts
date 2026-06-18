@@ -223,6 +223,31 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   },
   "/portfolio/fireplace-marble-tile-surround.jpeg": {
     showInPortfolio: false
+  },
+  // Legacy generated placeholders: valid JPEGs, but visually blank or flat.
+  "/portfolio/arched-shower-niche-bench-detail.jpeg": {
+    showInPortfolio: false
+  },
+  "/portfolio/arched-stone-shower-tile.jpeg": {
+    showInPortfolio: false
+  },
+  "/portfolio/gray-shower-tile-bench-niche.jpeg": {
+    showInPortfolio: false
+  },
+  "/portfolio/marble-look-entry-tile-angle.jpeg": {
+    showInPortfolio: false
+  },
+  "/portfolio/marble-look-foyer-tile.jpeg": {
+    showInPortfolio: false
+  },
+  "/portfolio/open-plan-wood-look-tile-floor.jpeg": {
+    showInPortfolio: false
+  },
+  "/portfolio/patterned-kitchen-backsplash-detail.jpeg": {
+    showInPortfolio: false
+  },
+  "/portfolio/patterned-kitchen-backsplash-wide.jpeg": {
+    showInPortfolio: false
   }
 };
 
