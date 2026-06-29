@@ -22,14 +22,17 @@ export function HeroQuoteForm() {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("/forms.html", {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
         body: encodeFormData(formData)
       });
 
       if (!response.ok) {
-        throw new Error("Netlify form submission failed.");
+        throw new Error("Contact form submission failed.");
       }
 
       form.reset();
@@ -41,13 +44,11 @@ export function HeroQuoteForm() {
 
   return (
     <form
-      action="/thanks"
+      action="/api/contact"
       aria-describedby={statusId}
       className="grid gap-3 rounded-2xl border border-border bg-card p-4 shadow-[0_24px_70px_rgb(31_25_18/0.10)] sm:p-5"
-      data-netlify="true"
       method="POST"
       name="quote-request"
-      netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
     >
       <input type="hidden" name="form-name" value="quote-request" />

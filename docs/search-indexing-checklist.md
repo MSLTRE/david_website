@@ -6,15 +6,16 @@ Luibrand Tile's canonical website URL is:
 https://luibrandtile.com
 ```
 
-Use that exact URL everywhere. `https://www.luibrandtile.com` redirects to the
-canonical domain, and the Netlify subdomain should not be used in profiles,
-citations, or marketing links.
+Use that exact URL everywhere. `https://www.luibrandtile.com` should redirect
+to the canonical domain, and the Cloudflare Pages preview subdomain should not
+be used in profiles, citations, or marketing links.
 
 ## Google Search Console
 
 1. Add a Domain property for `luibrandtile.com`.
 2. Add the TXT verification record Google provides to the domain DNS.
-3. If using a meta verification tag instead, set this Netlify environment
+3. If using a meta verification tag instead, set this Cloudflare Pages
+   environment
    variable and redeploy:
 
 ```text
@@ -43,8 +44,8 @@ https://luibrandtile.com/contact
 
 1. Add `https://luibrandtile.com`.
 2. Verify with DNS, imported Google Search Console verification, or the Bing
-   meta tag. If using the meta tag, set this Netlify environment variable and
-   redeploy:
+   meta tag. If using the meta tag, set this Cloudflare Pages environment
+   variable and redeploy:
 
 ```text
 NEXT_PUBLIC_BING_SITE_VERIFICATION=<bing verification value>

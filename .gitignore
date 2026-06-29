@@ -8,6 +8,9 @@ out/
 # turbo
 .turbo/
 
+# cloudflare
+.wrangler/
+
 # build output
 dist/
 build/

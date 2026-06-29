@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/siteConfig";
 
+export const dynamic = "force-static";
+
 const STATIC_ROUTES = [
   { path: "/", priority: 1, changeFrequency: "monthly" },
   { path: "/services", priority: 0.9, changeFrequency: "monthly" },
