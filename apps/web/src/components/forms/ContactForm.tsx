@@ -41,14 +41,17 @@ export function ContactForm() {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("/forms.html", {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
         body: encodeFormData(formData)
       });
 
       if (!response.ok) {
-        throw new Error("Netlify form submission failed.");
+        throw new Error("Contact form submission failed.");
       }
 
       form.reset();
@@ -60,12 +63,10 @@ export function ContactForm() {
 
   return (
     <form
-      action="/thanks"
+      action="/api/contact"
       className="grid gap-4"
-      data-netlify="true"
       method="POST"
       name="quote-request"
-      netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
     >
       <input type="hidden" name="form-name" value="quote-request" />

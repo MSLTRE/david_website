@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
+    "deploy:cloudflare": "pnpm --filter web build && pnpm dlx wrangler pages deploy apps/web/out --project-name luibrandtile",
     "typecheck": "turbo typecheck",
     "lint": "turbo lint",
     "check": "pnpm typecheck && pnpm lint && pnpm build"

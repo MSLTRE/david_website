@@ -1,0 +1,7 @@
+name = "luibrandtile"
+pages_build_output_dir = "apps/web/out"
+compatibility_date = "2026-06-29"
+
+[vars]
+CONTACT_TO_EMAIL = "luibrandtilecompany@gmail.com"
+CONTACT_FROM_EMAIL = "Luibrand Tile <quotes@luibrandtile.com>"
