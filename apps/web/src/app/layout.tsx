@@ -42,7 +42,8 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.owner }],
   ...(Object.keys(verification).length ? { verification } : {}),
   icons: {
-    icon: [{ url: "/brand/luibrand-tile-mark.svg", type: "image/svg+xml" }]
+    icon: [{ url: siteConfig.logoImage, type: "image/jpeg" }],
+    apple: [{ url: siteConfig.logoImage, type: "image/jpeg" }]
   },
   openGraph: {
     type: "website",

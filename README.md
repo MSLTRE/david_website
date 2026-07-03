@@ -102,8 +102,8 @@ for Search Console, Bing Webmaster Tools, and local SEO launch steps.
 
 ## Brand and portfolio assets
 
-* Brand mark: `apps/web/public/brand/luibrand-tile-mark.svg` is used for
-  metadata/icons. The header mark is rendered code-native for crisp display.
+* Brand mark: `apps/web/public/brand/LuibrandTileIcon.jpg` is the canonical
+  logo used for the header, metadata, and icons. Do not recreate this asset.
 * Portfolio photos live in `apps/web/public/portfolio/`. The set of ten
   images and their semantic filenames are defined in
   `apps/web/src/content/portfolio.ts`. Replacing a file in place keeps
