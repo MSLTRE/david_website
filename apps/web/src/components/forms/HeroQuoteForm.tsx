@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { encodeFormData, projectTypes } from "@/components/forms/ContactForm";
-import { siteConfig } from "@/config/siteConfig";
+import { FormStatus } from "@/components/forms/FormStatus";
 
 const controlClass =
   "h-12 rounded-xl border border-input bg-card px-4 text-base outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/25";
@@ -16,6 +16,7 @@ export function HeroQuoteForm() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "sending") return;
     setStatus("sending");
 
     const form = event.currentTarget;
@@ -45,6 +46,8 @@ export function HeroQuoteForm() {
   return (
     <form
       action="/api/contact"
+      id="home-estimate"
+      aria-label="Estimate request form"
       aria-describedby={statusId}
       className="grid gap-3 rounded-2xl border border-border bg-card p-4 shadow-[0_24px_70px_rgb(31_25_18/0.10)] sm:p-5"
       method="POST"
@@ -55,10 +58,8 @@ export function HeroQuoteForm() {
       <input
         type="hidden"
         name="subject"
-        value="New Luibrand Tile quote request"
+        value="New Luibrand Tile estimate request"
       />
-      <input type="hidden" name="timeline" value="As soon as possible" />
-      <input type="hidden" name="message" value="Hero quote request" />
       <p className="hidden">
         <label>
           Do not fill this out: <input name="bot-field" />
@@ -78,7 +79,8 @@ export function HeroQuoteForm() {
 
       <label className="grid gap-2 text-sm font-semibold text-foreground">
         Project type
-        <select className={controlClass} name="projectType" required>
+        <select className={controlClass} name="projectType" defaultValue="" required>
+          <option value="" disabled>Choose a project type</option>
           {projectTypes.map((type) => (
             <option key={type} value={type}>
               {type}
@@ -88,19 +90,16 @@ export function HeroQuoteForm() {
       </label>
 
       <Button disabled={status === "sending"} type="submit" variant="accent">
-        {status === "sending" ? "Sending..." : "Get my free quote"}
+        {status === "sending" ? "Sending…" : "Request a free estimate"}
       </Button>
 
       <p
         aria-live="polite"
+        aria-atomic="true"
         className="text-sm font-medium leading-6 text-muted-foreground"
         id={statusId}
       >
-        {status === "sent"
-          ? "Thanks. We'll follow up soon."
-          : status === "error"
-            ? `Something went wrong. Please call ${siteConfig.phone}.`
-            : `Prefer to talk now? Call ${siteConfig.phone}.`}
+        <FormStatus status={status} showCallHelper />
       </p>
     </form>
   );

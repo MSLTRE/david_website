@@ -13,19 +13,14 @@ export function ServiceAreaOverview({
   return (
     <div className="grid w-full gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
       <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
-          Service area
-        </p>
         <h2
-          className="mt-4 font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
+          className="font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
           id={headingId}
         >
-          Austin-area tile installation, based in Round Rock
+          Service area
         </h2>
         <p className="mt-5 text-lg leading-8 text-muted-foreground">
-          Luibrand Tile serves homeowners within roughly 35 miles of Round Rock,
-          including Austin, Georgetown, Cedar Park, Pflugerville, Leander, Hutto,
-          and nearby Central Texas communities.
+          {siteConfig.serviceArea}
         </p>
 
         <div className="mt-7 flex flex-wrap gap-2">
@@ -40,24 +35,20 @@ export function ServiceAreaOverview({
           ))}
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button href="/contact" variant="primary">
-            Get a quote
-          </Button>
+        <p className="mt-5 text-sm leading-6 text-muted-foreground">
+          Outside this area? Ask us about your project.
+        </p>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Button
             href="https://serviceareamaps.com/map/60505d4b99ca"
             external
             variant="secondary"
           >
-            Open full map
+            View full map
             <Navigation aria-hidden="true" className="size-4" />
           </Button>
         </div>
 
-        <p className="mt-5 text-sm leading-6 text-muted-foreground">
-          Nearby projects are reviewed by scope, schedule, material handling,
-          and drive time.
-        </p>
       </div>
 
       <ServiceAreaMap />

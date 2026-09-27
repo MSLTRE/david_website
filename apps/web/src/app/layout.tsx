@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         url: ogImageUrl,
         width: 4000,
         height: 3000,
-        alt: "Luibrand Tile marble-look foyer floor project"
+        alt: "Marble-look foyer floor by Luibrand Tile"
       }
     ]
   },
@@ -98,7 +98,6 @@ export default function RootLayout({
         description: siteConfig.description,
         telephone: siteConfig.phone,
         email: siteConfig.email,
-        priceRange: "$$",
         address: {
           "@type": "PostalAddress",
           addressLocality: "Round Rock",

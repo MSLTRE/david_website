@@ -40,16 +40,16 @@ export function SiteHeader() {
             <span className="hidden min-[520px]:inline">{siteConfig.phone}</span>
           </Button>
           <Button
-            className="hidden min-h-11 px-4 sm:inline-flex"
+            className="hidden min-h-11 px-4 lg:inline-flex"
             href="/contact#quote"
             variant="accent"
           >
-            Get a quote
+            Request a free estimate
           </Button>
 
           <button
             aria-expanded={open}
-            aria-label="Toggle navigation menu"
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
             className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-[0_8px_22px_rgb(31_25_18/0.06)] lg:hidden"
             onClick={() => setOpen((value) => !value)}
             type="button"
@@ -76,8 +76,8 @@ export function SiteHeader() {
               <Button href={siteConfig.phoneHref} variant="secondary">
                 Call {siteConfig.phone}
               </Button>
-              <Button href="/contact#quote" variant="accent">
-                Get a quote
+              <Button href="/contact#quote" variant="accent" onClick={() => setOpen(false)}>
+                Request a free estimate
               </Button>
             </div>
           </nav>

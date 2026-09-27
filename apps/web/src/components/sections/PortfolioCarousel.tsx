@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { carouselImages } from "@/content/portfolio";
+import { usePhotoViewerFocus } from "@/hooks/usePhotoViewerFocus";
 import { cn } from "@/lib/utils/cn";
 
 const defaultStageWidth = 1120;
@@ -116,6 +117,10 @@ export function PortfolioCarousel() {
   const [isDragging, setIsDragging] = useState(false);
   const [stageWidth, setStageWidth] = useState(defaultStageWidth);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const dialogRef = usePhotoViewerFocus(
+    lightboxOpen,
+    '[aria-roledescription="carousel"] button[aria-current="true"]'
+  );
   const positionRef = useRef(0);
   const velocityRef = useRef(0);
   const targetRef = useRef<number | null>(0);
@@ -391,8 +396,6 @@ export function PortfolioCarousel() {
       targetRef.current = null;
       velocityRef.current = 0;
       suppressClickRef.current = false;
-      setIsDragging(true);
-      event.currentTarget.setPointerCapture(event.pointerId);
     },
     [stopAnimation]
   );
@@ -413,6 +416,12 @@ export function PortfolioCarousel() {
       }
 
       event.preventDefault();
+      // Capture only a drag. Capturing pointerdown retargets ordinary photo clicks
+      // to the stage instead of the button that opens the viewer.
+      if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }
+      setIsDragging(true);
       const travel = Math.max(stageWidth * dragTravelRatio, 1);
       const nextPosition = start.position - distanceX / travel;
       const now = window.performance.now();
@@ -489,14 +498,14 @@ export function PortfolioCarousel() {
   return (
     <>
       <div
-        aria-label="Recent portfolio photos"
+        aria-label="Tile installation photos"
         aria-roledescription="carousel"
         className="grid gap-6"
         onKeyDown={onKeyDown}
         role="region"
       >
         <div aria-live="polite" className="sr-only">
-          {selectedImage.title}, {activeIndex + 1} of {carouselImages.length}
+          Photo {activeIndex + 1} of {carouselImages.length}: {selectedImage.title}
         </div>
 
         <div
@@ -535,7 +544,7 @@ export function PortfolioCarousel() {
                   aria-hidden={!(isActive || isInteractivePreview)}
                   aria-label={
                     isActive
-                      ? `${image.title}, current project`
+                      ? `View ${image.title} full size, current photo`
                       : `Show ${image.title}`
                   }
                   className={cn(
@@ -590,7 +599,7 @@ export function PortfolioCarousel() {
         <div className="mx-auto grid w-full max-w-5xl gap-5">
           <div className="flex items-center justify-center gap-3">
             <button
-              aria-label="Previous project"
+              aria-label="Previous photo"
               className="inline-flex size-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-[0_14px_28px_rgb(31_25_18/0.08)] transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               onClick={previous}
               type="button"
@@ -601,7 +610,7 @@ export function PortfolioCarousel() {
               {activeIndex + 1} / {carouselImages.length}
             </div>
             <button
-              aria-label="Next project"
+              aria-label="Next photo"
               className="inline-flex size-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-[0_14px_28px_rgb(31_25_18/0.08)] transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               onClick={next}
               type="button"
@@ -610,19 +619,9 @@ export function PortfolioCarousel() {
             </button>
           </div>
 
-          <div className="mx-auto min-h-24 max-w-2xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-              {selectedImage.category}
-            </p>
-            <p className="mt-2 text-2xl font-semibold tracking-normal text-foreground sm:text-3xl">
-              {selectedImage.title}
-            </p>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              {[selectedImage.room, selectedImage.material, selectedImage.location]
-                .filter(Boolean)
-                .join(" · ")}
-            </p>
-          </div>
+          <p className="mx-auto max-w-2xl text-center text-2xl font-semibold tracking-normal text-foreground sm:text-3xl">
+            {selectedImage.title}
+          </p>
 
           <div className="mx-auto flex max-w-full gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:thin]">
             {carouselImages.map((image, index) => (
@@ -654,8 +653,9 @@ export function PortfolioCarousel() {
 
       {lightboxOpen ? (
         <div
-          aria-label={`${selectedImage.title} image viewer`}
+          aria-label={`${selectedImage.title} photo viewer`}
           aria-modal="true"
+          ref={dialogRef}
           className="fixed inset-0 z-[80] flex flex-col bg-primary/96 text-primary-foreground backdrop-blur-sm"
           onClick={(event) => {
             if (event.target === event.currentTarget) {
@@ -669,14 +669,13 @@ export function PortfolioCarousel() {
               <p className="font-display text-lg font-medium sm:text-xl">
                 {selectedImage.title}
               </p>
-              <p className="text-xs text-primary-foreground/70 sm:text-sm">
-                {selectedImage.category} · {activeIndex + 1} of{" "}
-                {carouselImages.length}
+              <p aria-live="polite" aria-atomic="true" className="text-xs text-primary-foreground/70 sm:text-sm">
+                Photo {activeIndex + 1} of {carouselImages.length}: {selectedImage.title}
               </p>
             </div>
             <button
-              aria-label="Close image viewer"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground"
+              aria-label="Close photo viewer"
+              className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground"
               onClick={() => setLightboxOpen(false)}
               type="button"
             >
@@ -685,7 +684,7 @@ export function PortfolioCarousel() {
           </div>
           <div className="relative flex flex-1 items-center justify-center px-3 pb-4 sm:px-6 sm:pb-6">
             <button
-              aria-label="Previous project"
+              aria-label="Previous photo"
               className="absolute left-3 top-1/2 z-10 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-primary-foreground/30 bg-primary/40 text-primary-foreground hover:bg-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground sm:left-6"
               onClick={previous}
               type="button"
@@ -702,7 +701,7 @@ export function PortfolioCarousel() {
               />
             </div>
             <button
-              aria-label="Next project"
+              aria-label="Next photo"
               className="absolute right-3 top-1/2 z-10 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-primary-foreground/30 bg-primary/40 text-primary-foreground hover:bg-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground sm:right-6"
               onClick={next}
               type="button"

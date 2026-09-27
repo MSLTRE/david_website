@@ -18,20 +18,16 @@ export const siteConfig = {
   owner: "Luibrand Tile",
   url: "https://luibrandtile.com",
   description:
-    "Luibrand Tile provides professional tile installation, shower tile, floor tile, backsplashes, fireplace surrounds, patios, pool surrounds, tile repair, and grout repair across Austin, Round Rock, Georgetown, Cedar Park, Pflugerville, and nearby Central Texas communities.",
-  tagline: "Finished with European precision.",
-  seoTitle: "Luibrand Tile | Tile Contractor in Austin & Round Rock, TX",
+    "Tile installation by David Luibrand in Austin and Round Rock. Floors, showers, backsplashes, and fireplace surrounds. Request a free estimate.",
+  seoTitle: "Luibrand Tile | Tile Installation in Austin & Round Rock",
   logoImage: "/brand/LuibrandTileIcon.jpg",
   openGraphImage: "/portfolio/20260219_115805.jpg",
   phone: "(512) 843-9364",
   phoneHref: "tel:+15128439364",
   email: "luibrandtilecompany@gmail.com",
-  heroEyebrow: "Tile installation · Austin & Round Rock",
-  heroHeadline: "A more beautiful home starts with the tile",
+  heroHeadline: "Tile installation in Austin & Round Rock",
   heroSupporting:
-    "Floors, showers, backsplashes, and fireplace surrounds installed with careful prep, clean layout, and lasting detail.",
-  heroBody:
-    "Based in Round Rock and serving Austin-area homes with careful prep, precise layout, and a finish made to be lived with every day.",
+    "Floors, showers, backsplashes, and fireplace surrounds by David Luibrand.",
   address: {
     short: "Round Rock, TX",
     line1: "Round Rock",
@@ -44,13 +40,13 @@ export const siteConfig = {
     "https://www.google.com/maps/search/Austin+Round+Rock+Texas",
   appleMapsUrl: "https://maps.apple.com/?q=Austin%20Round%20Rock%20Texas",
   serviceArea:
-    "Based in Round Rock and serving Austin, Georgetown, Cedar Park, Leander, Pflugerville, Hutto, Lakeway, Liberty Hill, Jarrell, Salado, and nearby communities.",
+    "Based in Round Rock, serving homes within about 35 miles.",
   serviceAreas,
   social: [],
   navItems: [
     { label: "Portfolio", href: "/#work" },
     { label: "Services", href: "/#services" },
-    { label: "Service Area", href: "/#service-area" },
+    { label: "Service area", href: "/#service-area" },
     { label: "Contact", href: "/contact" }
   ]
 } as const;

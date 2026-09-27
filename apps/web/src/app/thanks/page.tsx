@@ -2,7 +2,9 @@ import { Button } from "@/components/ui/Button";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Thanks",
+  title: "Request Sent",
+  description: "We’ll get in touch about your project.",
+  alternates: { canonical: "/thanks" },
   robots: {
     index: false,
     follow: false
@@ -12,15 +14,11 @@ export const metadata: Metadata = {
 export default function ThanksPage() {
   return (
     <section className="mx-auto flex min-h-[58vh] w-full max-w-3xl flex-col items-start justify-center gap-6 px-5 py-20 md:px-8">
-      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
-        Message received
-      </p>
       <h1 className="font-display text-4xl font-medium leading-[1.06] tracking-normal text-foreground md:text-6xl">
-        Thanks for reaching out.
+        Thanks. Your request has been sent.
       </h1>
       <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
-        We&apos;ll follow up to talk through your project, timeline, and next
-        steps.
+        We’ll get in touch about your project.
       </p>
       <Button href="/">Back to home</Button>
     </section>
