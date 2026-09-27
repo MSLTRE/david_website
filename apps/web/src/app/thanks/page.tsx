@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/Button";
+import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Request Sent",
-  description: "We’ll get in touch about your project.",
-  alternates: { canonical: "/thanks" },
+  ...createPageMetadata({
+    title: "Request Sent",
+    description: "We’ll get in touch about your project.",
+    path: "/thanks"
+  }),
   robots: {
     index: false,
     follow: false
