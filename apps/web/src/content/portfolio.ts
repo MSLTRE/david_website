@@ -134,7 +134,7 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/dark-stone-kitchen-floor-window-view.jpg": {
     order: 80,
     id: "dark-stone-kitchen-floor-window-view",
-    title: "Dark kitchen floor by the windows",
+    title: "Kitchen floor tile",
     category: "Floor",
     alt: "Dark kitchen floor tile extending toward windows and a kitchen island.",
     description: "Dark kitchen floor tile extending toward windows and a kitchen island.",
@@ -149,7 +149,7 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/dark-stone-kitchen-floor-island-detail.jpg": {
     order: 90,
     id: "dark-stone-kitchen-floor-island-detail",
-    title: "Dark kitchen floor around the island",
+    title: "Kitchen floor tile",
     category: "Floor",
     alt: "Dark kitchen floor tile around a wood island and cabinets.",
     description: "Dark kitchen floor tile around a wood island and cabinets.",
@@ -163,7 +163,7 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/dark-stone-kitchen-floor-overview.jpg": {
     order: 100,
     id: "dark-stone-kitchen-floor-overview",
-    title: "Dark kitchen floor overview",
+    title: "Kitchen floor tile",
     category: "Floor",
     alt: "View across a dark tiled kitchen floor from above the counters.",
     description: "View across a dark tiled kitchen floor from above the counters.",
@@ -192,7 +192,7 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/light-bathroom-floor-vanity-view.jpg": {
     order: 120,
     id: "light-bathroom-floor-vanity-view",
-    title: "Light bathroom floor by the vanity",
+    title: "Bathroom floor tile",
     category: "Floor",
     alt: "Light bathroom floor tile beside a vanity and through a doorway.",
     description: "Light bathroom floor tile beside a vanity and through a doorway.",
@@ -206,7 +206,7 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/light-bathroom-floor-long-view.jpg": {
     order: 130,
     id: "light-bathroom-floor-long-view",
-    title: "Light bathroom floor, full view",
+    title: "Bathroom floor tile",
     category: "Floor",
     alt: "View along a light tiled bathroom floor beside a vanity and built-in shelving.",
     description: "View along a light tiled bathroom floor beside a vanity and built-in shelving.",
