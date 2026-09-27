@@ -25,9 +25,9 @@ export const siteConfig = {
   phone: "(512) 843-9364",
   phoneHref: "tel:+15128439364",
   email: "luibrandtilecompany@gmail.com",
-  heroHeadline: "Tile installation in Austin & Round Rock",
+  heroHeadline: "Tile installation in Austin and Round Rock",
   heroSupporting:
-    "Floors, showers, backsplashes, and fireplace surrounds by David Luibrand.",
+    "Floors, showers, backsplashes, and fireplace surrounds.",
   address: {
     short: "Round Rock, TX",
     line1: "Round Rock",
