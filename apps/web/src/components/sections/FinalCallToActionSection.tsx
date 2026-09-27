@@ -14,12 +14,8 @@ export function FinalCallToActionSection() {
               id="final-cta-heading"
               className="font-display text-4xl font-medium leading-[1.06] tracking-normal md:text-6xl"
             >
-              Ready to plan your project
+              Tell us about your tile project
             </h2>
-            <p className="text-primary-foreground/80 text-lg max-w-xl">
-              Tell us about the room and timeline. We&rsquo;ll follow up to talk
-              through layout, materials, and next steps.
-            </p>
           </div>
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-end">
             <Button
@@ -29,7 +25,7 @@ export function FinalCallToActionSection() {
               variant="accent"
               className="w-full sm:w-auto"
             >
-              Request a quote
+              Request a free estimate
             </Button>
             <Button
               href={siteConfig.phoneHref}

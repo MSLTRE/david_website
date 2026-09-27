@@ -32,10 +32,10 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/20251114_154302.jpg": {
     order: 10,
     id: "marble-fireplace-surround",
-    title: "Marble fireplace surround",
+    title: "Marble-look fireplace surround",
     category: "Fireplace",
-    alt: "Marble-look tile fireplace surround with clean miters and a raised hearth.",
-    description: "A finished fireplace surround with balanced cuts and clean grout lines.",
+    alt: "Marble-look tile around a fireplace and raised hearth.",
+    description: "Marble-look tile around a fireplace and raised hearth.",
     room: "Living room",
     material: "Marble-look tile",
     location: "Greater Austin",
@@ -50,9 +50,9 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
     title: "Gray shower with bench and niche",
     category: "Shower",
     alt: "Gray tile shower with a built-in bench, recessed niche, and mosaic floor.",
-    description: "A shower installation with wall tile, a bench, niche, and mosaic pan.",
+    description: "Gray tile shower with a built-in bench, recessed niche, and mosaic floor.",
     room: "Bathroom",
-    material: "Gray wall tile and mosaic pan",
+    material: "Gray tile and mosaic floor",
     location: "Greater Austin",
     orientation: "portrait",
     width: 3000,
@@ -61,12 +61,12 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/20251217_172615.jpg": {
     order: 30,
     id: "diagonal-entry-tile-floor",
-    title: "Diagonal entry tile floor",
+    title: "Diagonal entry floor",
     category: "Floor",
-    alt: "Entry tile floor installed on a diagonal layout through a tall foyer.",
-    description: "A diagonal floor layout with clean transitions at the surrounding rooms.",
+    alt: "Tile laid diagonally across an entry floor.",
+    description: "Tile laid diagonally across an entry floor.",
     room: "Entry",
-    material: "Diagonal floor tile",
+    material: "Floor tile",
     location: "Greater Austin",
     featured: true,
     orientation: "portrait",
@@ -76,12 +76,12 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/20260204_114751.jpg": {
     order: 40,
     id: "arched-stone-shower",
-    title: "Arched stone shower",
+    title: "Arched tile shower",
     category: "Shower",
-    alt: "Tall arched shower with dark stone tile, shelves, bench, and pebble floor.",
-    description: "A tall shower with an arched opening, dark wall tile, and pebble floor.",
+    alt: "Shower with an arched opening, dark wall tile, a bench, and pebble floor.",
+    description: "Shower with an arched opening, dark wall tile, a bench, and pebble floor.",
     room: "Bathroom",
-    material: "Stone-look shower tile",
+    material: "Dark tile and pebble floor",
     location: "Greater Austin",
     orientation: "portrait",
     width: 1655,
@@ -92,10 +92,10 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
     id: "shower-niche-bench-detail",
     title: "Shower niche and bench detail",
     category: "Shower",
-    alt: "Close-up of a dark tile shower corner with a recessed niche, bench, and pebble floor.",
-    description: "Shower detail work around a niche, corner bench, and pebble floor.",
+    alt: "Close-up of a tiled shower niche, corner bench, and pebble floor.",
+    description: "Close-up of a tiled shower niche, corner bench, and pebble floor.",
     room: "Bathroom",
-    material: "Stone tile and pebble floor",
+    material: "Dark tile and pebble floor",
     location: "Greater Austin",
     orientation: "portrait",
     width: 3000,
@@ -106,10 +106,10 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
     id: "marble-look-foyer-floor",
     title: "Marble-look foyer floor",
     category: "Floor",
-    alt: "Large foyer floor finished with white marble-look tile and dark veining.",
-    description: "A bright foyer floor with a marble-look finish and careful alignment.",
+    alt: "White marble-look tile with dark veining across a foyer floor.",
+    description: "White marble-look tile with dark veining across a foyer floor.",
     room: "Foyer",
-    material: "Marble-look floor tile",
+    material: "Marble-look tile",
     location: "Greater Austin",
     featured: true,
     orientation: "landscape",
@@ -119,12 +119,12 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/marble-bathroom-floor-freestanding-tub.jpg": {
     order: 70,
     id: "marble-bathroom-floor-freestanding-tub",
-    title: "Marble bathroom floor",
+    title: "Marble-look bathroom floor",
     category: "Floor",
-    alt: "Marble-look bathroom floor tile in a bright bathroom with a freestanding tub and arched shower.",
-    description: "A polished bathroom floor with marble-look tile, balanced cuts, and clean transitions.",
+    alt: "Marble-look bathroom floor beside a freestanding tub and arched shower.",
+    description: "Marble-look bathroom floor beside a freestanding tub and arched shower.",
     room: "Primary bathroom",
-    material: "Marble-look floor tile",
+    material: "Marble-look tile",
     location: "Greater Austin",
     featured: true,
     orientation: "portrait",
@@ -134,12 +134,12 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/dark-stone-kitchen-floor-window-view.jpg": {
     order: 80,
     id: "dark-stone-kitchen-floor-window-view",
-    title: "Dark stone kitchen floor",
+    title: "Dark kitchen floor by the windows",
     category: "Floor",
-    alt: "Dark large-format kitchen floor tile extending toward windows and a kitchen island.",
-    description: "A wide kitchen floor view showing dark stone-look tile through the main work area.",
+    alt: "Dark kitchen floor tile extending toward windows and a kitchen island.",
+    description: "Dark kitchen floor tile extending toward windows and a kitchen island.",
     room: "Kitchen",
-    material: "Large-format stone-look tile",
+    material: "Dark floor tile",
     location: "Greater Austin",
     showInCarousel: false,
     orientation: "portrait",
@@ -149,12 +149,12 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/dark-stone-kitchen-floor-island-detail.jpg": {
     order: 90,
     id: "dark-stone-kitchen-floor-island-detail",
-    title: "Dark stone kitchen floor detail",
+    title: "Dark kitchen floor around the island",
     category: "Floor",
-    alt: "Dark stone-look kitchen floor tile around a wood island and cabinets.",
-    description: "Large-format kitchen tile set around cabinets, island edges, and room transitions.",
+    alt: "Dark kitchen floor tile around a wood island and cabinets.",
+    description: "Dark kitchen floor tile around a wood island and cabinets.",
     room: "Kitchen",
-    material: "Large-format stone-look tile",
+    material: "Dark floor tile",
     location: "Greater Austin",
     orientation: "landscape",
     width: 4000,
@@ -163,12 +163,12 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/dark-stone-kitchen-floor-overview.jpg": {
     order: 100,
     id: "dark-stone-kitchen-floor-overview",
-    title: "Dark stone kitchen floor",
+    title: "Dark kitchen floor overview",
     category: "Floor",
-    alt: "Overview of dark stone-look kitchen floor tile from above the kitchen counters.",
-    description: "An overhead kitchen view showing the tile field across the cooking and dining area.",
+    alt: "View across a dark tiled kitchen floor from above the counters.",
+    description: "View across a dark tiled kitchen floor from above the counters.",
     room: "Kitchen",
-    material: "Stone-look floor tile",
+    material: "Dark floor tile",
     location: "Greater Austin",
     showInCarousel: false,
     orientation: "portrait",
@@ -178,12 +178,12 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/hex-marble-kitchen-backsplash-range.jpg": {
     order: 110,
     id: "hex-marble-kitchen-backsplash-range",
-    title: "Hex marble kitchen backsplash",
+    title: "Hexagon tile backsplash",
     category: "Backsplash",
-    alt: "Hex marble mosaic kitchen backsplash installed behind a range with dark cabinets.",
-    description: "Hex mosaic backsplash work around the range, outlets, hood, and cabinet lines.",
+    alt: "Hexagon mosaic tile backsplash behind a range between dark cabinets.",
+    description: "Hexagon mosaic tile backsplash behind a range between dark cabinets.",
     room: "Kitchen",
-    material: "Hex marble mosaic",
+    material: "Hexagon mosaic tile",
     location: "Greater Austin",
     orientation: "landscape",
     width: 4000,
@@ -192,12 +192,12 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/light-bathroom-floor-vanity-view.jpg": {
     order: 120,
     id: "light-bathroom-floor-vanity-view",
-    title: "Light bathroom floor",
+    title: "Light bathroom floor by the vanity",
     category: "Floor",
-    alt: "Light bathroom floor tile installed through a vanity area and doorway.",
-    description: "A light bathroom floor installation with clean grout lines and doorway transitions.",
+    alt: "Light bathroom floor tile beside a vanity and through a doorway.",
+    description: "Light bathroom floor tile beside a vanity and through a doorway.",
     room: "Bathroom",
-    material: "Light stone-look floor tile",
+    material: "Light floor tile",
     location: "Greater Austin",
     orientation: "landscape",
     width: 4000,
@@ -206,12 +206,12 @@ const metadataBySrc: Record<string, PortfolioMetadata> = {
   "/portfolio/june-2026/light-bathroom-floor-long-view.jpg": {
     order: 130,
     id: "light-bathroom-floor-long-view",
-    title: "Light bathroom floor",
+    title: "Light bathroom floor, full view",
     category: "Floor",
-    alt: "Long view of light bathroom floor tile with a vanity and built-in shelving.",
-    description: "A longer bathroom view showing the tile running cleanly through a narrow room.",
+    alt: "View along a light tiled bathroom floor beside a vanity and built-in shelving.",
+    description: "View along a light tiled bathroom floor beside a vanity and built-in shelving.",
     room: "Bathroom",
-    material: "Light stone-look floor tile",
+    material: "Light floor tile",
     location: "Greater Austin",
     showInCarousel: false,
     orientation: "portrait",
@@ -270,36 +270,13 @@ function inferCategory(text: string): PortfolioCategory {
   return "Floor";
 }
 
-function fallbackRoom(text: string) {
-  const value = text.toLowerCase();
-
-  if (value.includes("kitchen")) return "Kitchen";
-  if (value.includes("bath") || value.includes("shower")) return "Bathroom";
-  if (value.includes("fireplace")) return "Living room";
-  if (value.includes("foyer") || value.includes("entry")) return "Entry";
-
-  return "Austin-area home";
-}
-
-function fallbackMaterial(text: string) {
-  const value = text.toLowerCase();
-
-  if (value.includes("marble")) return "Marble-look tile";
-  if (value.includes("stone")) return "Stone-look tile";
-  if (value.includes("hex")) return "Hex mosaic tile";
-  if (value.includes("wood")) return "Wood-look tile";
-  if (value.includes("backsplash")) return "Backsplash tile";
-
-  return "Tile installation";
-}
-
 export const portfolioImages: readonly PortfolioImage[] = generatedPortfolioImages
   .map((image, generatedIndex) => {
     const metadata = metadataBySrc[image.src] ?? {};
-    const title = (metadata.title ?? image.title) || "Tile project photo";
+    const title = metadata.title ?? "Tile installation photo";
     const category = metadata.category ?? inferCategory(`${image.id} ${title}`);
-    const room = metadata.room ?? fallbackRoom(`${image.id} ${title}`);
-    const material = metadata.material ?? fallbackMaterial(`${image.id} ${title}`);
+    const room = metadata.room;
+    const material = metadata.material;
     const order = metadata.order ?? 1000 + generatedIndex;
 
     return {
@@ -309,15 +286,11 @@ export const portfolioImages: readonly PortfolioImage[] = generatedPortfolioImag
       title,
       category,
       src: image.src,
-      alt:
-        metadata.alt ??
-        `${title} by Luibrand Tile in the Greater Austin area.`,
-      description:
-        metadata.description ??
-        `${title} with careful layout, clean grout lines, and a finished edge.`,
+      alt: metadata.alt ?? title,
+      description: metadata.description ?? metadata.alt ?? title,
       room,
       material,
-      location: metadata.location ?? "Greater Austin",
+      location: metadata.location,
       featured: metadata.featured,
       showInCarousel: metadata.showInCarousel,
       orientation: image.orientation,

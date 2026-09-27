@@ -58,6 +58,14 @@
     }
   }
 
+  #work,
+  #services,
+  #service-area,
+  #home-estimate,
+  #quote {
+    scroll-margin-top: 88px;
+  }
+
   body {
     min-width: 320px;
     margin: 0;

@@ -1,17 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { services } from "@/content/services";
+import { FormStatus } from "@/components/forms/FormStatus";
 
-export const projectTypes = [
-  "Floor tile",
-  "Shower or bathroom",
-  "Backsplash",
-  "Repair or prep",
-  "Other"
-];
+export const projectTypes = [...services.map((service) => service.name), "Other", "Not sure yet"];
 
-export const timelines = ["As soon as possible", "This month", "Planning ahead"];
+export const timelines = ["As soon as possible", "Within a month", "Planning ahead", "Not sure yet"];
 
 export function encodeFormData(formData: FormData) {
   const params = new URLSearchParams();
@@ -29,12 +25,15 @@ const textareaClass =
   "min-h-36 resize-y rounded-xl border border-input bg-card px-4 py-3 text-base outline-none transition focus:border-accent focus:ring-2 focus:ring-ring/25";
 
 export function ContactForm() {
+  const statusId = useId();
+  const messageHelpId = useId();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "sending") return;
     setStatus("sending");
 
     const form = event.currentTarget;
@@ -64,6 +63,8 @@ export function ContactForm() {
   return (
     <form
       action="/api/contact"
+      aria-label="Estimate request form"
+      aria-describedby={statusId}
       className="grid gap-4"
       method="POST"
       name="quote-request"
@@ -73,7 +74,7 @@ export function ContactForm() {
       <input
         type="hidden"
         name="subject"
-        value="New Luibrand Tile quote request"
+        value="New Luibrand Tile estimate request"
       />
       <p className="hidden">
         <label>
@@ -101,14 +102,14 @@ export function ContactForm() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Field label="Phone">
+        <Field label="Phone (optional)">
           <input
             className={controlClass}
             name="phone"
             type="tel"
           />
         </Field>
-        <Field label="City">
+        <Field label="Project city (optional)">
           <input
             className={controlClass}
             name="city"
@@ -122,8 +123,10 @@ export function ContactForm() {
           <select
             className={controlClass}
             name="projectType"
+            defaultValue=""
             required
           >
+            <option value="" disabled>Choose a project type</option>
             {projectTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -131,12 +134,13 @@ export function ContactForm() {
             ))}
           </select>
         </Field>
-        <Field label="Timeline">
+        <Field label="When would you like to start? (optional)">
           <select
             className={controlClass}
             name="timeline"
-            required
+            defaultValue=""
           >
+            <option value="">Select timing (optional)</option>
             {timelines.map((timeline) => (
               <option key={timeline} value={timeline}>
                 {timeline}
@@ -146,24 +150,23 @@ export function ContactForm() {
         </Field>
       </div>
 
-      <Field label="Project notes">
+      <Field label="Project details (optional)">
         <textarea
           className={textareaClass}
           name="message"
-          required
+          aria-describedby={messageHelpId}
         />
       </Field>
+      <p id={messageHelpId} className="-mt-2 text-sm text-muted-foreground">
+        A few words about the work you need are enough.
+      </p>
 
-      <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 pt-2 sm:items-start">
         <Button disabled={status === "sending"} type="submit">
-          {status === "sending" ? "Sending..." : "Send request"}
+          {status === "sending" ? "Sending…" : "Request a free estimate"}
         </Button>
-        <p aria-live="polite" className="text-sm font-medium text-muted-foreground">
-          {status === "sent"
-            ? "Thanks. We'll follow up soon."
-            : status === "error"
-              ? "Something went wrong. Please call or email us directly."
-              : "We'll follow up about your project."}
+        <p id={statusId} aria-live="polite" aria-atomic="true" className="text-sm font-medium text-muted-foreground">
+          <FormStatus status={status} />
         </p>
       </div>
     </form>

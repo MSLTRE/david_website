@@ -13,8 +13,9 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="flex flex-col justify-between gap-3 border-t border-border pt-5 text-sm text-muted-foreground md:flex-row md:items-center">
-          <p>Round Rock based tile installation across Austin-area homes.</p>
-          <p>© 2026 Luibrand Tile Company.</p>
+          <p>Tile installation in Round Rock and the Austin area.</p>
+          <a className="underline underline-offset-4" href="/privacy">Privacy</a>
+          <p>© {new Date().getFullYear()} {siteConfig.legalName}.</p>
         </div>
       </div>
     </footer>

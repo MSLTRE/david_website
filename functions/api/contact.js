@@ -32,7 +32,7 @@ export async function onRequestPost({ request, env }) {
 
     if (!resendApiKey || !from) {
       console.error("Missing RESEND_API_KEY or CONTACT_FROM_EMAIL.");
-      return errorResponse("Contact form email is not configured.", 500, wantsJson);
+      return errorResponse("We couldn’t send your request. Please try again, or call (512) 843-9364.", 500, wantsJson);
     }
 
     const resendResponse = await fetch(RESEND_ENDPOINT, {
@@ -49,13 +49,13 @@ export async function onRequestPost({ request, env }) {
       console.error(
         `Resend request failed with ${resendResponse.status}: ${body.slice(0, 500)}`
       );
-      return errorResponse("Unable to send quote request.", 502, wantsJson);
+      return errorResponse("We couldn’t send your request. Please try again, or call (512) 843-9364.", 502, wantsJson);
     }
 
     return successResponse(request, wantsJson);
   } catch (error) {
     console.error("Contact form submission failed.", error);
-    return errorResponse("Unable to send quote request.", 500, wantsJson);
+    return errorResponse("We couldn’t send your request. Please try again, or call (512) 843-9364.", 500, wantsJson);
   }
 }
 
@@ -93,26 +93,26 @@ function cleanField(value) {
 
 function validateSubmission(submission) {
   if (!submission.name) {
-    return "Name is required.";
+    return "Enter your name.";
   }
 
   if (!submission.email && !submission.phone) {
-    return "Email or phone is required.";
+    return "Enter an email address or phone number.";
   }
 
   if (submission.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submission.email)) {
-    return "A valid email is required.";
+    return "Enter a valid email address.";
   }
 
   if (!submission.projectType) {
-    return "Project type is required.";
+    return "Choose a project type.";
   }
 
   return "";
 }
 
 function buildEmailPayload(submission, { from, to }) {
-  const subject = `New Luibrand Tile quote request from ${submission.name}`;
+  const subject = `New Luibrand Tile estimate request from ${submission.name}`;
   const replyTo = submission.email || undefined;
 
   return {
@@ -127,7 +127,7 @@ function buildEmailPayload(submission, { from, to }) {
 
 function buildTextEmail(submission) {
   return [
-    "New Luibrand Tile quote request",
+    "New Luibrand Tile estimate request",
     "",
     `Name: ${submission.name}`,
     `Email: ${submission.email || "Not provided"}`,
@@ -161,7 +161,7 @@ function buildHtmlEmail(submission) {
   return `<!doctype html>
 <html>
   <body>
-    <h1>New Luibrand Tile quote request</h1>
+    <h1>New Luibrand Tile estimate request</h1>
     <table>${rows}</table>
     <h2>Project notes</h2>
     <p>${escapeHtml(submission.message || "Not provided").replace(/\n/g, "<br>")}</p>

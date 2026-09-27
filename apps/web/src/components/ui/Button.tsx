@@ -77,7 +77,7 @@ export function Button({
     }
 
     return (
-      <Link aria-label={ariaLabel} className={classes} href={href} style={style}>
+      <Link onClick={onClick} aria-label={ariaLabel} className={classes} href={href} style={style}>
         {children}
       </Link>
     );

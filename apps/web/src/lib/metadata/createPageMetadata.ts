@@ -43,7 +43,7 @@ export function createPageMetadata({
           url: imageUrl,
           width: 4000,
           height: 3000,
-          alt: "Luibrand Tile fireplace surround project"
+          alt: "Marble-look foyer floor by Luibrand Tile"
         }
       ]
     },

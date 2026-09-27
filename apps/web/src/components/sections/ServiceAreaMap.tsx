@@ -7,17 +7,8 @@ export function ServiceAreaMap() {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           src="https://serviceareamaps.com/map/60505d4b99ca?embed=1"
-          title="Luibrand Tile 35-mile service area map"
+          title="Luibrand Tile service area, about 35 miles from Round Rock"
         />
-      </div>
-      <div className="border-t border-border bg-background/92 px-5 py-4">
-        <p className="text-sm font-semibold text-foreground">
-          35-mile service radius centered on Round Rock.
-        </p>
-        <p className="mt-1 text-sm leading-6 text-muted-foreground">
-          Projects outside the radius can still be reviewed by scope, schedule,
-          and drive time.
-        </p>
       </div>
     </div>
   );

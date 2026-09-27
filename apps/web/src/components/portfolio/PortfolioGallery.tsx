@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
+import { usePhotoViewerFocus } from "@/hooks/usePhotoViewerFocus";
 import type { PortfolioImage } from "@/content/portfolio";
 
 type PortfolioGalleryProps = {
@@ -21,7 +22,7 @@ function GalleryCard({ image, aspect, sizes, priority, onOpen }: CardProps) {
     <button
       type="button"
       onClick={() => onOpen(image.id)}
-      aria-label={`Open ${image.title}`}
+      aria-label={`View ${image.title} full size`}
       className={`group relative block w-full overflow-hidden rounded-2xl border border-border bg-secondary transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_-30px_rgb(40_28_18/0.34)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${aspect}`}
     >
       <Image
@@ -45,10 +46,9 @@ function GalleryCard({ image, aspect, sizes, priority, onOpen }: CardProps) {
 
 export function PortfolioGallery({ images }: PortfolioGalleryProps) {
   const [openId, setOpenId] = useState<string | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const dialogTitleId = useId();
 
+  const dialogRef = usePhotoViewerFocus(openId !== null);
   const total = images.length;
   const openIndex = openId
     ? images.findIndex((image) => image.id === openId)
@@ -56,9 +56,6 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
   const current = openIndex >= 0 ? images[openIndex] : null;
 
   const handleOpen = useCallback((id: string) => {
-    if (typeof document !== "undefined") {
-      previouslyFocusedRef.current = document.activeElement as HTMLElement;
-    }
     setOpenId(id);
   }, []);
 
@@ -95,17 +92,11 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
     window.addEventListener("keydown", onKey);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    closeButtonRef.current?.focus();
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = previousOverflow;
     };
   }, [current, handleClose, handlePrev, handleNext]);
-
-  useEffect(() => {
-    if (current) return;
-    previouslyFocusedRef.current?.focus?.();
-  }, [current]);
 
   if (images.length === 0) {
     return null;
@@ -165,6 +156,7 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
       {current ? (
         <div
           role="dialog"
+          ref={dialogRef}
           aria-modal="true"
           aria-labelledby={dialogTitleId}
           className="fixed inset-0 z-50 flex flex-col bg-primary/96 backdrop-blur-sm"
@@ -177,16 +169,15 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
               <span id={dialogTitleId} className="font-display text-lg font-medium tracking-normal sm:text-xl">
                 {current.title}
               </span>
-              <span className="text-xs sm:text-sm text-background/70">
-                {current.category} · {openIndex + 1} of {total}
+              <span aria-live="polite" aria-atomic="true" className="text-xs sm:text-sm text-background/70">
+                Photo {openIndex + 1} of {total}: {current.title}
               </span>
             </div>
             <button
-              ref={closeButtonRef}
               type="button"
               onClick={handleClose}
-              aria-label="Close image viewer"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-background/30 text-background hover:bg-background/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background"
+              aria-label="Close photo viewer"
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-background/30 text-background hover:bg-background/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -210,8 +201,8 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
             <button
               type="button"
               onClick={handlePrev}
-              aria-label="Previous image"
-              className="absolute left-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-background/30 bg-primary/40 text-background hover:bg-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background sm:left-6"
+              aria-label="Previous photo"
+              className="absolute left-2 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-background/30 bg-primary/40 text-background hover:bg-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background sm:left-6"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -252,8 +243,8 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
             <button
               type="button"
               onClick={handleNext}
-              aria-label="Next image"
-              className="absolute right-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-background/30 bg-primary/40 text-background hover:bg-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background sm:right-6"
+              aria-label="Next photo"
+              className="absolute right-2 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-background/30 bg-primary/40 text-background hover:bg-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background sm:right-6"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
