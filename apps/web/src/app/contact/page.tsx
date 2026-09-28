@@ -5,7 +5,7 @@ import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 
 export const metadata = createPageMetadata({
   title: "Request a Free Tile Estimate",
-  description: "Contact Luibrand Tile for a free tile installation or repair estimate in Austin, Round Rock, and nearby communities.",
+  description: "Contact us for a free estimate on tile work in Austin, Round Rock, and nearby towns.",
   path: "/contact"
 });
 
@@ -21,13 +21,13 @@ export default function ContactPage() {
             Request a free estimate
           </h1>
           <p className="text-lg leading-8 text-muted-foreground">
-            Tell us what you’d like tiled and where. We’ll get in touch about an estimate.
+            Tell us what you have in mind and where the job is. We’ll get in touch about an estimate.
           </p>
           <ul className="grid gap-1 text-sm">
             <li><a className="inline-flex min-h-11 items-center gap-2 hover:underline" href={siteConfig.phoneHref}><span className="font-semibold">Phone:</span> {siteConfig.phone}</a></li>
             <li><a className="inline-flex min-h-11 items-center gap-2 break-all hover:underline" href={`mailto:${siteConfig.email}`}><span className="font-semibold">Email:</span> {siteConfig.email}</a></li>
           </ul>
-          <p className="text-sm leading-6 text-muted-foreground">Based in Round Rock. Serving Austin and nearby communities.</p>
+          <p className="text-sm leading-6 text-muted-foreground">We’re based in Round Rock and serve Austin and nearby towns.</p>
         </div>
         <div
           className="rounded-2xl border border-border bg-card p-5 shadow-[0_24px_70px_rgb(31_25_18/0.08)] md:p-8"

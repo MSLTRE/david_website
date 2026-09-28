@@ -5,9 +5,9 @@ import { ServicesOverviewSection } from "@/components/sections/ServicesOverviewS
 import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 
 export const metadata = createPageMetadata({
-  title: "Tile Installation & Repair in Austin & Round Rock",
+  title: "Tile Installation and Repair",
   description:
-    "Explore Luibrand Tile’s installation and repair services, including floors, showers, backsplashes, fireplace surrounds, outdoor tile, and grout repair.",
+    "We install and repair tile in Austin, Round Rock, and nearby towns. See the kinds of tile jobs we do.",
   path: "/services"
 });
 
@@ -26,7 +26,7 @@ export default function ServicesPage() {
             Tile installation and repair
           </h1>
           <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
-            Serving Austin, Round Rock, and nearby communities.
+            Here are some of the tile jobs we do.
           </p>
         </div>
         <ServicesOverviewSection showCta={false} />
