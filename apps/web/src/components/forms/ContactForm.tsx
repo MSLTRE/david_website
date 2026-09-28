@@ -109,7 +109,7 @@ export function ContactForm() {
             type="tel"
           />
         </Field>
-        <Field label="Project city (optional)">
+        <Field label="City (optional)">
           <input
             className={controlClass}
             name="city"
@@ -140,7 +140,7 @@ export function ContactForm() {
             name="timeline"
             defaultValue=""
           >
-            <option value="">Select timing (optional)</option>
+            <option value="">Choose one (optional)</option>
             {timelines.map((timeline) => (
               <option key={timeline} value={timeline}>
                 {timeline}
@@ -150,7 +150,7 @@ export function ContactForm() {
         </Field>
       </div>
 
-      <Field label="Project details (optional)">
+      <Field label="Tell us about the job (optional)">
         <textarea
           className={textareaClass}
           name="message"
@@ -158,7 +158,7 @@ export function ContactForm() {
         />
       </Field>
       <p id={messageHelpId} className="-mt-2 text-sm text-muted-foreground">
-        A few words about the work you need are enough.
+        A sentence or two is fine.
       </p>
 
       <div className="flex flex-col gap-3 pt-2 sm:items-start">

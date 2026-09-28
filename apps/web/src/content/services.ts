@@ -57,13 +57,13 @@ export const services: readonly ServiceCategory[] = [
   {
     slug: "tile-repair-and-replacement",
     name: "Tile repair and replacement",
-    description: "Repair and replacement of broken or damaged tiles.",
+    description: "We repair or replace broken or damaged tiles.",
     icon: "wrench"
   },
   {
     slug: "grout-repair-or-replacement",
-    name: "Grout repair or replacement",
-    description: "Repair and replacement of damaged grout.",
+    name: "Grout repair and replacement",
+    description: "We repair or replace damaged grout.",
     icon: "sparkles"
   }
 ];

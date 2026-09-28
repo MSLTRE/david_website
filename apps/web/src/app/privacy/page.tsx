@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 
 export const metadata = createPageMetadata({
   title: "Privacy",
-  description: "How Luibrand Tile uses information received through this website.",
+  description: "How we use the information you share with Luibrand Tile.",
   path: "/privacy"
 });
 
@@ -16,20 +16,23 @@ export default function PrivacyPage() {
           Privacy notice
         </h1>
         <p className="text-muted-foreground">
-          This notice explains how Luibrand Tile uses information received through this website.
+          Here’s how we use the information you share with us.
         </p>
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-2xl tracking-tight">What you send us</h2>
-          <p>When you contact us by form, phone, or email, we receive the contact details and project information you provide.</p>
+          <p>If you fill out a form, call, or email us, we receive the contact details and job information you share.</p>
         </section>
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-2xl tracking-tight">How we use it</h2>
-          <p>We use this information to respond to inquiries, arrange visits, and carry out projects. We do not sell your information or share it with third parties for marketing.</p>
+          <p>We use it to answer questions, plan visits, and work on your project. We don’t sell your information or share it with anyone else for marketing.</p>
         </section>
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-2xl tracking-tight">Website services</h2>
+          <h2 className="font-display text-2xl tracking-tight">Services this website uses</h2>
           <p>
-            <a className="underline" href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a> hosts this website and provides usage and performance statistics. Form submissions pass through Cloudflare and <a className="underline" href="https://resend.com/legal/privacy-policy">Resend</a> to our Gmail inbox. The embedded ServiceAreaMaps map loads map tiles from OpenStreetMap and supporting files from UNPKG. These providers receive technical information, such as your IP address, when your browser connects to their services.
+            <a className="underline" href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a> hosts this website and helps us see how it’s used and how well it works. Messages from the forms go through Cloudflare and <a className="underline" href="https://resend.com/legal/privacy-policy">Resend</a> to our Gmail inbox.
+          </p>
+          <p>
+            The map uses ServiceAreaMaps, OpenStreetMap, and files from UNPKG. These services receive technical details, such as your IP address, when your browser connects to them.
           </p>
         </section>
         <section className="flex flex-col gap-3">

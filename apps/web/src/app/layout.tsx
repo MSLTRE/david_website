@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         url: ogImageUrl,
         width: 4000,
         height: 3000,
-        alt: "Marble-look foyer floor by Luibrand Tile"
+        alt: "Marble-look entry floor by Luibrand Tile"
       }
     ]
   },

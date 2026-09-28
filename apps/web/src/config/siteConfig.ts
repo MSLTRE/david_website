@@ -18,8 +18,8 @@ export const siteConfig = {
   owner: "Luibrand Tile",
   url: "https://luibrandtile.com",
   description:
-    "Tile installation by David Luibrand in Austin and Round Rock. Floors, showers, backsplashes, and fireplace surrounds. Request a free estimate.",
-  seoTitle: "Luibrand Tile | Tile Installation in Austin & Round Rock",
+    "We do all kinds of tile work in Austin and Round Rock, including floors, showers, and backsplashes. Get in touch for a free estimate.",
+  seoTitle: "Luibrand Tile | Tile Installation in Austin and Round Rock",
   logoImage: "/brand/LuibrandTileIcon.jpg",
   openGraphImage: "/portfolio/20260219_115805.jpg",
   phone: "(512) 843-9364",
@@ -40,11 +40,11 @@ export const siteConfig = {
     "https://www.google.com/maps/search/Austin+Round+Rock+Texas",
   appleMapsUrl: "https://maps.apple.com/?q=Austin%20Round%20Rock%20Texas",
   serviceArea:
-    "Based in Round Rock, serving homes within about 35 miles.",
+    "We’re based in Round Rock and work within about 35 miles of town.",
   serviceAreas,
   social: [],
   navItems: [
-    { label: "Portfolio", href: "/#work" },
+    { label: "Our work", href: "/#work" },
     { label: "Services", href: "/#services" },
     { label: "Service area", href: "/#service-area" },
     { label: "Contact", href: "/contact" }

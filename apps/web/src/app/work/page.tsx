@@ -6,7 +6,7 @@ import { createPageMetadata } from "@/lib/metadata/createPageMetadata";
 export const metadata = createPageMetadata({
   title: "Tile Installation Photos",
   description:
-    "See Luibrand Tile’s floors, showers, backsplashes, and fireplace surrounds. Select a photo for a closer look.",
+    "Take a look at our tile work, including floors, showers, backsplashes, and fireplace surrounds.",
   path: "/work"
 });
 
@@ -25,7 +25,7 @@ export default function WorkPage() {
             Our tile work
           </h1>
           <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
-            Select a photo to view it full size.
+            Open a photo for a closer look.
           </p>
         </div>
         <PortfolioSection showCta={false} />
