@@ -27,7 +27,7 @@ export const siteConfig = {
   email: "luibrandtilecompany@gmail.com",
   heroHeadline: "Tile installation in Austin and Round Rock",
   heroSupporting:
-    "Floors, showers, backsplashes, and fireplace surrounds.",
+    "We do all kinds of tile work, including floors, showers, backsplashes, and fireplace surrounds.",
   address: {
     short: "Round Rock, TX",
     line1: "Round Rock",
